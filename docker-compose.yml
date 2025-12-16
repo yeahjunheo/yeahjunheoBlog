@@ -7,11 +7,7 @@ services:
       dockerfile: Dockerfile
     container_name: yeahjunheo-blog
     ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=production
+      - "3000:80"
     restart: unless-stopped
-    # Uncomment below to mount your local files for development
-    # volumes:
-    #   - ./blog/src:/app/src
-    #   - ./blog/public:/app/public
+    # Note: This uses static export mode (same as GitHub Pages)
+    # For development, use 'npm run dev' directly instead
