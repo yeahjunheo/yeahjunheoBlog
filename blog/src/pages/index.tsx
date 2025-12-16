@@ -16,85 +16,122 @@ export default function Home({ recentCodePosts, recentThoughts }: HomeProps) {
         <meta name="description" content="Personal blog and portfolio of yeahjunheo" />
       </Head>
 
-      <div className="min-h-screen bg-background text-foreground">
-        <div className="max-w-4xl mx-auto px-4 py-12">
-          <header className="mb-16">
-            <h1 className="text-5xl font-bold mb-4">Hi, I am yeahjunheo</h1>
-            <p className="text-xl text-gray-600 dark:text-gray-400 mb-6">
-              Software engineer, problem solver, and lifelong learner.
-            </p>
-            <nav className="flex gap-6">
-              <Link href="/code" className="hover:underline font-medium">
-                Code
-              </Link>
-              <Link href="/thoughts" className="hover:underline font-medium">
-                Thoughts
-              </Link>
-              <Link href="/me" className="hover:underline font-medium">
-                About Me
-              </Link>
-            </nav>
-          </header>
+      <div className="min-h-screen">
+        {/* Hero Section with colorful background */}
+        <div className="bg-gradient-to-br from-purple via-purple-dark to-navy text-white py-20 mb-16">
+          <div className="max-w-5xl mx-auto px-6 text-center">
+            <div className="mb-8">
+              <h1 className="text-6xl md:text-7xl font-bold mb-6 drop-shadow-lg">
+                Hi, I am <span className="text-yellow">Yeahjun Heo</span>
+              </h1>
+              <p className="text-2xl text-cream-light mb-6 max-w-3xl mx-auto">
+                Software engineer, problem solver, and lifelong learner.
+              </p>
+              <div className="flex justify-center gap-4 mt-8">
+                <span className="px-4 py-2 bg-cyan rounded-full text-white font-semibold shadow-lg hover:bg-cyan-light transition-colors duration-200">💻 Developer</span>
+                <span className="px-4 py-2 bg-coral rounded-full text-white font-semibold shadow-lg hover:bg-coral-light transition-colors duration-200">🚀 Builder</span>
+                <span className="px-4 py-2 bg-orange rounded-full text-white font-semibold shadow-lg hover:bg-orange-light transition-colors duration-200">🎯 Problem Solver</span>
+              </div>
+            </div>
+          </div>
+        </div>
 
+        <div className="max-w-5xl mx-auto px-6 pb-16">
+
+          {/* Recent Code Posts */}
           {recentCodePosts.length > 0 && (
-            <section className="mb-12">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold">Recent Code</h2>
-                <Link href="/code" className="text-sm hover:underline">
-                  View all &rarr;
+            <section className="mb-16">
+              <div className="flex justify-between items-center mb-8">
+                <h2 className="text-4xl font-bold text-navy flex items-center gap-3">
+                  <span className="text-cyan text-5xl">&lt;</span>
+                  <span className="text-cyan">Recent Code</span>
+                  <span className="text-cyan text-5xl">/&gt;</span>
+                </h2>
+                <Link href="/code" className="px-4 py-2 bg-cyan text-white rounded-lg hover:bg-cyan-dark font-medium transition-all duration-200 shadow-md hover:shadow-lg flex items-center gap-2">
+                  View all <span>&rarr;</span>
                 </Link>
               </div>
-              <div className="space-y-4">
+              <div className="grid gap-6">
                 {recentCodePosts.map((post) => (
-                  <article key={post.slug} className="border-b border-gray-200 dark:border-gray-800 pb-4">
+                  <article key={post.slug} className="bg-gradient-to-br from-cyan-light/10 to-cyan/5 rounded-xl shadow-lg p-6 border-l-8 border-cyan hover:shadow-2xl hover:-translate-y-1 transition-all duration-200 backdrop-blur-sm">
                     <Link href={`/code/${post.slug}`}>
-                      <h3 className="text-lg font-semibold hover:underline">{post.title}</h3>
+                      <h3 className="text-2xl font-bold text-navy hover:text-cyan transition-colors duration-200 mb-3">
+                        {post.title}
+                      </h3>
                     </Link>
-                    <div className="flex gap-3 text-sm text-gray-600 dark:text-gray-400 mt-1">
-                      <time dateTime={post.date}>{post.date}</time>
-                      <span>&middot;</span>
-                      <span>{post.readingTime}</span>
+                    <div className="flex gap-4 text-sm font-medium mb-3">
+                      <time dateTime={post.date} className="flex items-center gap-2 text-orange-dark">
+                        <span className="text-xl">📅</span> {post.date}
+                      </time>
+                      <span className="text-gray-400">•</span>
+                      <span className="flex items-center gap-2 text-coral-dark">
+                        <span className="text-xl">⏱️</span> {post.readingTime}
+                      </span>
                     </div>
+                    {post.description && (
+                      <p className="text-gray-800 text-base mt-3 leading-relaxed">{post.description}</p>
+                    )}
                   </article>
                 ))}
               </div>
             </section>
           )}
 
+          {/* Recent Thoughts */}
           {recentThoughts.length > 0 && (
-            <section className="mb-12">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold">Recent Thoughts</h2>
-                <Link href="/thoughts" className="text-sm hover:underline">
-                  View all &rarr;
+            <section className="mb-16">
+              <div className="flex justify-between items-center mb-8">
+                <h2 className="text-4xl font-bold text-navy flex items-center gap-3">
+                  <span className="text-5xl">💭</span>
+                  <span className="text-coral">Recent Thoughts</span>
+                </h2>
+                <Link href="/thoughts" className="px-4 py-2 bg-coral text-white rounded-lg hover:bg-coral-dark font-medium transition-all duration-200 shadow-md hover:shadow-lg flex items-center gap-2">
+                  View all <span>&rarr;</span>
                 </Link>
               </div>
-              <div className="space-y-4">
+              <div className="grid gap-6">
                 {recentThoughts.map((post) => (
-                  <article key={post.slug} className="border-b border-gray-200 dark:border-gray-800 pb-4">
+                  <article key={post.slug} className="bg-gradient-to-br from-coral-light/10 to-orange/5 rounded-xl shadow-lg p-6 border-l-8 border-coral hover:shadow-2xl hover:-translate-y-1 transition-all duration-200 backdrop-blur-sm">
                     <Link href={`/thoughts/${post.slug}`}>
-                      <h3 className="text-lg font-semibold hover:underline">{post.title}</h3>
+                      <h3 className="text-2xl font-bold text-navy hover:text-coral transition-colors duration-200 mb-3">
+                        {post.title}
+                      </h3>
                     </Link>
-                    <div className="flex gap-3 text-sm text-gray-600 dark:text-gray-400 mt-1">
-                      <time dateTime={post.date}>{post.date}</time>
-                      <span>&middot;</span>
-                      <span>{post.readingTime}</span>
+                    <div className="flex gap-4 text-sm font-medium mb-3">
+                      <time dateTime={post.date} className="flex items-center gap-2 text-orange-dark">
+                        <span className="text-xl">📅</span> {post.date}
+                      </time>
+                      <span className="text-gray-400">•</span>
+                      <span className="flex items-center gap-2 text-coral-dark">
+                        <span className="text-xl">⏱️</span> {post.readingTime}
+                      </span>
                     </div>
+                    {post.description && (
+                      <p className="text-gray-800 text-base mt-3 leading-relaxed">{post.description}</p>
+                    )}
                   </article>
                 ))}
               </div>
             </section>
           )}
 
+          {/* Empty State */}
           {recentCodePosts.length === 0 && recentThoughts.length === 0 && (
-            <section className="text-center py-12">
-              <p className="text-gray-600 dark:text-gray-400 mb-4">
-                No posts yet. Check back soon!
-              </p>
-              <p className="text-sm text-gray-500 dark:text-gray-500">
-                Add markdown files to <code className="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">content/code/</code> or{' '}
-                <code className="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">content/thoughts/</code>
-              </p>
+            <section className="text-center py-20">
+              <div className="bg-gradient-to-br from-yellow/20 via-orange/10 to-coral/20 rounded-2xl shadow-2xl p-12 border-t-8 border-purple">
+                <div className="text-8xl mb-6 animate-bounce">📝</div>
+                <p className="text-3xl font-bold text-navy mb-4">
+                  No posts yet. Check back soon!
+                </p>
+                <p className="text-lg text-gray-700 mb-6">
+                  The journey begins...
+                </p>
+                <div className="flex justify-center gap-4 flex-wrap">
+                  <code className="bg-cyan text-white px-4 py-2 rounded-lg font-mono font-bold shadow-md">content/code/</code>
+                  <span className="text-3xl">+</span>
+                  <code className="bg-coral text-white px-4 py-2 rounded-lg font-mono font-bold shadow-md">content/thoughts/</code>
+                </div>
+              </div>
             </section>
           )}
         </div>

@@ -15,34 +15,48 @@ export default function ThoughtsPage({ posts }: ThoughtsPageProps) {
         <meta name="description" content="Personal thoughts, reflections, and musings" />
       </Head>
 
-      <div className="min-h-screen bg-background text-foreground">
-        <div className="max-w-4xl mx-auto px-4 py-12">
+      <div className="min-h-screen">
+        <div className="max-w-5xl mx-auto px-6 py-12">
           <header className="mb-12">
-            <Link href="/" className="text-sm hover:underline mb-4 inline-block">
-              &larr; Home
+            <Link href="/" className="inline-flex items-center text-cyan hover:text-coral font-medium transition-colors duration-200 mb-6 group">
+              <span className="group-hover:-translate-x-1 transition-transform duration-200">&larr;</span>
+              <span className="ml-2">Back to Home</span>
             </Link>
-            <h1 className="text-4xl font-bold mb-2">Thoughts</h1>
-            <p className="text-gray-600 dark:text-gray-400">
+            <h1 className="text-5xl font-bold mb-4 text-purple">
+              Thoughts
+            </h1>
+            <p className="text-xl text-gray-700">
               Personal reflections and musings on various topics
             </p>
+            <div className="h-1 w-32 bg-gradient-to-r from-orange to-coral mt-4 rounded-full"></div>
           </header>
 
-          <div className="space-y-8">
+          <div className="grid gap-6">
             {posts.length === 0 ? (
-              <p className="text-gray-600 dark:text-gray-400">No posts yet. Check back soon!</p>
+              <div className="bg-white rounded-lg shadow-md p-12 text-center border-t-4 border-orange">
+                <div className="text-6xl mb-6">💭</div>
+                <p className="text-xl text-gray-700 mb-2">No thoughts yet.</p>
+                <p className="text-gray-500">Check back soon for personal reflections and insights!</p>
+              </div>
             ) : (
               posts.map((post) => (
-                <article key={post.slug} className="border-b border-gray-200 dark:border-gray-800 pb-8">
+                <article key={post.slug} className="bg-white rounded-lg shadow-md p-6 border-l-4 border-orange hover:shadow-xl transition-all duration-200 hover:-translate-y-1">
                   <Link href={`/thoughts/${post.slug}`}>
-                    <h2 className="text-2xl font-semibold mb-2 hover:underline">{post.title}</h2>
+                    <h2 className="text-2xl font-bold text-purple hover:text-orange transition-colors duration-200 mb-3">
+                      {post.title}
+                    </h2>
                   </Link>
-                  <div className="flex gap-4 text-sm text-gray-600 dark:text-gray-400 mb-3">
-                    <time dateTime={post.date}>{post.date}</time>
-                    <span>&middot;</span>
-                    <span>{post.readingTime}</span>
+                  <div className="flex gap-4 text-sm text-gray-600 mb-4">
+                    <time dateTime={post.date} className="flex items-center gap-1">
+                      <span className="text-orange">●</span> {post.date}
+                    </time>
+                    <span className="text-gray-400">•</span>
+                    <span className="flex items-center gap-1">
+                      <span className="text-coral">●</span> {post.readingTime}
+                    </span>
                   </div>
                   {post.description && (
-                    <p className="text-gray-700 dark:text-gray-300">{post.description}</p>
+                    <p className="text-gray-700">{post.description}</p>
                   )}
                 </article>
               ))

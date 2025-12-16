@@ -12,29 +12,31 @@ export default function Navbar() {
   };
 
   const linkClass = (path: string) => {
-    const base = 'hover:text-foreground transition-colors';
+    const base = 'px-4 py-2 rounded-lg font-medium transition-all duration-200';
     return isActive(path)
-      ? `${base} text-foreground font-medium`
-      : `${base} text-gray-600 dark:text-gray-400`;
+      ? `${base} bg-white text-purple shadow-md`
+      : `${base} text-white hover:bg-purple-dark hover:scale-105`;
   };
 
   return (
-    <nav className="border-b border-gray-200 dark:border-gray-800">
-      <div className="max-w-4xl mx-auto px-4 py-4">
+    <nav className="bg-gradient-to-r from-navy via-purple-dark to-navy shadow-2xl border-b-4 border-cyan">
+      <div className="max-w-5xl mx-auto px-6 py-5">
         <div className="flex items-center justify-between">
-          <Link href="/" className="text-xl font-bold hover:opacity-80 transition-opacity">
-            yeahjunheo
+          <Link href="/" className="text-2xl font-bold text-white hover:text-yellow transition-colors duration-200 flex items-center gap-2 group">
+            <span className="text-cyan text-3xl group-hover:text-yellow transition-colors">&lt;</span>
+            <span className="group-hover:scale-105 transition-transform">yeahjunheo</span>
+            <span className="text-coral text-3xl group-hover:text-yellow transition-colors">/&gt;</span>
           </Link>
 
-          <div className="flex gap-6">
+          <div className="flex gap-3">
             <Link href="/code" className={linkClass('/code')}>
-              Code
+              💻 Code
             </Link>
             <Link href="/thoughts" className={linkClass('/thoughts')}>
-              Thoughts
+              💭 Thoughts
             </Link>
             <Link href="/me" className={linkClass('/me')}>
-              About
+              👤 About
             </Link>
           </div>
         </div>
