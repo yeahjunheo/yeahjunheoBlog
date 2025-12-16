@@ -19,7 +19,7 @@ export default function ThoughtsPage({ posts }: ThoughtsPageProps) {
         <div className="max-w-4xl mx-auto px-4 py-12">
           <header className="mb-12">
             <Link href="/" className="text-sm hover:underline mb-4 inline-block">
-              ê Home
+              &larr; Home
             </Link>
             <h1 className="text-4xl font-bold mb-2">Thoughts</h1>
             <p className="text-gray-600 dark:text-gray-400">
@@ -27,7 +27,6 @@ export default function ThoughtsPage({ posts }: ThoughtsPageProps) {
             </p>
           </header>
 
-          {/* Posts list */}
           <div className="space-y-8">
             {posts.length === 0 ? (
               <p className="text-gray-600 dark:text-gray-400">No posts yet. Check back soon!</p>
@@ -39,7 +38,7 @@ export default function ThoughtsPage({ posts }: ThoughtsPageProps) {
                   </Link>
                   <div className="flex gap-4 text-sm text-gray-600 dark:text-gray-400 mb-3">
                     <time dateTime={post.date}>{post.date}</time>
-                    <span>"</span>
+                    <span>&middot;</span>
                     <span>{post.readingTime}</span>
                   </div>
                   {post.description && (

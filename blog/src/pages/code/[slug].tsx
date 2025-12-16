@@ -17,18 +17,16 @@ export default function PostPage({ post }: PostPageProps) {
 
       <div className="min-h-screen bg-background text-foreground">
         <div className="max-w-4xl mx-auto px-4 py-12">
-          {/* Back link */}
           <Link href="/code" className="text-sm hover:underline mb-8 inline-block">
-            ← Back to Code
+            &larr; Back to Code
           </Link>
 
-          {/* Post header */}
           <article>
             <header className="mb-8">
               <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
               <div className="flex gap-4 text-sm text-gray-600 dark:text-gray-400">
                 <time dateTime={post.date}>{post.date}</time>
-                <span>•</span>
+                <span>&middot;</span>
                 <span>{post.readingTime}</span>
               </div>
               {post.link && (
@@ -38,12 +36,11 @@ export default function PostPage({ post }: PostPageProps) {
                   rel="noopener noreferrer"
                   className="text-blue-600 dark:text-blue-400 hover:underline text-sm mt-2 inline-block"
                 >
-                  View Problem →
+                  View Problem &rarr;
                 </a>
               )}
             </header>
 
-            {/* Post content */}
             <div
               className="prose dark:prose-invert max-w-none"
               dangerouslySetInnerHTML={{ __html: post.content }}

@@ -48,15 +48,19 @@ export function getAllPosts(category: string): PostMetadata[] {
       // Format date
       const dateString = data.date ? formatDate(data.date) : '';
 
-      return {
+      const post: PostMetadata = {
         slug,
         title: data.title || slug,
         date: dateString,
-        link: data.link,
-        description: data.description,
         tags: data.tags || [],
         readingTime: stats.text,
       };
+
+      // Only add optional fields if they exist
+      if (data.link) post.link = data.link;
+      if (data.description) post.description = data.description;
+
+      return post;
     });
 
   // Sort posts by date (newest first)
@@ -108,16 +112,20 @@ export async function getPostBySlug(category: string, slug: string): Promise<Pos
   // Format date
   const dateString = data.date ? formatDate(data.date) : '';
 
-  return {
+  const post: Post = {
     slug,
     title: data.title || slug,
     date: dateString,
-    link: data.link,
-    description: data.description,
     tags: data.tags || [],
     readingTime: stats.text,
     content: contentHtml,
   };
+
+  // Only add optional fields if they exist
+  if (data.link) post.link = data.link;
+  if (data.description) post.description = data.description;
+
+  return post;
 }
 
 /**
