@@ -2,7 +2,8 @@
 **/node_modules
 **/npm-debug.log
 **/yarn-error.log
-**/package-lock.json
+# Note: package-lock.json is needed for npm ci in Docker builds
+# **/package-lock.json
 **/yarn.lock
 **/pnpm-lock.yaml
 
