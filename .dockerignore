@@ -1,0 +1,54 @@
+# Dependencies
+**/node_modules
+**/npm-debug.log
+**/yarn-error.log
+**/package-lock.json
+**/yarn.lock
+**/pnpm-lock.yaml
+
+# Next.js
+**/.next
+**/out
+**/build
+**/dist
+
+# Misc
+**/.DS_Store
+**/*.pem
+
+# Debug
+**/*.log
+**/.pnp
+**/.pnp.js
+
+# Testing
+**/coverage
+**/.nyc_output
+
+# Local env files
+**/.env*.local
+**/.env
+
+# Vercel
+**/.vercel
+
+# Typescript
+**/*.tsbuildinfo
+**/next-env.d.ts
+
+# Git
+.git
+.gitignore
+README.md
+
+# IDE
+.vscode
+.idea
+**/*.swp
+**/*.swo
+**/*~
+
+# Docker files (don't copy Docker files into the image)
+Dockerfile
+docker-compose.yml
+.dockerignore

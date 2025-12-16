@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  blog:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: yeahjunheo-blog
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
+    # Uncomment below to mount your local files for development
+    # volumes:
+    #   - ./blog/src:/app/src
+    #   - ./blog/public:/app/public
