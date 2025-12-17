@@ -12,6 +12,7 @@
     "generate:rss": "node scripts/generate-rss.mjs"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.9",
     "@heroicons/react": "^2.2.0",
     "@types/mdx": "^2.0.13",
     "date-fns": "^4.1.0",
