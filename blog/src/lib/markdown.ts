@@ -56,12 +56,13 @@ export function getAllPosts(category: string): PostMetadata[] {
       // Format date
       const dateString = data.date ? formatDate(data.date) : '';
 
-      const post: PostMetadata = {
+      const post: PostMetadata & { rawDate: string | number } = {
         slug,
         title: data.title || slug,
         date: dateString,
         tags: data.tags || [],
         readingTime: stats.text,
+        rawDate: data.date || '', // Keep raw date for sorting
       };
 
       // Only add optional fields if they exist
@@ -71,14 +72,14 @@ export function getAllPosts(category: string): PostMetadata[] {
       return post;
     });
 
-  // Sort posts by date (newest first)
-  return allPostsData.sort((a, b) => {
-    if (a.date < b.date) {
-      return 1;
-    } else {
-      return -1;
-    }
-  });
+  // Sort posts by raw date (newest first) - YYYYMMDD format sorts correctly as numbers
+  return allPostsData
+    .sort((a, b) => {
+      const dateA = typeof a.rawDate === 'number' ? a.rawDate : parseInt(a.rawDate.toString()) || 0;
+      const dateB = typeof b.rawDate === 'number' ? b.rawDate : parseInt(b.rawDate.toString()) || 0;
+      return dateB - dateA; // Descending order (newest first)
+    })
+    .map(({ rawDate, ...post }) => post); // Remove rawDate from final output
 }
 
 /**

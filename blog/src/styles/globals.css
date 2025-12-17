@@ -2,7 +2,7 @@
 @import 'tailwindcss';
 
 /* Configure dark mode for Tailwind v4 */
-@variant dark (&:where([data-theme="dark"] *));
+@variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 /* Expose custom colors to Tailwind v4 */
 @theme {
@@ -59,7 +59,6 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    color: var(--color-text-primary);
     font-weight: 700;
   }
 
@@ -147,6 +146,7 @@
   .anchor-link {
     text-decoration: none;
     position: relative;
+    color: inherit;
   }
 
   .anchor-link:hover::before {
@@ -158,52 +158,220 @@
   }
 }
 
-/* Obsidian-inspired markdown enhancements */
+/* Primary-inspired markdown enhancements */
+/* Following Bauhaus + Scandinavian + yellowing magazine aesthetic */
 @layer components {
   .markdown-body {
-    /* Better spacing for Obsidian-like feel */
-    line-height: 1.6;
+    /* Better spacing for warm, readable feel */
+    line-height: 1.7;
+    letter-spacing: 0.01em;
+    color: var(--color-text-primary);
   }
 
-  .markdown-body h1,
-  .markdown-body h2,
+  /* Heading sizes and styling */
+  .markdown-body h1 {
+    font-size: 2.25em;
+    margin-top: 0;
+    margin-bottom: 0.8em;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-purple);
+  }
+
+  .markdown-body h1 a {
+    color: var(--color-purple) !important;
+  }
+
+  .markdown-body h2 {
+    font-size: 1.875em;
+    margin-top: 1.5em;
+    margin-bottom: 0.75em;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-cyan);
+  }
+
+  .markdown-body h2 a {
+    color: var(--color-cyan) !important;
+  }
+
   .markdown-body h3 {
+    font-size: 1.5em;
+    margin-top: 1.5em;
+    margin-bottom: 0.6em;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--color-orange);
+  }
+
+  .markdown-body h3 a {
+    color: var(--color-orange) !important;
+  }
+
+  .markdown-body h4 {
+    font-size: 1.25em;
     margin-top: 1.5em;
     margin-bottom: 0.5em;
+    font-weight: 600;
+    color: var(--color-purple);
+  }
+
+  .markdown-body h4 a {
+    color: var(--color-purple) !important;
+  }
+
+  .markdown-body h5 {
+    font-size: 1.125em;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    font-weight: 600;
+    color: var(--color-cyan);
+  }
+
+  .markdown-body h5 a {
+    color: var(--color-cyan) !important;
+  }
+
+  .markdown-body h6 {
+    font-size: 1em;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    font-weight: 600;
+    color: var(--color-text-secondary);
+  }
+
+  .markdown-body h6 a {
+    color: var(--color-text-secondary) !important;
   }
 
   .markdown-body p {
     margin-bottom: 1em;
+    color: var(--color-text-primary);
   }
 
-  /* Obsidian-style callouts/blockquotes */
+  /* Primary theme philosophy: italics feel blue */
+  .markdown-body em,
+  .markdown-body i {
+    color: var(--color-primary-blue, var(--color-cyan));
+    font-style: italic;
+  }
+
+  /* Primary theme philosophy: bold feels red */
+  .markdown-body strong,
+  .markdown-body b {
+    color: var(--color-primary-red, var(--color-coral));
+    font-weight: 600;
+  }
+
+  /* Primary theme philosophy: links feel yellow/gold */
+  .markdown-body a {
+    color: var(--color-prose-links);
+    text-decoration: underline;
+    text-decoration-color: var(--color-primary-yellow, var(--color-orange));
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+    transition: all 0.2s ease;
+  }
+
+  .markdown-body a:hover {
+    color: var(--color-prose-links-hover);
+    text-decoration-color: var(--color-prose-links-hover);
+  }
+
+  /* Warm, inviting blockquotes */
   .markdown-body blockquote {
-    border-left: 4px solid var(--color-prose-blockquote-border);
+    border-left: 3px solid var(--color-prose-blockquote-border);
     background-color: var(--color-code-bg);
     padding: 1rem 1.5rem;
     margin: 1.5rem 0;
     border-radius: 0.25rem;
+    font-style: italic;
+    color: var(--color-prose-blockquote-text);
   }
 
-  /* Better table styling */
+  /* Clean table styling */
   .markdown-body table {
     border-collapse: collapse;
     margin: 1.5rem 0;
+    width: 100%;
   }
 
   .markdown-body th,
   .markdown-body td {
     border: 1px solid var(--color-border);
-    padding: 0.5rem 1rem;
+    padding: 0.75rem 1rem;
+    text-align: left;
   }
 
   .markdown-body th {
     background-color: var(--color-code-bg);
     font-weight: 600;
+    color: var(--color-text-primary);
+  }
+
+  .markdown-body tr:hover {
+    background-color: var(--color-cream-light);
   }
 
   /* Task lists */
   .markdown-body input[type="checkbox"] {
-    margin-right: 0.5rem;
+    margin-right: 0.75rem;
+    cursor: pointer;
+  }
+
+  /* Horizontal rules */
+  .markdown-body hr {
+    border: none;
+    border-top: 2px solid var(--color-border);
+    margin: 2rem 0;
+  }
+
+  /* Lists with better spacing */
+  .markdown-body ul,
+  .markdown-body ol {
+    padding-left: 1.5rem;
+    margin: 1em 0;
+    color: var(--color-text-primary);
+  }
+
+  .markdown-body li {
+    margin: 0.5em 0;
+  }
+
+  /* Inline code */
+  .markdown-body code {
+    background-color: var(--color-prose-code-bg);
+    color: var(--color-prose-code);
+    padding: 0.2em 0.4em;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+    font-weight: 500;
+    font-family: 'Cascadia Code', 'Fira Code', 'Courier New', monospace;
+  }
+
+  /* Code blocks (pre > code) */
+  .markdown-body pre {
+    background-color: #0d1117 !important;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    margin: 1.5rem 0;
+    overflow-x: auto;
+    border-left: 4px solid var(--color-cyan);
+  }
+
+  .markdown-body pre code {
+    background-color: transparent;
+    padding: 0;
+    color: inherit;
+    font-size: 0.875em;
+    font-weight: 400;
+  }
+
+  /* Images */
+  .markdown-body img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    margin: 1.5rem 0;
   }
 }
