@@ -10,12 +10,14 @@
     },
     "items": [
         {
-            "id": "https://yeahjunheo.com/code/leet1679",
-            "content_html": "1679. Max Number of K-Sum Pairs",
-            "url": "https://yeahjunheo.com/code/leet1679",
-            "title": "1679. Max Number of K-Sum Pairs",
-            "date_modified": "2025-02-23T15:00:00.000Z",
-            "tags": []
+            "id": "https://yeahjunheo.com/code/leet80",
+            "content_html": "80. Remove duplicates from sorted array II",
+            "url": "https://yeahjunheo.com/code/leet80",
+            "title": "80. Remove duplicates from sorted array II",
+            "date_modified": "2025-12-16T15:00:00.000Z",
+            "tags": [
+                "easy"
+            ]
         },
         {
             "id": "https://yeahjunheo.com/thoughts/thoughts000",
@@ -23,14 +25,6 @@
             "url": "https://yeahjunheo.com/thoughts/thoughts000",
             "title": "Initial thought",
             "date_modified": "2025-12-16T15:00:00.000Z",
-            "tags": []
-        },
-        {
-            "id": "https://yeahjunheo.com/code/leat26",
-            "content_html": "26. Remove duplicates from sorted array",
-            "url": "https://yeahjunheo.com/code/leat26",
-            "title": "26. Remove duplicates from sorted array",
-            "date_modified": "2025-12-15T15:00:00.000Z",
             "tags": []
         }
     ]

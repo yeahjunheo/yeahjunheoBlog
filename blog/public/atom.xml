@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yeahjunheo.com</id>
     <title>yeahjunheo Blog</title>
-    <updated>2025-12-17T09:33:34.652Z</updated>
+    <updated>2025-12-17T09:58:01.925Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <author>
         <name>yeahjunheo</name>
@@ -14,11 +14,12 @@
     <icon>https://yeahjunheo.com/favicon.ico</icon>
     <rights>All rights reserved 2025, yeahjunheo</rights>
     <entry>
-        <title type="html"><![CDATA[1679. Max Number of K-Sum Pairs]]></title>
-        <id>https://yeahjunheo.com/code/leet1679</id>
-        <link href="https://yeahjunheo.com/code/leet1679"/>
-        <updated>2025-02-23T15:00:00.000Z</updated>
-        <summary type="html"><![CDATA[1679. Max Number of K-Sum Pairs]]></summary>
+        <title type="html"><![CDATA[80. Remove duplicates from sorted array II]]></title>
+        <id>https://yeahjunheo.com/code/leet80</id>
+        <link href="https://yeahjunheo.com/code/leet80"/>
+        <updated>2025-12-16T15:00:00.000Z</updated>
+        <summary type="html"><![CDATA[80. Remove duplicates from sorted array II]]></summary>
+        <category label="easy"/>
     </entry>
     <entry>
         <title type="html"><![CDATA[Initial thought]]></title>
@@ -26,12 +27,5 @@
         <link href="https://yeahjunheo.com/thoughts/thoughts000"/>
         <updated>2025-12-16T15:00:00.000Z</updated>
         <summary type="html"><![CDATA[Initial thought]]></summary>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[26. Remove duplicates from sorted array]]></title>
-        <id>https://yeahjunheo.com/code/leat26</id>
-        <link href="https://yeahjunheo.com/code/leat26"/>
-        <updated>2025-12-15T15:00:00.000Z</updated>
-        <summary type="html"><![CDATA[26. Remove duplicates from sorted array]]></summary>
     </entry>
 </feed>

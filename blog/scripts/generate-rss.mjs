@@ -106,7 +106,7 @@ async function generateRssFeed() {
       link: url,
       description: post.description || post.title,
       date: new Date(post.date),
-      category: post.tags?.map((tag) => ({ name: tag })),
+      category: Array.isArray(post.tags) ? post.tags.map((tag) => ({ name: tag })) : [],
     });
   });
 

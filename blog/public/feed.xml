@@ -4,17 +4,18 @@
         <title>yeahjunheo Blog</title>
         <link>https://yeahjunheo.com</link>
         <description>Code, thoughts, and everything in between</description>
-        <lastBuildDate>Wed, 17 Dec 2025 09:33:34 GMT</lastBuildDate>
+        <lastBuildDate>Wed, 17 Dec 2025 09:58:01 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
         <copyright>All rights reserved 2025, yeahjunheo</copyright>
         <item>
-            <title><![CDATA[1679. Max Number of K-Sum Pairs]]></title>
-            <link>https://yeahjunheo.com/code/leet1679</link>
-            <guid isPermaLink="false">https://yeahjunheo.com/code/leet1679</guid>
-            <pubDate>Sun, 23 Feb 2025 15:00:00 GMT</pubDate>
-            <description><![CDATA[1679. Max Number of K-Sum Pairs]]></description>
+            <title><![CDATA[80. Remove duplicates from sorted array II]]></title>
+            <link>https://yeahjunheo.com/code/leet80</link>
+            <guid isPermaLink="false">https://yeahjunheo.com/code/leet80</guid>
+            <pubDate>Tue, 16 Dec 2025 15:00:00 GMT</pubDate>
+            <description><![CDATA[80. Remove duplicates from sorted array II]]></description>
+            <category>easy</category>
         </item>
         <item>
             <title><![CDATA[Initial thought]]></title>
@@ -22,13 +23,6 @@
             <guid isPermaLink="false">https://yeahjunheo.com/thoughts/thoughts000</guid>
             <pubDate>Tue, 16 Dec 2025 15:00:00 GMT</pubDate>
             <description><![CDATA[Initial thought]]></description>
-        </item>
-        <item>
-            <title><![CDATA[26. Remove duplicates from sorted array]]></title>
-            <link>https://yeahjunheo.com/code/leat26</link>
-            <guid isPermaLink="false">https://yeahjunheo.com/code/leat26</guid>
-            <pubDate>Mon, 15 Dec 2025 15:00:00 GMT</pubDate>
-            <description><![CDATA[26. Remove duplicates from sorted array]]></description>
         </item>
     </channel>
 </rss>

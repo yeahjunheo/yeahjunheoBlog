@@ -75,9 +75,6 @@ export default {
                 color: 'var(--color-prose-links-hover)',
               },
             },
-            'h1, h2, h3, h4, h5, h6': {
-              color: 'var(--color-prose-headings)',
-            },
           },
         },
       },
