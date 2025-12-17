@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import typography from "@tailwindcss/typography";
 
 export default {
   content: [
@@ -9,37 +10,42 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Primary palette
+        // Primary palette - now using CSS variables for theme support
         coral: {
-          DEFAULT: '#FE4A49',
-          light: '#FF7674',
-          dark: '#E6302E',
+          DEFAULT: 'var(--color-coral)',
+          light: 'var(--color-coral-light)',
+          dark: 'var(--color-coral-dark)',
         },
         orange: {
-          DEFAULT: '#F9A620',
-          light: '#FFBE4D',
-          dark: '#E08A00',
+          DEFAULT: 'var(--color-orange)',
+          light: 'var(--color-orange-light)',
+          dark: 'var(--color-orange-dark)',
         },
         cyan: {
-          DEFAULT: '#009FB7',
-          light: '#2DC4DB',
-          dark: '#007A8F',
+          DEFAULT: 'var(--color-cyan)',
+          light: 'var(--color-cyan-light)',
+          dark: 'var(--color-cyan-dark)',
         },
         cream: {
-          DEFAULT: '#E6EFE9',
-          light: '#F5FAF7',
-          dark: '#D4E0D8',
+          DEFAULT: 'var(--color-cream)',
+          light: 'var(--color-cream-light)',
+          dark: 'var(--color-cream-dark)',
         },
         purple: {
-          DEFAULT: '#820263',
-          light: '#A8348A',
-          dark: '#5a0145',
+          DEFAULT: 'var(--color-purple)',
+          light: 'var(--color-purple-light)',
+          dark: 'var(--color-purple-dark)',
         },
         // Additional complementary colors
-        navy: '#1A1F3A',
-        teal: '#0D7377',
-        pink: '#FF6B9D',
-        yellow: '#FFD93D',
+        navy: 'var(--color-navy)',
+        teal: 'var(--color-teal)',
+        pink: 'var(--color-pink)',
+        yellow: 'var(--color-yellow)',
+        // Semantic colors for easier usage
+        background: 'var(--color-background)',
+        surface: 'var(--color-surface)',
+        accent: 'var(--color-accent)',
+        'accent-hover': 'var(--color-accent-hover)',
       },
       typography: {
         DEFAULT: {
@@ -51,20 +57,24 @@ export default {
               content: '""',
             },
             code: {
-              backgroundColor: '#E6EFE9',
+              backgroundColor: 'var(--color-prose-code-bg)',
+              color: 'var(--color-prose-code)',
               padding: '0.25rem 0.5rem',
               borderRadius: '0.25rem',
               fontWeight: '500',
             },
             'blockquote': {
-              borderLeftColor: '#009FB7',
-              color: '#820263',
+              borderLeftColor: 'var(--color-prose-blockquote-border)',
+              color: 'var(--color-prose-blockquote-text)',
             },
             'a': {
-              color: '#009FB7',
+              color: 'var(--color-prose-links)',
               '&:hover': {
-                color: '#FE4A49',
+                color: 'var(--color-prose-links-hover)',
               },
+            },
+            'h1, h2, h3, h4, h5, h6': {
+              color: 'var(--color-prose-headings)',
             },
           },
         },
@@ -72,6 +82,6 @@ export default {
     },
   },
   plugins: [
-    require('@tailwindcss/typography'),
+    typography,
   ],
 } satisfies Config;
