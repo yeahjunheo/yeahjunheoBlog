@@ -1,6 +1,8 @@
 import type { Config } from "tailwindcss";
 import typography from "@tailwindcss/typography";
 
+// Note: Dark mode is configured in globals.css using @variant for Tailwind v4
+// See: @variant dark (&:where([data-theme="dark"] *))
 export default {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",

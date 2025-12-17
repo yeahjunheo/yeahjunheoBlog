@@ -1,8 +1,47 @@
 @import './themes.css';
+@import 'tailwindcss';
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Configure dark mode for Tailwind v4 */
+@variant dark (&:where([data-theme="dark"] *));
+
+/* Expose custom colors to Tailwind v4 */
+@theme {
+  /* Primary palette */
+  --color-coral: var(--color-coral);
+  --color-coral-light: var(--color-coral-light);
+  --color-coral-dark: var(--color-coral-dark);
+
+  --color-orange: var(--color-orange);
+  --color-orange-light: var(--color-orange-light);
+  --color-orange-dark: var(--color-orange-dark);
+
+  --color-cyan: var(--color-cyan);
+  --color-cyan-light: var(--color-cyan-light);
+  --color-cyan-dark: var(--color-cyan-dark);
+
+  --color-cream: var(--color-cream);
+  --color-cream-light: var(--color-cream-light);
+  --color-cream-dark: var(--color-cream-dark);
+
+  --color-purple: var(--color-purple);
+  --color-purple-light: var(--color-purple-light);
+  --color-purple-dark: var(--color-purple-dark);
+
+  /* Additional colors */
+  --color-navy: var(--color-navy);
+  --color-teal: var(--color-teal);
+  --color-pink: var(--color-pink);
+  --color-yellow: var(--color-yellow);
+
+  /* Semantic colors */
+  --color-background: var(--color-background);
+  --color-surface: var(--color-surface);
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-border: var(--color-border);
+  --color-accent: var(--color-accent);
+  --color-accent-hover: var(--color-accent-hover);
+}
 
 @layer base {
   html {
