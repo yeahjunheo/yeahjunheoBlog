@@ -2,7 +2,13 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { remark } from 'remark';
-import html from 'remark-html';
+import remarkGfm from 'remark-gfm';
+import remarkRehype from 'remark-rehype';
+import rehypeSlug from 'rehype-slug';
+import rehypeAutolinkHeadings from 'rehype-autolink-headings';
+import rehypePrettyCode from 'rehype-pretty-code';
+import rehypeStringify from 'rehype-stringify';
+import { serialize } from 'next-mdx-remote/serialize';
 import { format } from 'date-fns';
 import readingTime from 'reading-time';
 
@@ -18,6 +24,8 @@ export interface PostMetadata {
 
 export interface Post extends PostMetadata {
   content: string;
+  mdxSource?: any; // For MDX files, contains serialized MDX
+  isMdx?: boolean; // Flag to indicate if this is an MDX file
 }
 
 const contentDirectory = path.join(process.cwd(), 'content');
@@ -35,9 +43,9 @@ export function getAllPosts(category: string): PostMetadata[] {
 
   const fileNames = fs.readdirSync(categoryPath);
   const allPostsData = fileNames
-    .filter((fileName) => fileName.endsWith('.md'))
+    .filter((fileName) => fileName.endsWith('.md') || fileName.endsWith('.mdx'))
     .map((fileName) => {
-      const slug = fileName.replace(/\.md$/, '');
+      const slug = fileName.replace(/\.(md|mdx)$/, '');
       const fullPath = path.join(categoryPath, fileName);
       const fileContents = fs.readFileSync(fullPath, 'utf8');
       const { data, content } = matter(fileContents);
@@ -85,15 +93,22 @@ export function getAllPostSlugs(category: string): string[] {
 
   const fileNames = fs.readdirSync(categoryPath);
   return fileNames
-    .filter((fileName) => fileName.endsWith('.md'))
-    .map((fileName) => fileName.replace(/\.md$/, ''));
+    .filter((fileName) => fileName.endsWith('.md') || fileName.endsWith('.mdx'))
+    .map((fileName) => fileName.replace(/\.(md|mdx)$/, ''));
 }
 
 /**
  * Get a single post by slug and category
  */
 export async function getPostBySlug(category: string, slug: string): Promise<Post | null> {
-  const fullPath = path.join(contentDirectory, category, `${slug}.md`);
+  // Try both .md and .mdx extensions
+  let fullPath = path.join(contentDirectory, category, `${slug}.md`);
+  let isMdx = false;
+
+  if (!fs.existsSync(fullPath)) {
+    fullPath = path.join(contentDirectory, category, `${slug}.mdx`);
+    isMdx = true;
+  }
 
   if (!fs.existsSync(fullPath)) {
     return null;
@@ -102,15 +117,55 @@ export async function getPostBySlug(category: string, slug: string): Promise<Pos
   const fileContents = fs.readFileSync(fullPath, 'utf8');
   const { data, content } = matter(fileContents);
 
-  // Convert markdown to HTML
-  const processedContent = await remark().use(html, { sanitize: false }).process(content);
-  const contentHtml = processedContent.toString();
-
   // Calculate reading time
   const stats = readingTime(content);
 
   // Format date
   const dateString = data.date ? formatDate(data.date) : '';
+
+  let contentHtml = '';
+  let mdxSource = null;
+
+  if (isMdx) {
+    // For MDX files, use next-mdx-remote
+    mdxSource = await serialize(content, {
+      mdxOptions: {
+        remarkPlugins: [remarkGfm],
+        rehypePlugins: [
+          rehypeSlug,
+          [rehypeAutolinkHeadings, {
+            behavior: 'wrap',
+            properties: {
+              className: ['anchor-link'],
+            },
+          }],
+          [rehypePrettyCode, {
+            theme: 'github-dark',
+            keepBackground: true,
+          }],
+        ],
+      },
+    });
+  } else {
+    // For regular markdown files, use remark/rehype pipeline
+    const processedContent = await remark()
+      .use(remarkGfm) // GitHub Flavored Markdown (tables, strikethrough, task lists)
+      .use(remarkRehype, { allowDangerousHtml: true }) // Convert markdown to HTML AST
+      .use(rehypeSlug) // Add IDs to headings
+      .use(rehypeAutolinkHeadings, { // Add clickable links to headings
+        behavior: 'wrap',
+        properties: {
+          className: ['anchor-link'],
+        },
+      })
+      .use(rehypePrettyCode, { // Enhanced syntax highlighting
+        theme: 'github-dark',
+        keepBackground: true,
+      })
+      .use(rehypeStringify, { allowDangerousHtml: true }) // Convert HTML AST to string
+      .process(content);
+    contentHtml = processedContent.toString();
+  }
 
   const post: Post = {
     slug,
@@ -119,7 +174,13 @@ export async function getPostBySlug(category: string, slug: string): Promise<Pos
     tags: data.tags || [],
     readingTime: stats.text,
     content: contentHtml,
+    isMdx,
   };
+
+  // Add MDX source if it's an MDX file
+  if (mdxSource) {
+    post.mdxSource = mdxSource;
+  }
 
   // Only add optional fields if they exist
   if (data.link) post.link = data.link;

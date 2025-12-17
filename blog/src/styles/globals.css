@@ -1,11 +1,13 @@
+@import './themes.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   body {
-    background-color: #E6EFE9;
-    color: #1A1F3A;
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
       'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
       sans-serif;
@@ -14,17 +16,151 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    color: #1A1F3A;
+    color: var(--color-text-primary);
     font-weight: 700;
   }
 
   a {
-    color: #009FB7;
+    color: var(--color-accent);
     transition: color 0.2s;
     text-decoration: none;
   }
 
   a:hover {
-    color: #FE4A49;
+    color: var(--color-accent-hover);
+  }
+}
+
+/* Syntax Highlighting Styles for rehype-pretty-code */
+@layer base {
+  /* Code blocks */
+  pre {
+    overflow-x: auto;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    margin: 1.5rem 0;
+    background-color: #0d1117 !important;
+  }
+
+  /* Inline code */
+  :not(pre) > code {
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+    font-weight: 500;
+  }
+
+  /* Code block titles */
+  [data-rehype-pretty-code-title] {
+    background-color: var(--color-code-bg);
+    color: var(--color-text-secondary);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: -1.5rem;
+  }
+
+  [data-rehype-pretty-code-title] + pre {
+    margin-top: 0;
+    border-radius: 0 0 0.5rem 0.5rem;
+  }
+
+  /* Line highlighting */
+  [data-highlighted-line] {
+    background-color: rgba(101, 117, 133, 0.16);
+    border-left: 2px solid #58a6ff;
+    padding-left: calc(1.5rem - 2px);
+    padding-right: 1.5rem;
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+  }
+
+  /* Line numbers */
+  code[data-line-numbers] {
+    counter-reset: line;
+  }
+
+  code[data-line-numbers] > [data-line]::before {
+    counter-increment: line;
+    content: counter(line);
+    display: inline-block;
+    width: 1rem;
+    margin-right: 1.5rem;
+    text-align: right;
+    color: #6e7681;
+  }
+
+  /* Inline code highlight */
+  code[data-highlighted-chars] {
+    background-color: rgba(101, 117, 133, 0.16);
+    padding: 0.1rem 0.3rem;
+    border-radius: 0.25rem;
+  }
+}
+
+/* Anchor links for headings */
+@layer components {
+  .anchor-link {
+    text-decoration: none;
+    position: relative;
+  }
+
+  .anchor-link:hover::before {
+    content: '#';
+    position: absolute;
+    left: -1.2em;
+    color: var(--color-accent);
+    font-weight: 400;
+  }
+}
+
+/* Obsidian-inspired markdown enhancements */
+@layer components {
+  .markdown-body {
+    /* Better spacing for Obsidian-like feel */
+    line-height: 1.6;
+  }
+
+  .markdown-body h1,
+  .markdown-body h2,
+  .markdown-body h3 {
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+  }
+
+  .markdown-body p {
+    margin-bottom: 1em;
+  }
+
+  /* Obsidian-style callouts/blockquotes */
+  .markdown-body blockquote {
+    border-left: 4px solid var(--color-prose-blockquote-border);
+    background-color: var(--color-code-bg);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 0.25rem;
+  }
+
+  /* Better table styling */
+  .markdown-body table {
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+  }
+
+  .markdown-body th,
+  .markdown-body td {
+    border: 1px solid var(--color-border);
+    padding: 0.5rem 1rem;
+  }
+
+  .markdown-body th {
+    background-color: var(--color-code-bg);
+    font-weight: 600;
+  }
+
+  /* Task lists */
+  .markdown-body input[type="checkbox"] {
+    margin-right: 0.5rem;
   }
 }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://yeahjunheo.com</id>
+    <title>yeahjunheo Blog</title>
+    <updated>2025-12-17T02:04:35.552Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <author>
+        <name>yeahjunheo</name>
+        <uri>https://yeahjunheo.com</uri>
+    </author>
+    <link rel="alternate" href="https://yeahjunheo.com"/>
+    <link rel="self" href="https://yeahjunheo.com/atom.xml"/>
+    <subtitle>Code, thoughts, and everything in between</subtitle>
+    <icon>https://yeahjunheo.com/favicon.ico</icon>
+    <rights>All rights reserved 2025, yeahjunheo</rights>
+    <entry>
+        <title type="html"><![CDATA[1679. Max Number of K-Sum Pairs]]></title>
+        <id>https://yeahjunheo.com/code/leet1679</id>
+        <link href="https://yeahjunheo.com/code/leet1679"/>
+        <updated>2025-02-23T15:00:00.000Z</updated>
+        <summary type="html"><![CDATA[1679. Max Number of K-Sum Pairs]]></summary>
+    </entry>
+</feed>

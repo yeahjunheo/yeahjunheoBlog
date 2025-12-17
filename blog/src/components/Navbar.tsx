@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { CodeBracketIcon, LightBulbIcon, UserCircleIcon } from '@heroicons/react/24/outline';
+import ThemeSwitcher from './ThemeSwitcher';
 
 export default function Navbar() {
   const router = useRouter();
@@ -28,16 +30,29 @@ export default function Navbar() {
             <span className="text-coral text-3xl group-hover:text-yellow transition-colors">/&gt;</span>
           </Link>
 
-          <div className="flex gap-3">
+          <div className="flex gap-3 items-center">
             <Link href="/code" className={linkClass('/code')}>
-              💻 Code
+              <div className="flex items-center gap-2">
+                <CodeBracketIcon className="h-5 w-5" />
+                <span>Code</span>
+              </div>
             </Link>
             <Link href="/thoughts" className={linkClass('/thoughts')}>
-              💭 Thoughts
+              <div className="flex items-center gap-2">
+                <LightBulbIcon className="h-5 w-5" />
+                <span>Thoughts</span>
+              </div>
             </Link>
             <Link href="/me" className={linkClass('/me')}>
-              👤 About
+              <div className="flex items-center gap-2">
+                <UserCircleIcon className="h-5 w-5" />
+                <span>About</span>
+              </div>
             </Link>
+
+            <div className="ml-2 pl-3 border-l border-white border-opacity-30">
+              <ThemeSwitcher />
+            </div>
           </div>
         </div>
       </div>

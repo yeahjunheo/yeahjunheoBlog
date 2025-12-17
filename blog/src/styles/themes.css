@@ -1,0 +1,244 @@
+/* Base theme variables - Default (Light) Theme */
+:root {
+  /* Color Palette */
+  --color-coral: #FE4A49;
+  --color-coral-light: #FF7674;
+  --color-coral-dark: #E6302E;
+
+  --color-orange: #F9A620;
+  --color-orange-light: #FFBE4D;
+  --color-orange-dark: #E08A00;
+
+  --color-cyan: #009FB7;
+  --color-cyan-light: #2DC4DB;
+  --color-cyan-dark: #007A8F;
+
+  --color-cream: #E6EFE9;
+  --color-cream-light: #F5FAF7;
+  --color-cream-dark: #D4E0D8;
+
+  --color-purple: #820263;
+  --color-purple-light: #A8348A;
+  --color-purple-dark: #5a0145;
+
+  --color-navy: #1A1F3A;
+  --color-teal: #0D7377;
+  --color-pink: #FF6B9D;
+  --color-yellow: #FFD93D;
+
+  /* Semantic colors */
+  --color-background: #E6EFE9;
+  --color-surface: #FFFFFF;
+  --color-text-primary: #1A1F3A;
+  --color-text-secondary: #4A5568;
+  --color-border: #D4E0D8;
+  --color-accent: #009FB7;
+  --color-accent-hover: #FE4A49;
+
+  /* Component-specific */
+  --color-navbar-bg: linear-gradient(to right, #1A1F3A, #5a0145, #1A1F3A);
+  --color-navbar-text: #FFFFFF;
+  --color-navbar-active-bg: #FFFFFF;
+  --color-navbar-active-text: #820263;
+
+  --color-card-bg: #FFFFFF;
+  --color-card-border: #009FB7;
+
+  --color-code-bg: #E6EFE9;
+  --color-code-text: #820263;
+  --color-code-block-bg: #0d1117;
+
+  /* Markdown/Prose colors */
+  --color-prose-headings: #820263;
+  --color-prose-links: #009FB7;
+  --color-prose-links-hover: #FE4A49;
+  --color-prose-code: #820263;
+  --color-prose-code-bg: #E6EFE9;
+  --color-prose-blockquote-border: #009FB7;
+  --color-prose-blockquote-text: #820263;
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+  /* Color Palette - Darker versions */
+  --color-coral: #FF6B6B;
+  --color-coral-light: #FF8787;
+  --color-coral-dark: #E64A4A;
+
+  --color-orange: #FFB84D;
+  --color-orange-light: #FFC976;
+  --color-orange-dark: #E69C2E;
+
+  --color-cyan: #4ECDC4;
+  --color-cyan-light: #7ED9D2;
+  --color-cyan-dark: #3BA59E;
+
+  --color-cream: #2D3748;
+  --color-cream-light: #4A5568;
+  --color-cream-dark: #1A202C;
+
+  --color-purple: #B794F4;
+  --color-purple-light: #D6BCFA;
+  --color-purple-dark: #9F7AEA;
+
+  --color-navy: #0F1419;
+  --color-teal: #38B2AC;
+  --color-pink: #FC8181;
+  --color-yellow: #F6E05E;
+
+  /* Semantic colors */
+  --color-background: #0F1419;
+  --color-surface: #1A202C;
+  --color-text-primary: #E2E8F0;
+  --color-text-secondary: #A0AEC0;
+  --color-border: #2D3748;
+  --color-accent: #4ECDC4;
+  --color-accent-hover: #FF6B6B;
+
+  /* Component-specific */
+  --color-navbar-bg: linear-gradient(to right, #0F1419, #1A202C, #0F1419);
+  --color-navbar-text: #E2E8F0;
+  --color-navbar-active-bg: #2D3748;
+  --color-navbar-active-text: #4ECDC4;
+
+  --color-card-bg: #1A202C;
+  --color-card-border: #4ECDC4;
+
+  --color-code-bg: #2D3748;
+  --color-code-text: #B794F4;
+  --color-code-block-bg: #0d1117;
+
+  /* Markdown/Prose colors */
+  --color-prose-headings: #B794F4;
+  --color-prose-links: #4ECDC4;
+  --color-prose-links-hover: #FF6B6B;
+  --color-prose-code: #B794F4;
+  --color-prose-code-bg: #2D3748;
+  --color-prose-blockquote-border: #4ECDC4;
+  --color-prose-blockquote-text: #B794F4;
+}
+
+/* Obsidian-inspired Theme */
+[data-theme="obsidian"] {
+  /* Obsidian-like color palette */
+  --color-coral: #D68B8B;
+  --color-coral-light: #E5A3A3;
+  --color-coral-dark: #C77373;
+
+  --color-orange: #D9A86C;
+  --color-orange-light: #E8BB88;
+  --color-orange-dark: #CA9550;
+
+  --color-cyan: #7DC4C4;
+  --color-cyan-light: #98D4D4;
+  --color-cyan-dark: #62B4B4;
+
+  --color-cream: #202020;
+  --color-cream-light: #2E2E2E;
+  --color-cream-dark: #161616;
+
+  --color-purple: #B298DC;
+  --color-purple-light: #C9B3EA;
+  --color-purple-dark: #9B7DCE;
+
+  --color-navy: #161618;
+  --color-teal: #6FBFB1;
+  --color-pink: #E89AB9;
+  --color-yellow: #E8D97C;
+
+  /* Semantic colors - Obsidian style */
+  --color-background: #1E1E1E;
+  --color-surface: #202020;
+  --color-text-primary: #DCDDDE;
+  --color-text-secondary: #999999;
+  --color-border: #2E2E2E;
+  --color-accent: #7DC4C4;
+  --color-accent-hover: #D68B8B;
+
+  /* Component-specific */
+  --color-navbar-bg: linear-gradient(to right, #161618, #202020, #161618);
+  --color-navbar-text: #DCDDDE;
+  --color-navbar-active-bg: #2E2E2E;
+  --color-navbar-active-text: #7DC4C4;
+
+  --color-card-bg: #202020;
+  --color-card-border: #7DC4C4;
+
+  --color-code-bg: #2E2E2E;
+  --color-code-text: #B298DC;
+  --color-code-block-bg: #0d0d0d;
+
+  /* Markdown/Prose colors */
+  --color-prose-headings: #B298DC;
+  --color-prose-links: #7DC4C4;
+  --color-prose-links-hover: #D68B8B;
+  --color-prose-code: #B298DC;
+  --color-prose-code-bg: #2E2E2E;
+  --color-prose-blockquote-border: #7DC4C4;
+  --color-prose-blockquote-text: #999999;
+}
+
+/* Minimal/Monochrome Theme */
+[data-theme="minimal"] {
+  /* Minimal color palette */
+  --color-coral: #000000;
+  --color-coral-light: #333333;
+  --color-coral-dark: #000000;
+
+  --color-orange: #555555;
+  --color-orange-light: #777777;
+  --color-orange-dark: #333333;
+
+  --color-cyan: #000000;
+  --color-cyan-light: #333333;
+  --color-cyan-dark: #000000;
+
+  --color-cream: #F5F5F5;
+  --color-cream-light: #FFFFFF;
+  --color-cream-dark: #E8E8E8;
+
+  --color-purple: #000000;
+  --color-purple-light: #333333;
+  --color-purple-dark: #000000;
+
+  --color-navy: #000000;
+  --color-teal: #333333;
+  --color-pink: #666666;
+  --color-yellow: #999999;
+
+  /* Semantic colors */
+  --color-background: #FFFFFF;
+  --color-surface: #FAFAFA;
+  --color-text-primary: #000000;
+  --color-text-secondary: #666666;
+  --color-border: #E0E0E0;
+  --color-accent: #000000;
+  --color-accent-hover: #333333;
+
+  /* Component-specific */
+  --color-navbar-bg: linear-gradient(to right, #000000, #000000, #000000);
+  --color-navbar-text: #FFFFFF;
+  --color-navbar-active-bg: #FFFFFF;
+  --color-navbar-active-text: #000000;
+
+  --color-card-bg: #FAFAFA;
+  --color-card-border: #000000;
+
+  --color-code-bg: #F5F5F5;
+  --color-code-text: #000000;
+  --color-code-block-bg: #1E1E1E;
+
+  /* Markdown/Prose colors */
+  --color-prose-headings: #000000;
+  --color-prose-links: #000000;
+  --color-prose-links-hover: #333333;
+  --color-prose-code: #000000;
+  --color-prose-code-bg: #F5F5F5;
+  --color-prose-blockquote-border: #000000;
+  --color-prose-blockquote-text: #333333;
+}
+
+/* Smooth transitions for theme changes */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+    <channel>
+        <title>yeahjunheo Blog</title>
+        <link>https://yeahjunheo.com</link>
+        <description>Code, thoughts, and everything in between</description>
+        <lastBuildDate>Wed, 17 Dec 2025 02:04:35 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>https://github.com/jpmonette/feed</generator>
+        <language>en</language>
+        <copyright>All rights reserved 2025, yeahjunheo</copyright>
+        <item>
+            <title><![CDATA[1679. Max Number of K-Sum Pairs]]></title>
+            <link>https://yeahjunheo.com/code/leet1679</link>
+            <guid isPermaLink="false">https://yeahjunheo.com/code/leet1679</guid>
+            <pubDate>Sun, 23 Feb 2025 15:00:00 GMT</pubDate>
+            <description><![CDATA[1679. Max Number of K-Sum Pairs]]></description>
+        </item>
+    </channel>
+</rss>
