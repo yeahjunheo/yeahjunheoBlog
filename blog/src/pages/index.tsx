@@ -1,14 +1,13 @@
 import Head from 'next/head';
-import Link from 'next/link';
 import { GetStaticProps } from 'next';
 import { getAllPosts, PostMetadata } from '@/lib/markdown';
+import PostCard from '@/components/PostCard';
 
 interface HomeProps {
-  recentCodePosts: PostMetadata[];
-  recentThoughts: PostMetadata[];
+  allPosts: Array<PostMetadata & { category: 'code' | 'thoughts' }>;
 }
 
-export default function Home({ recentCodePosts, recentThoughts }: HomeProps) {
+export default function Home({ allPosts }: HomeProps) {
   return (
     <>
       <Head>
@@ -37,100 +36,23 @@ export default function Home({ recentCodePosts, recentThoughts }: HomeProps) {
         </div>
 
         <div className="max-w-5xl mx-auto px-6 pb-16">
-
-          {/* Recent Code Posts */}
-          {recentCodePosts.length > 0 && (
-            <section className="mb-16">
-              <div className="flex justify-between items-center mb-8">
-                <h2 className="text-4xl font-bold text-text-primary flex items-center gap-3">
-                  <span className="text-cyan text-5xl">&lt;</span>
-                  <span className="text-cyan">Recent Code</span>
-                  <span className="text-cyan text-5xl">/&gt;</span>
-                </h2>
-                <Link href="/code" className="px-4 py-2 bg-cyan text-cream-light rounded-lg hover:bg-cyan-dark font-medium transition-all duration-200 shadow-md hover:shadow-lg flex items-center gap-2">
-                  View all <span>&rarr;</span>
-                </Link>
-              </div>
-              <div className="grid gap-6">
-                {recentCodePosts.map((post) => (
-                  <article key={post.slug} className="bg-surface rounded-xl shadow-lg p-6 border-l-8 border-cyan hover:shadow-2xl hover:-translate-y-1 transition-all duration-200">
-                    <Link href={`/code/${post.slug}`}>
-                      <h3 className="text-2xl font-bold text-text-primary hover:text-cyan transition-colors duration-200 mb-3">
-                        {post.title}
-                      </h3>
-                    </Link>
-                    <div className="flex gap-4 text-sm font-medium mb-3">
-                      <time dateTime={post.date} className="flex items-center gap-2 text-orange-dark">
-                        <span className="text-xl">📅</span> {post.date}
-                      </time>
-                      <span className="text-border">•</span>
-                      <span className="flex items-center gap-2 text-coral-dark">
-                        <span className="text-xl">⏱️</span> {post.readingTime}
-                      </span>
-                    </div>
-                    {post.description && (
-                      <p className="text-text-primary text-base mt-3 leading-relaxed">{post.description}</p>
-                    )}
-                  </article>
-                ))}
-              </div>
-            </section>
-          )}
-
-          {/* Recent Thoughts */}
-          {recentThoughts.length > 0 && (
-            <section className="mb-16">
-              <div className="flex justify-between items-center mb-8">
-                <h2 className="text-4xl font-bold text-text-primary flex items-center gap-3">
-                  <span className="text-5xl">💭</span>
-                  <span className="text-coral">Recent Thoughts</span>
-                </h2>
-                <Link href="/thoughts" className="px-4 py-2 bg-coral text-cream-light rounded-lg hover:bg-coral-dark font-medium transition-all duration-200 shadow-md hover:shadow-lg flex items-center gap-2">
-                  View all <span>&rarr;</span>
-                </Link>
-              </div>
-              <div className="grid gap-6">
-                {recentThoughts.map((post) => (
-                  <article key={post.slug} className="bg-surface rounded-xl shadow-lg p-6 border-l-8 border-coral hover:shadow-2xl hover:-translate-y-1 transition-all duration-200">
-                    <Link href={`/thoughts/${post.slug}`}>
-                      <h3 className="text-2xl font-bold text-text-primary hover:text-coral transition-colors duration-200 mb-3">
-                        {post.title}
-                      </h3>
-                    </Link>
-                    <div className="flex gap-4 text-sm font-medium mb-3">
-                      <time dateTime={post.date} className="flex items-center gap-2 text-orange-dark">
-                        <span className="text-xl">📅</span> {post.date}
-                      </time>
-                      <span className="text-border">•</span>
-                      <span className="flex items-center gap-2 text-coral-dark">
-                        <span className="text-xl">⏱️</span> {post.readingTime}
-                      </span>
-                    </div>
-                    {post.description && (
-                      <p className="text-text-primary text-base mt-3 leading-relaxed">{post.description}</p>
-                    )}
-                  </article>
-                ))}
-              </div>
-            </section>
-          )}
-
-          {/* Empty State */}
-          {recentCodePosts.length === 0 && recentThoughts.length === 0 && (
+          {/* All Posts Grid - Randomized */}
+          {allPosts.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {allPosts.map((post) => (
+                <PostCard key={`${post.category}-${post.slug}`} post={post} category={post.category} />
+              ))}
+            </div>
+          ) : (
             <section className="text-center py-20">
-              <div className="bg-surface rounded-2xl shadow-2xl p-12 border-t-8 border-purple">
-                <div className="text-8xl mb-6 animate-bounce">📝</div>
+              <div className="bg-surface shadow-2xl p-12 border-t-8 border-purple">
+                <div className="text-8xl mb-6">📝</div>
                 <p className="text-3xl font-bold text-text-primary mb-4">
                   No posts yet. Check back soon!
                 </p>
                 <p className="text-lg text-text-secondary mb-6">
                   The journey begins...
                 </p>
-                <div className="flex justify-center gap-4 flex-wrap">
-                  <code className="bg-cyan text-cream-light px-4 py-2 rounded-lg font-mono font-bold shadow-md">content/code/</code>
-                  <span className="text-3xl text-text-primary">+</span>
-                  <code className="bg-coral text-cream-light px-4 py-2 rounded-lg font-mono font-bold shadow-md">content/thoughts/</code>
-                </div>
               </div>
             </section>
           )}
@@ -141,13 +63,18 @@ export default function Home({ recentCodePosts, recentThoughts }: HomeProps) {
 }
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-  const codePosts = getAllPosts('code');
-  const thoughts = getAllPosts('thoughts');
+  const codePosts = getAllPosts('code').map(post => ({ ...post, category: 'code' as const }));
+  const thoughts = getAllPosts('thoughts').map(post => ({ ...post, category: 'thoughts' as const }));
+
+  // Combine all posts
+  const allPosts = [...codePosts, ...thoughts];
+
+  // Randomize the order
+  const shuffled = allPosts.sort(() => Math.random() - 0.5);
 
   return {
     props: {
-      recentCodePosts: codePosts.slice(0, 3),
-      recentThoughts: thoughts.slice(0, 3),
+      allPosts: shuffled,
     },
   };
 };

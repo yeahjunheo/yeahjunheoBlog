@@ -1,15 +1,18 @@
 @import './themes.css';
 @import 'tailwindcss';
 
-/* Configure dark mode for Tailwind v4 */
-@variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
-
 /* shadcn/ui CSS variables mapped to custom colors */
 @layer base {
   :root {
     /* Background and foreground */
     --background: var(--color-background);
     --foreground: var(--color-text-primary);
+    
+    /* Navbar */
+    --navbar-bg: var(--color-navbar-bg);
+    --navbar-text: var(--color-navbar-text);
+    --navbar-active-bg: var(--color-navbar-active-bg);
+    --navbar-active-text: var(--color-navbar-active-text);
 
     /* Card */
     --card: var(--color-surface);

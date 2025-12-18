@@ -20,8 +20,9 @@ export default function ThemeSwitcher() {
     setTheme(theme === 'light' ? 'dark' : 'light');
   };
 
-  const Icon = theme === 'light' ? Moon : Sun;
+  const Icon = theme === 'light' ? Sun : Moon;
   const nextTheme = theme === 'light' ? 'dark' : 'light';
+  const buttonColor = theme === 'light' ? 'bg-gray-200 hover:bg-gray-300 rounded-full' : 'bg-gray-700 hover:bg-gray-600 rounded-full';
 
   return (
     <Button
@@ -29,6 +30,7 @@ export default function ThemeSwitcher() {
       variant="ghost"
       size="icon"
       aria-label={`Switch to ${nextTheme} theme`}
+      className={buttonColor}
     >
       <Icon className="h-5 w-5" />
     </Button>

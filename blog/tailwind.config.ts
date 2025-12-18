@@ -49,6 +49,11 @@ export default {
         surface: 'var(--color-surface)',
         accent: 'var(--color-accent)',
         'accent-hover': 'var(--color-accent-hover)',
+        // Navbar colors
+        'navbar-bg': 'var(--navbar-bg)',
+        'navbar-text': 'var(--navbar-text)',
+        'navbar-active-bg': 'var(--navbar-active-bg)',
+        'navbar-active-text': 'var(--navbar-active-text)',
         // shadcn/ui colors mapped to custom palette
         border: "var(--border)",
         input: "var(--input)",
