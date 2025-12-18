@@ -1,7 +1,7 @@
 ---
 title: 80. Remove duplicates from sorted array II
 date: 20251217
-tags: [medium]
+tags: [code,medium]
 link: https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/description/?envType=study-plan-v2&envId=top-interview-150
 ---
 

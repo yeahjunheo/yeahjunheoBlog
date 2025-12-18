@@ -223,14 +223,6 @@
     position: relative;
     color: inherit;
   }
-
-  .anchor-link:hover::before {
-    content: '#';
-    position: absolute;
-    left: -1.2em;
-    color: var(--color-accent);
-    font-weight: 400;
-  }
 }
 
 /* Primary-inspired markdown enhancements */
@@ -417,7 +409,6 @@
     border-radius: 0.5rem;
     margin: 1.5rem 0;
     overflow-x: auto;
-    border-left: 4px solid var(--color-cyan);
   }
 
   .markdown-body pre code {

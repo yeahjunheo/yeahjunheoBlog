@@ -19,10 +19,6 @@ export default function PostPage({ post }: PostPageProps) {
 
       <div className="min-h-screen bg-background">
         <div className="max-w-4xl mx-auto px-6 py-12">
-          <Link href="/" className="inline-flex items-center gap-2 text-cyan hover:text-coral font-medium transition-colors duration-200 mb-8 group">
-            <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform duration-200" />
-            <span>Back to Home</span>
-          </Link>
 
           <article className="bg-surface rounded-lg shadow-lg p-8 border-t-4 border-orange">
             <header className="mb-10">

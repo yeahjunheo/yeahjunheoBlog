@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useState, useRef, useEffect } from 'react';
 import {
   TreeDeciduous,
   TreePine,
@@ -108,6 +109,105 @@ function seededRandom(seed: number, min: number, max: number): number {
   return min + random * (max - min);
 }
 
+function GardenCell({ cell, index }: { cell: Cell; index: number }) {
+  const [tooltipPosition, setTooltipPosition] = useState<'top' | 'bottom' | 'left' | 'right'>('top');
+  const cellRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (cell.type === 'post' && cellRef.current) {
+      const updatePosition = () => {
+        const rect = cellRef.current?.getBoundingClientRect();
+        if (!rect) return;
+
+        const viewportHeight = window.innerHeight;
+        const viewportWidth = window.innerWidth;
+
+        // Check space available in each direction
+        const spaceTop = rect.top;
+        const spaceBottom = viewportHeight - rect.bottom;
+        const spaceLeft = rect.left;
+        const spaceRight = viewportWidth - rect.right;
+
+        // Determine best position (prefer top, then bottom, then sides)
+        if (spaceTop > 80) {
+          setTooltipPosition('top');
+        } else if (spaceBottom > 80) {
+          setTooltipPosition('bottom');
+        } else if (spaceRight > 200) {
+          setTooltipPosition('right');
+        } else if (spaceLeft > 200) {
+          setTooltipPosition('left');
+        } else {
+          setTooltipPosition('top'); // fallback
+        }
+      };
+
+      updatePosition();
+      window.addEventListener('scroll', updatePosition);
+      window.addEventListener('resize', updatePosition);
+
+      return () => {
+        window.removeEventListener('scroll', updatePosition);
+        window.removeEventListener('resize', updatePosition);
+      };
+    }
+  }, [cell]);
+
+  const getTooltipClasses = () => {
+    const base = "absolute hidden group-hover:block pointer-events-none z-50";
+    const positions = {
+      top: "bottom-full mb-2 left-1/2 -translate-x-1/2",
+      bottom: "top-full mt-2 left-1/2 -translate-x-1/2",
+      left: "right-full mr-2 top-1/2 -translate-y-1/2",
+      right: "left-full ml-2 top-1/2 -translate-y-1/2"
+    };
+    return `${base} ${positions[tooltipPosition]}`;
+  };
+
+  const getArrowClasses = () => {
+    const positions = {
+      top: "left-1/2 -translate-x-1/2 -bottom-1 w-2 h-2 bg-orange rotate-45",
+      bottom: "left-1/2 -translate-x-1/2 -top-1 w-2 h-2 bg-orange rotate-45",
+      left: "top-1/2 -translate-y-1/2 -right-1 w-2 h-2 bg-orange rotate-45",
+      right: "top-1/2 -translate-y-1/2 -left-1 w-2 h-2 bg-orange rotate-45"
+    };
+    return `absolute ${positions[tooltipPosition]}`;
+  };
+
+  return (
+    <div
+      ref={cellRef}
+      key={index}
+      className="aspect-square flex items-center justify-center"
+    >
+      {cell.type === 'post' ? (
+        <Link
+          href={`/${cell.post.slug}`}
+          className="w-full h-full flex items-center justify-center hover:scale-125 transition-all duration-200 group relative"
+        >
+          <cell.Icon
+            className="w-7 h-7 text-text-secondary group-hover:text-orange transition-colors"
+            style={{
+              transform: `scale(${cell.scale})`,
+              animation: `float ${cell.animationDuration}s ease-in-out ${cell.animationDelay}s infinite`,
+            }}
+          />
+          {/* Tooltip */}
+          <div className={getTooltipClasses()}>
+            <div className="bg-surface border-2 border-orange rounded px-3 py-2 text-sm text-text-primary shadow-lg max-w-sm wrap-break-words text-center">
+              {cell.post.title}
+            </div>
+            {/* Arrow */}
+            <div className={getArrowClasses()} />
+          </div>
+        </Link>
+      ) : (
+        <div className="w-1 h-1 bg-border rounded-full" />
+      )}
+    </div>
+  );
+}
+
 export default function BlogGarden({ posts, gridSize = 16 }: BlogGardenProps) {
   const totalCells = gridSize * gridSize;
 
@@ -133,7 +233,7 @@ export default function BlogGarden({ posts, gridSize = 16 }: BlogGardenProps) {
 
     // Generate consistent random properties for this post
     const scale = seededRandom(hash, 0.85, 1.15);
-    const animationDelay = seededRandom(hash * 2, 0, 4);
+    const animationDelay = 0;
     const animationDuration = seededRandom(hash * 3, 3, 6);
 
     cells[position] = { type: 'post', post, Icon, scale, animationDelay, animationDuration };
@@ -164,28 +264,7 @@ export default function BlogGarden({ posts, gridSize = 16 }: BlogGardenProps) {
         }}
       >
         {cells.map((cell, index) => (
-          <div
-            key={index}
-            className="aspect-square flex items-center justify-center"
-          >
-            {cell.type === 'post' ? (
-              <Link
-                href={`/${cell.post.slug}`}
-                className="w-full h-full flex items-center justify-center hover:scale-125 transition-all duration-200 group"
-                title={cell.post.title}
-              >
-                <cell.Icon
-                  className="w-7 h-7 text-text-secondary group-hover:text-orange transition-colors"
-                  style={{
-                    transform: `scale(${cell.scale})`,
-                    animation: `float ${cell.animationDuration}s ease-in-out ${cell.animationDelay}s infinite`,
-                  }}
-                />
-              </Link>
-            ) : (
-              <div className="w-1 h-1 bg-border rounded-full" />
-            )}
-          </div>
+          <GardenCell key={index} cell={cell} index={index} />
         ))}
       </div>
     </div>

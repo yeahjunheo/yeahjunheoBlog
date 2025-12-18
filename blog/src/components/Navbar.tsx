@@ -28,18 +28,12 @@ export default function Navbar() {
         <Icon className="h-5 w-5" />
         <span className="hidden md:inline">{children}</span>
       </Button>
-      <div className={cn(
-        "h-1 w-8 rounded-full transition-all duration-200",
-        isActive(href)
-          ? "bg-orange"
-          : "bg-transparent group-hover:bg-navbar-text"
-      )} />
     </Link>
   );
 
   return (
     <nav className="bg-navbar-bg shadow-2xl border-b-4 border-cyan">
-      <div className="mx-auto px-6 py-5">
+      <div className="mx-auto px-6 py-5 max-w-4xl">
         <div className="flex items-center justify-between">
           <NavLink href="/" icon={Home}>Home</NavLink>
           <NavLink href="/garden" icon={Sprout}>Garden</NavLink>
