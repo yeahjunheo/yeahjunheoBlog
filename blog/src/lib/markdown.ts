@@ -31,22 +31,20 @@ export interface Post extends PostMetadata {
 const contentDirectory = path.join(process.cwd(), 'content');
 
 /**
- * Get all posts from a specific category (e.g., 'code', 'thoughts')
+ * Get all posts from the content directory
  */
-export function getAllPosts(category: string): PostMetadata[] {
-  const categoryPath = path.join(contentDirectory, category);
-
+export function getAllPosts(): PostMetadata[] {
   // Check if directory exists
-  if (!fs.existsSync(categoryPath)) {
+  if (!fs.existsSync(contentDirectory)) {
     return [];
   }
 
-  const fileNames = fs.readdirSync(categoryPath);
+  const fileNames = fs.readdirSync(contentDirectory);
   const allPostsData = fileNames
     .filter((fileName) => fileName.endsWith('.md') || fileName.endsWith('.mdx'))
     .map((fileName) => {
       const slug = fileName.replace(/\.(md|mdx)$/, '');
-      const fullPath = path.join(categoryPath, fileName);
+      const fullPath = path.join(contentDirectory, fileName);
       const fileContents = fs.readFileSync(fullPath, 'utf8');
       const { data, content } = matter(fileContents);
 
@@ -83,31 +81,29 @@ export function getAllPosts(category: string): PostMetadata[] {
 }
 
 /**
- * Get all slugs for a specific category
+ * Get all slugs from the content directory
  */
-export function getAllPostSlugs(category: string): string[] {
-  const categoryPath = path.join(contentDirectory, category);
-
-  if (!fs.existsSync(categoryPath)) {
+export function getAllPostSlugs(): string[] {
+  if (!fs.existsSync(contentDirectory)) {
     return [];
   }
 
-  const fileNames = fs.readdirSync(categoryPath);
+  const fileNames = fs.readdirSync(contentDirectory);
   return fileNames
     .filter((fileName) => fileName.endsWith('.md') || fileName.endsWith('.mdx'))
     .map((fileName) => fileName.replace(/\.(md|mdx)$/, ''));
 }
 
 /**
- * Get a single post by slug and category
+ * Get a single post by slug
  */
-export async function getPostBySlug(category: string, slug: string): Promise<Post | null> {
+export async function getPostBySlug(slug: string): Promise<Post | null> {
   // Try both .md and .mdx extensions
-  let fullPath = path.join(contentDirectory, category, `${slug}.md`);
+  let fullPath = path.join(contentDirectory, `${slug}.md`);
   let isMdx = false;
 
   if (!fs.existsSync(fullPath)) {
-    fullPath = path.join(contentDirectory, category, `${slug}.mdx`);
+    fullPath = path.join(contentDirectory, `${slug}.mdx`);
     isMdx = true;
   }
 

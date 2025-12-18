@@ -1,6 +1,9 @@
 @import './themes.css';
 @import 'tailwindcss';
 
+/* Define dark mode variant for Tailwind v4 */
+@variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 /* shadcn/ui CSS variables mapped to custom colors */
 @layer base {
   :root {

@@ -4,11 +4,10 @@ import type { PostMetadata } from '@/lib/markdown';
 
 interface PostCardProps {
   post: PostMetadata;
-  category: 'code' | 'thoughts';
 }
 
-export default function PostCard({ post, category }: PostCardProps) {
-  const href = `/${category}/${post.slug}`;
+export default function PostCard({ post }: PostCardProps) {
+  const href = `/${post.slug}`;
 
   return (
     <Link href={href}>

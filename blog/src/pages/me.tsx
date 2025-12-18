@@ -59,21 +59,6 @@ export default function MePage() {
                   </li>
                 </ul>
               </div>
-
-              <div className="bg-purple rounded-lg p-8 my-8 text-cream-light">
-                <h2 className="text-cream-light mt-0 mb-4">Get in Touch</h2>
-                <p className="text-cream-light mb-4">
-                  Feel free to reach out if you would like to connect!
-                </p>
-                <div className="flex gap-4">
-                  <Link href="/code" className="px-6 py-3 bg-surface text-purple rounded-lg font-medium hover:bg-cream transition-colors duration-200">
-                    View Code
-                  </Link>
-                  <Link href="/thoughts" className="px-6 py-3 bg-surface text-purple rounded-lg font-medium hover:bg-cream transition-colors duration-200">
-                    View Thoughts
-                  </Link>
-                </div>
-              </div>
             </div>
           </div>
         </div>

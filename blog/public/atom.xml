@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://yeahjunheo.com</id>
     <title>yeahjunheo Blog</title>
-    <updated>2025-12-18T08:44:32.382Z</updated>
+    <updated>2025-12-18T14:25:17.276Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <author>
         <name>yeahjunheo</name>
@@ -13,19 +13,4 @@
     <subtitle>Code, thoughts, and everything in between</subtitle>
     <icon>https://yeahjunheo.com/favicon.ico</icon>
     <rights>All rights reserved 2025, yeahjunheo</rights>
-    <entry>
-        <title type="html"><![CDATA[80. Remove duplicates from sorted array II]]></title>
-        <id>https://yeahjunheo.com/code/leet80</id>
-        <link href="https://yeahjunheo.com/code/leet80"/>
-        <updated>2025-12-16T15:00:00.000Z</updated>
-        <summary type="html"><![CDATA[80. Remove duplicates from sorted array II]]></summary>
-        <category label="medium"/>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Initial thought]]></title>
-        <id>https://yeahjunheo.com/thoughts/thoughts000</id>
-        <link href="https://yeahjunheo.com/thoughts/thoughts000"/>
-        <updated>2025-12-16T15:00:00.000Z</updated>
-        <summary type="html"><![CDATA[Initial thought]]></summary>
-    </entry>
 </feed>

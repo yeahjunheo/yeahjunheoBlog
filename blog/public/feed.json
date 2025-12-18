@@ -8,24 +8,5 @@
         "name": "yeahjunheo",
         "url": "https://yeahjunheo.com"
     },
-    "items": [
-        {
-            "id": "https://yeahjunheo.com/code/leet80",
-            "content_html": "80. Remove duplicates from sorted array II",
-            "url": "https://yeahjunheo.com/code/leet80",
-            "title": "80. Remove duplicates from sorted array II",
-            "date_modified": "2025-12-16T15:00:00.000Z",
-            "tags": [
-                "medium"
-            ]
-        },
-        {
-            "id": "https://yeahjunheo.com/thoughts/thoughts000",
-            "content_html": "Initial thought",
-            "url": "https://yeahjunheo.com/thoughts/thoughts000",
-            "title": "Initial thought",
-            "date_modified": "2025-12-16T15:00:00.000Z",
-            "tags": []
-        }
-    ]
+    "items": []
 }
