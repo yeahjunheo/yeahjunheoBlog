@@ -2,7 +2,7 @@ import { GetStaticProps, GetStaticPaths } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import { MDXRemote } from 'next-mdx-remote';
-import { Calendar, Clock, ArrowLeft } from 'lucide-react';
+import { Calendar, Clock, ArrowLeft, ExternalLink } from 'lucide-react';
 import { getPostBySlug, getAllPostSlugs, Post } from '@/lib/markdown';
 
 interface PostPageProps {
@@ -33,6 +33,20 @@ export default function PostPage({ post }: PostPageProps) {
                   <Clock className="h-4 w-4 text-coral" />
                   <span className="font-medium">{post.readingTime}</span>
                 </span>
+                {post.link && (
+                  <>
+                    <span className="text-border">•</span>
+                    <a
+                      href={post.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-orange hover:text-coral transition-colors duration-200"
+                    >
+                      <ExternalLink className="h-4 w-4" />
+                      <span className="font-medium">View Problem</span>
+                    </a>
+                  </>
+                )}
               </div>
             </header>
 
