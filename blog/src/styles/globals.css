@@ -4,6 +4,77 @@
 /* Configure dark mode for Tailwind v4 */
 @variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
+/* shadcn/ui CSS variables mapped to custom colors */
+@layer base {
+  :root {
+    /* Background and foreground */
+    --background: var(--color-background);
+    --foreground: var(--color-text-primary);
+
+    /* Card */
+    --card: var(--color-surface);
+    --card-foreground: var(--color-text-primary);
+
+    /* Popover */
+    --popover: var(--color-surface);
+    --popover-foreground: var(--color-text-primary);
+
+    /* Primary - using purple as main brand color */
+    --primary: var(--color-purple);
+    --primary-foreground: var(--color-cream-light);
+
+    /* Secondary - using cyan */
+    --secondary: var(--color-cyan);
+    --secondary-foreground: var(--color-cream-light);
+
+    /* Muted - using cream tones */
+    --muted: var(--color-cream);
+    --muted-foreground: var(--color-text-secondary);
+
+    /* Accent - using orange */
+    --accent: var(--color-orange);
+    --accent-foreground: var(--color-cream-light);
+
+    /* Destructive - using coral for destructive actions */
+    --destructive: var(--color-coral);
+    --destructive-foreground: var(--color-cream-light);
+
+    /* Border and input */
+    --border: var(--color-border);
+    --input: var(--color-border);
+
+    /* Ring (focus states) - using cyan */
+    --ring: var(--color-cyan);
+
+    /* Radius - set to 0 for no border radius */
+    --radius: 0rem;
+  }
+
+  [data-theme="dark"] {
+    /* Dark mode uses the same variable references,
+       but themes.css changes the underlying values */
+    --background: var(--color-background);
+    --foreground: var(--color-text-primary);
+    --card: var(--color-surface);
+    --card-foreground: var(--color-text-primary);
+    --popover: var(--color-surface);
+    --popover-foreground: var(--color-text-primary);
+    --primary: var(--color-purple);
+    --primary-foreground: var(--color-cream-light);
+    --secondary: var(--color-cyan);
+    --secondary-foreground: var(--color-cream-light);
+    --muted: var(--color-cream-dark);
+    --muted-foreground: var(--color-text-secondary);
+    --accent: var(--color-orange);
+    --accent-foreground: var(--color-cream-light);
+    --destructive: var(--color-coral);
+    --destructive-foreground: var(--color-cream-light);
+    --border: var(--color-border);
+    --input: var(--color-border);
+    --ring: var(--color-cyan);
+  }
+}
+
 /* Expose custom colors to Tailwind v4 */
 @theme {
   /* Primary palette */
@@ -51,9 +122,7 @@
   body {
     background-color: var(--color-background);
     color: var(--color-text-primary);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-      sans-serif;
+    font-family: 'JetBrains Mono', 'Cascadia Code', 'Fira Code', monospace;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }

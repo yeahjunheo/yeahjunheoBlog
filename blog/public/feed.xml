@@ -4,7 +4,7 @@
         <title>yeahjunheo Blog</title>
         <link>https://yeahjunheo.com</link>
         <description>Code, thoughts, and everything in between</description>
-        <lastBuildDate>Wed, 17 Dec 2025 09:58:01 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 18 Dec 2025 05:03:08 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
@@ -15,7 +15,7 @@
             <guid isPermaLink="false">https://yeahjunheo.com/code/leet80</guid>
             <pubDate>Tue, 16 Dec 2025 15:00:00 GMT</pubDate>
             <description><![CDATA[80. Remove duplicates from sorted array II]]></description>
-            <category>easy</category>
+            <category>medium</category>
         </item>
         <item>
             <title><![CDATA[Initial thought]]></title>

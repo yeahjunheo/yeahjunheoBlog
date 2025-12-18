@@ -18,7 +18,7 @@ export default function Home({ recentCodePosts, recentThoughts }: HomeProps) {
 
       <div className="min-h-screen bg-background">
         {/* Hero Section with colorful background */}
-        <div className="bg-linear-to-br from-purple via-purple-dark to-navy text-cream-light py-20 mb-16">
+        <div className="bg-purple text-cream-light py-20 mb-16">
           <div className="max-w-5xl mx-auto px-6 text-center">
             <div className="mb-8">
               <h1 className="text-6xl md:text-7xl font-bold mb-6 drop-shadow-lg text-cream-light">

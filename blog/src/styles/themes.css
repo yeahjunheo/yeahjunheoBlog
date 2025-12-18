@@ -42,7 +42,7 @@
   --color-accent-hover: #C25450;     /* Cozy red on hover */
 
   /* Component-specific */
-  --color-navbar-bg: linear-gradient(to right, #2B2520, #6E5A64, #2B2520);
+  --color-navbar-bg: #6E5A64;
   --color-navbar-text: #F5F1E8;
   --color-navbar-active-bg: #FEFCF7;
   --color-navbar-active-text: #C25450;
@@ -109,7 +109,7 @@
   --color-accent-hover: #D77772;     /* Warm red on hover */
 
   /* Component-specific */
-  --color-navbar-bg: linear-gradient(to right, #1F1B17, #3D362F, #1F1B17);
+  --color-navbar-bg: #3D362F;
   --color-navbar-text: #EFE9DC;
   --color-navbar-active-bg: #3D362F;
   --color-navbar-active-text: #7A9DB8;

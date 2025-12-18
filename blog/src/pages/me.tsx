@@ -17,7 +17,7 @@ export default function MePage() {
               <span className="ml-2">Back to Home</span>
             </Link>
             <h1 className="text-5xl font-bold text-purple mb-4">About Me</h1>
-            <div className="h-1 w-32 bg-gradient-to-r from-purple via-coral to-orange rounded-full"></div>
+            <div className="h-1 w-32 bg-purple rounded-full"></div>
           </header>
 
           <div className="bg-surface rounded-lg shadow-lg p-8 border-t-4 border-purple">
@@ -60,7 +60,7 @@ export default function MePage() {
                 </ul>
               </div>
 
-              <div className="bg-gradient-to-r from-purple to-cyan rounded-lg p-8 my-8 text-cream-light">
+              <div className="bg-purple rounded-lg p-8 my-8 text-cream-light">
                 <h2 className="text-cream-light mt-0 mb-4">Get in Touch</h2>
                 <p className="text-cream-light mb-4">
                   Feel free to reach out if you would like to connect!

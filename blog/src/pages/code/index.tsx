@@ -30,7 +30,7 @@ export default function CodePage({ posts }: CodePageProps) {
             <p className="text-xl text-text-secondary">
               Solutions to coding problems and technical explorations
             </p>
-            <div className="h-1 w-32 bg-linear-to-r from-cyan to-purple mt-4 rounded-full"></div>
+            <div className="h-1 w-32 bg-cyan mt-4 rounded-full"></div>
           </header>
 
           <div className="grid gap-6">

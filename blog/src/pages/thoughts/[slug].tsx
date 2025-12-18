@@ -2,7 +2,7 @@ import { GetStaticProps, GetStaticPaths } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import { MDXRemote } from 'next-mdx-remote';
-import { CalendarIcon, ClockIcon, ArrowLeftIcon } from '@heroicons/react/24/outline';
+import { Calendar, Clock, ArrowLeft } from 'lucide-react';
 import { getPostBySlug, getAllPostSlugs, Post } from '@/lib/markdown';
 
 interface PostPageProps {
@@ -20,7 +20,7 @@ export default function PostPage({ post }: PostPageProps) {
       <div className="min-h-screen bg-background">
         <div className="max-w-4xl mx-auto px-6 py-12">
           <Link href="/thoughts" className="inline-flex items-center gap-2 text-cyan hover:text-coral font-medium transition-colors duration-200 mb-8 group">
-            <ArrowLeftIcon className="h-4 w-4 group-hover:-translate-x-1 transition-transform duration-200" />
+            <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform duration-200" />
             <span>Back to Thoughts</span>
           </Link>
 
@@ -29,12 +29,12 @@ export default function PostPage({ post }: PostPageProps) {
               <h1 className="text-4xl md:text-5xl font-bold text-purple mb-6">{post.title}</h1>
               <div className="flex flex-wrap gap-4 text-sm text-text-secondary pb-6 border-b-2 border-border">
                 <time dateTime={post.date} className="flex items-center gap-2">
-                  <CalendarIcon className="h-4 w-4 text-orange" />
+                  <Calendar className="h-4 w-4 text-orange" />
                   <span className="font-medium">{post.date}</span>
                 </time>
                 <span className="text-border">•</span>
                 <span className="flex items-center gap-2">
-                  <ClockIcon className="h-4 w-4 text-coral" />
+                  <Clock className="h-4 w-4 text-coral" />
                   <span className="font-medium">{post.readingTime}</span>
                 </span>
               </div>

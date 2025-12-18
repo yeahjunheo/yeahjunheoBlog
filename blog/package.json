@@ -12,12 +12,15 @@
     "generate:rss": "node scripts/generate-rss.mjs"
   },
   "dependencies": {
-    "@headlessui/react": "^2.2.9",
-    "@heroicons/react": "^2.2.0",
+    "@radix-ui/react-separator": "^1.1.8",
+    "@radix-ui/react-slot": "^1.2.4",
     "@types/mdx": "^2.0.13",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "feed": "^5.1.0",
     "gray-matter": "^4.0.3",
+    "lucide-react": "^0.561.0",
     "next": "^16.0.10",
     "next-mdx-remote": "^5.0.0",
     "next-sitemap": "^4.2.3",
@@ -34,7 +37,8 @@
     "remark-gfm": "^4.0.1",
     "remark-html": "^16.0.1",
     "remark-rehype": "^11.1.2",
-    "shiki": "^3.20.0"
+    "shiki": "^3.20.0",
+    "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
