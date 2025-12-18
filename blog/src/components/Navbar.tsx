@@ -47,7 +47,7 @@ export default function Navbar() {
                 <Menu className="h-6 w-6" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="bg-navbar-bg border-cyan text-navbar-text">
+            <SheetContent side="left" className="!bg-navbar-bg border-cyan text-navbar-text">
               <div className="flex flex-col gap-4 mt-8">
                 <NavLink href="/code" icon={Code}>Code</NavLink>
                 <NavLink href="/thoughts" icon={Lightbulb}>Thoughts</NavLink>
