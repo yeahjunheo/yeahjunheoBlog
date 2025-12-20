@@ -36,7 +36,7 @@ But the question challenges us to work with `O(1)` extra spaces. The current sol
 From the hint given in the question, there is a way of solving this via reversing the array.
 Looking at an example array `[1,2,3,4,5,6,7]`, the reverse of that will be `[7,6,5,4,3,2,1]`.
 How does that help? If `k=3`, then it can be seen as reversing everything before `k=3` and everything after it.
-```
+```bash
        k
        v
 [7,6,5,4,3,2,1]
