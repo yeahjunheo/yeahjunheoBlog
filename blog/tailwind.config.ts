@@ -12,6 +12,23 @@ export default {
   darkMode: ["class", '[data-theme="dark"]'],
   theme: {
     extend: {
+      animation: {
+        shake: 'shake 0.5s ease-in-out',
+      },
+      keyframes: {
+        shake: {
+          '0%, 100%': { transform: 'translate(0, 0) rotate(0deg)' },
+          '10%': { transform: 'translate(-3px, -2px) rotate(-5deg)' },
+          '20%': { transform: 'translate(3px, 2px) rotate(5deg)' },
+          '30%': { transform: 'translate(-3px, 2px) rotate(-4deg)' },
+          '40%': { transform: 'translate(3px, -2px) rotate(4deg)' },
+          '50%': { transform: 'translate(-2px, -3px) rotate(-3deg)' },
+          '60%': { transform: 'translate(2px, 3px) rotate(3deg)' },
+          '70%': { transform: 'translate(-2px, 1px) rotate(-2deg)' },
+          '80%': { transform: 'translate(2px, -1px) rotate(2deg)' },
+          '90%': { transform: 'translate(-1px, 0px) rotate(-1deg)' },
+        },
+      },
       colors: {
         // Primary palette - now using CSS variables for theme support
         coral: {
