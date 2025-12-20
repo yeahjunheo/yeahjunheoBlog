@@ -35,14 +35,3 @@ def removeDuplicates(self, nums: List[int]) -> int:
             k += 1
     return k
 ```
-
-
-### Time complexity
-The problem wants 
-
-
-### Space complexity
-
----
-
-## Resources
