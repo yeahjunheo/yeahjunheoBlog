@@ -1,6 +1,6 @@
 ---
 title: 189. Rotate array
-date: 20251220
+date: 20251219
 tag: [code,medium]
 link: https://leetcode.com/problems/rotate-array/description/?envType=study-plan-v2&envId=top-interview-150
 ---
