@@ -1,8 +1,7 @@
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
-import { getAllPosts, PostMetadata } from '@/lib/markdown';
+import { getAllPosts } from '@/lib/markdown';
 import BlogGarden from '@/components/BlogGarden';
-import BlogCount from '@/components/BlogCount';
 
 interface Post {
   slug: string;

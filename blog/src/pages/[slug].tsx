@@ -1,8 +1,7 @@
 import { GetStaticProps, GetStaticPaths } from 'next';
 import Head from 'next/head';
-import Link from 'next/link';
 import { MDXRemote } from 'next-mdx-remote';
-import { Calendar, Clock, ArrowLeft, ExternalLink } from 'lucide-react';
+import { Calendar, Clock, ExternalLink } from 'lucide-react';
 import { getPostBySlug, getAllPostSlugs, Post } from '@/lib/markdown';
 
 interface PostPageProps {

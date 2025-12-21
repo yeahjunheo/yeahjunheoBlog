@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useState, useRef, useEffect } from 'react';
+import { useRef } from 'react';
 import {
   TreeDeciduous,
   TreePine,

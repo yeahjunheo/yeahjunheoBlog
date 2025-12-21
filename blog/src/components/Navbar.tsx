@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Sprout, UserCircle, Home } from 'lucide-react';
+import { Sprout, UserCircle, Home, LucideIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -14,7 +14,7 @@ export default function Navbar() {
     return router.pathname.startsWith(path);
   };
 
-  const NavLink = ({ href, icon: Icon, children }: { href: string; icon: any; children: React.ReactNode }) => (
+  const NavLink = ({ href, icon: Icon, children }: { href: string; icon: LucideIcon; children: React.ReactNode }) => (
     <Link href={href} className="flex flex-col items-center gap-1 group">
       <Button
         variant="ghost"
