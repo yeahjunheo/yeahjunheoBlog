@@ -1,6 +1,6 @@
 ---
 title: 3. Longest substring without repeating characters
-date: 20251220
+date: 20251221
 tag: [code,medium]
 link: https://leetcode.com/problems/longest-substring-without-repeating-characters/
 ---
