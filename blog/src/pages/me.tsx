@@ -22,7 +22,7 @@ export default function MePage() {
 
                     <div className="bg-surface rounded-lg shadow-lg p-8 border-t-4 border-purple">
                         <div className="prose prose-lg max-w-none">
-                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8 items-center">
                                 {/* Profile Image */}
                                 <div className="flex justify-center lg:justify-end">
                                     <img
@@ -33,7 +33,7 @@ export default function MePage() {
                                 </div>
 
                                 {/* Info Card */}
-                                <div className="flex items-center">
+                                <div>
                                     <div className="bg-background rounded-lg p-6 shadow-md border border-purple/20 w-full">
                                         <h3 className="text-2xl font-bold text-purple mb-4">
                                             Quick Facts
