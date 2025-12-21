@@ -22,7 +22,7 @@ export default function HeroBanner() {
                     Hi, I'm <span className="text-yellow">Yeahjun HEO</span>
                 </h1>
                 <p className="text-2xl text-cream-light max-w-3xl mx-auto">
-                    The most irresistible cutie patootie you'll ever meet!
+                    The most irresistible cutie <strong>FAT</strong>ootie you'll ever meet!
                 </p>
             </div>
         </div>
