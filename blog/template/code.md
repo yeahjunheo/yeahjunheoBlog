@@ -1,7 +1,7 @@
 ---
 title: title
 date: YYYYMMDD
-tag: [?]
+tags: [?]
 link: ?
 ---
 
