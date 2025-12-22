@@ -1,7 +1,7 @@
 ---
 title: 122. Best time to buy and sell stock II
 date: 20251220
-tag: [code,medium]
+tags: [code,medium]
 link: https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/?envType=study-plan-v2&envId=top-interview-150
 ---
 

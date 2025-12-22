@@ -1,7 +1,7 @@
 ---
 title: 167. Two sum II - input array is sorted
 date: 20251222
-tag: [code,medium]
+tags: [code,medium]
 link: https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/description/?envType=study-plan-v2&envId=top-interview-150
 ---
 

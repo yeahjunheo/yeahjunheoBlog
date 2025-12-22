@@ -1,7 +1,7 @@
 ---
 title: 55. Jump game
 date: 20251220
-tag: [code,medium]
+tags: [code,medium]
 link: https://leetcode.com/problems/jump-game/?envType=study-plan-v2&envId=top-interview-150
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: 392. Is subsequence
 date: 20251221
-tag: [code,easy]
+tags: [code,easy]
 link: https://leetcode.com/problems/is-subsequence/description/?envType=study-plan-v2&envId=top-interview-150
 ---
 

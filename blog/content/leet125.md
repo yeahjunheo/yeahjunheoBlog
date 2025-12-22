@@ -1,7 +1,7 @@
 ---
 title: 125. Valid Palindrome
 date: 20251220
-tag: [code,easy]
+tags: [code,easy]
 link: https://leetcode.com/problems/valid-palindrome/description/?envType=study-plan-v2&envId=top-interview-150
 ---
 
