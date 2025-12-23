@@ -90,7 +90,7 @@ export default function MePage() {
                                                         Interests
                                                     </p>
                                                     <p className="text-text-secondary text-sm mb-0">
-                                                        Networking, cloud,
+                                                        Computer networking, the cloud,
                                                         hiking, cooking&eating
                                                         but mostly eating
                                                     </p>
