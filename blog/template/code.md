@@ -3,6 +3,7 @@ title: title
 date: YYYYMMDD
 tags: [?]
 link: ?
+# time: ?
 ---
 
 ## What does the problem want?
