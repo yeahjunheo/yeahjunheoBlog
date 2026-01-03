@@ -112,7 +112,7 @@ function GardenCell({ cell, index }: { cell: Cell; index: number }) {
           className="w-full h-full flex items-center justify-center hover:scale-150 transition-all duration-200 group relative"
         >
           <cell.Icon
-            className="w-7 h-7 text-text-secondary group-hover:text-orange transition-colors group-hover:animate-shake"
+            className="w-10 h-10 text-text-secondary group-hover:text-orange transition-colors group-hover:animate-shake"
             style={{
               transform: `scale(${cell.scale})`,
               animation: `float ${cell.animationDuration}s ease-in-out ${cell.animationDelay}s infinite`,
