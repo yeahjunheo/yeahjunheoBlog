@@ -6,9 +6,9 @@ link: https://leetcode.com/problems/summary-ranges/description/?envType=study-pl
 ---
 
 ## Note from YJ
-Some of the problems you see here were solved prior to starting thie blog, but still are kinda tricky once I got back to solving them.
+Some of the problems you see here were solved prior to starting this blog, but still are kinda tricky once I got back to solving them.
 It's not like I do these sort of problem solving during my computer science courses, and even more so for my computer-network and security research.
-Nonetheless, this seems to be trend, so I need to make sure I can properly solve these sort of questions while making my thoughts clear and loud.
+Nonetheless, this seems to be the trend, so I need to make sure I can properly solve these sort of questions while making my thoughts clear and loud.
 
 One thing I should keep in mind is to make it clear when I dont understand or am unsure of a question's solution.
 Better to learn from mistakes and from mentors than running with a lie.
