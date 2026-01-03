@@ -6,6 +6,11 @@ link: https://leetcode.com/problems/insert-interval/description/?envType=study-p
 # time: ?
 ---
 
+## Note from YJ
+Just started using vim to try practicing working on the terminal.
+This means it takes much more time to try unpacking how to navigate different files and especially editing files on the terminal.
+Things are hard and confusing, but I will do my best to understand it and get used to it!
+
 ## What does the problem want?
 This time, instead of just merging, we are checking if the new interval, after adding to the intervals, can be merged or not.
 
