@@ -1,6 +1,6 @@
 ---
 title: 452. Minimum number of arrows to burst balloons
-date: 20260103
+date: 20260104
 tags: [code,medium]
 link: https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/description/?envType=study-plan-v2&envId=top-interview-150
 # time: ?
