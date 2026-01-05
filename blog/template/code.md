@@ -6,8 +6,6 @@ link: ?
 # time: ?
 ---
 
-## What does the problem want?
-
 ## Brainstorm ideas
 
 
