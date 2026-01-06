@@ -48,3 +48,27 @@ The time complexity for this solution is `O(n)` since we iterate through all the
 
 ### Space complexity
 As for space complexity, we also have `O(n)` since we have `res` that stores the operands that will most definitely be relative to the number of input values in `tokens`.
+
+### Afterthought
+
+With the long if-elif-else statement in my solution, it would also be possible to use lambda functions to reduce the complexity.
+This will still have the same time and space complexity as the original solution, but separating what each operations does might be more explicity and readable.
+
+```python
+def evalRPN(self, tokens: List[str]) -> int:
+    operator = {
+        '+': lambda a, b: a + b,
+        '-': lambda a, b: a - b,
+        '*': lambda a, b: a * b,
+        '/': lambda a, b: int(a/b)
+        }
+    res = []
+    for char in tokens:
+        if char in operator:
+            r_op = res.pop()
+            l_op = res.pop()
+            res.append(operator[char](l_op,r_op))
+        else:
+            res.append(int(char))
+    return res.pop()
+```
