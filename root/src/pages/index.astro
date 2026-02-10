@@ -1,22 +1,19 @@
 ---
-import '../styles/global.css';
-import Navigation from '../components/Navigation.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
 
-const pageTitle = "Home - YJ's Blog";
+const pageTitle = "Home - YJ's Playground";
+
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{pageTitle}</title>
-	</head>
-	<body>
-		<Navigation />
+<BaseLayout pageTitle={pageTitle}>
+	<!-- banner for blog intro -->
+	 <div class="flex space-x-4 items-center w-auto">
+		<div class="">
+			<h1>Welcome to YJ's Playground!</h1>
+			<p>This is Yeahjun HEO's personal blog where I share my thoughts on software development, technology, and life experiences.</p>
+		</div>
+		<img src="/me_doodle.png" alt="" class="w-24">
+	 </div>
 
-		<h1>Welcome to YJ's blog</h1>
-	</body>
-</html>
+	 <!-- recent posts up to x amount -->
+</BaseLayout>
