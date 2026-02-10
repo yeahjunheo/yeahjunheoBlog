@@ -75,11 +75,14 @@
 html {
     background-color: var(--mc-white);
     color: var(--mc-black);
+    overflow-x: hidden;
 }
 
 body {
     font-family: var(--font-sans);
     line-height: 1.6;
+    overflow-x: hidden;
+    width: 100%;
 }
 
 /* Typography */
@@ -111,8 +114,8 @@ a:hover {
     color: var(--mc-red);
 }
 
-/* Code */
-code {
+/* Inline code (not in pre blocks) */
+:not(pre) > code {
     font-family: var(--font-mono);
     font-size: 0.9em;
     background-color: var(--mc-lightgray);
@@ -120,42 +123,36 @@ code {
     border-radius: var(--radius-sm);
 }
 
-pre {
-    font-family: var(--font-mono);
-    background-color: var(--mc-black);
-    color: var(--mc-white);
-    padding: 1rem;
-    border-radius: var(--radius-md);
-    overflow-x: auto;
+/* Expressive Code - constrain to viewport width */
+.expressive-code {
     max-width: 100%;
-    width: 100%;
-    min-width: 0;
+    overflow: hidden;
+}
+
+/* Custom scrollbar for code blocks */
+.expressive-code pre {
+    max-width: 100%;
+    overflow-x: auto;
     scrollbar-width: thin;
     scrollbar-color: var(--mc-orange) var(--mc-brown);
 }
 
-/* Webkit scrollbar for pre (Chrome, Safari, Edge) */
-pre::-webkit-scrollbar {
+.expressive-code pre::-webkit-scrollbar {
     height: 8px;
 }
 
-pre::-webkit-scrollbar-track {
+.expressive-code pre::-webkit-scrollbar-track {
     background: var(--mc-brown);
     border-radius: var(--radius-sm);
 }
 
-pre::-webkit-scrollbar-thumb {
+.expressive-code pre::-webkit-scrollbar-thumb {
     background: var(--mc-orange);
     border-radius: var(--radius-sm);
 }
 
-pre::-webkit-scrollbar-thumb:hover {
+.expressive-code pre::-webkit-scrollbar-thumb:hover {
     background: var(--mc-yellow);
-}
-
-pre code {
-    background: none;
-    padding: 0;
 }
 
 /* Selection */

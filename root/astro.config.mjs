@@ -7,6 +7,9 @@ import sitemap from "@astrojs/sitemap";
 
 import icon from "astro-icon";
 
+import expressiveCode from "astro-expressive-code";
+import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
+
 export default defineConfig({
     site: "https://www.yeahjunheo.com",
 
@@ -14,5 +17,15 @@ export default defineConfig({
         plugins: [tailwindcss()],
     },
 
-    integrations: [sitemap(), icon()],
+    integrations: [
+        expressiveCode({
+            themes: ["github-dark"],
+            plugins: [pluginLineNumbers()],
+            defaultProps: {
+                showLineNumbers: true,
+            },
+        }),
+        sitemap(),
+        icon(),
+    ],
 });

@@ -1,19 +1,23 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const pageTitle = "Home";
 
+const recentFivePosts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+).slice(0, 5);
 ---
 
 <BaseLayout pageTitle={pageTitle}>
 	<!-- banner for blog intro -->
-	 <div class="flex space-x-4 items-center w-auto">
+	 <div class="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0 items-center w-auto">
 		<div class="">
 			<h1>Welcome to YJ's Playground!</h1>
 			<p>This is Yeahjun HEO's personal blog where I share my thoughts on software development, technology, and life experiences.</p>
 		</div>
 		<div
-			class="w-48 h-36 bg-mc-brown"
+			class="w-36 h-36 bg-mc-brown"
 			style="
 				-webkit-mask-image: url('/me_doodle.png');
 				mask-image: url('/me_doodle.png');
@@ -29,4 +33,11 @@ const pageTitle = "Home";
 	 </div>
 
 	 <!-- recent posts up to x amount -->
+	  <ul>
+		{recentFivePosts.map((post) => (
+			<li>
+				<a href={`/blog/${post.slug}/`}>{post.data.title}</a> - <time>{post.data.pubDate.toString().slice(0,10)}</time>
+			</li>
+		))}
+	  </ul>
 </BaseLayout>
