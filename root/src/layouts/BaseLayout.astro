@@ -9,13 +9,12 @@ const pageTitle = Astro.props;
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> -->
-        <link rel="icon" href="/me_doodle_icon.png" />
+        <link rel="icon" href="/me_doodle_icon.png" type="image/png" />
         <meta name="viewport" content="width=device-width" />
         <meta name="generator" content={Astro.generator} />
         <title>{pageTitle}</title>
     </head>
-    <body class="flex flex-col justify-self-center items-center mx-auto">
+    <body class="flex flex-col justify-self-center items-center mx-auto min-h-screen max-w-4xl px-8">
         <Header />
         <slot />
         <Footer />
