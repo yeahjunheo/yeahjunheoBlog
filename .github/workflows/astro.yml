@@ -19,6 +19,8 @@ jobs:
               uses: actions/checkout@v3
             - name: Install, build, and upload blog
               uses: withastro/action@v5
+              with:
+                  path: ./root
     deploy:
         needs: build
         runs-on: ubuntu-latest
