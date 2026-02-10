@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const pageTitle = "Home - YJ's Playground";
+const pageTitle = "Home";
 
 ---
 
@@ -12,7 +12,20 @@ const pageTitle = "Home - YJ's Playground";
 			<h1>Welcome to YJ's Playground!</h1>
 			<p>This is Yeahjun HEO's personal blog where I share my thoughts on software development, technology, and life experiences.</p>
 		</div>
-		<img src="/me_doodle.png" alt="" class="w-24">
+		<div
+			class="w-48 h-36 bg-mc-brown"
+			style="
+				-webkit-mask-image: url('/me_doodle.png');
+				mask-image: url('/me_doodle.png');
+				-webkit-mask-size: contain;
+				mask-size: contain;
+				-webkit-mask-repeat: no-repeat;
+				mask-repeat: no-repeat;
+				mask-position: center;
+			"
+			role="img"
+			aria-label="Doodle of YJ"
+		></div>
 	 </div>
 
 	 <!-- recent posts up to x amount -->

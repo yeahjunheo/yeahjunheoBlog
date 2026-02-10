@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 @theme {
+    /* Color palette */
     --color-mc-white: var(--mc-white);
     --color-mc-orange: var(--mc-orange);
     --color-mc-magenta: var(--mc-magenta);
@@ -18,6 +19,7 @@
     --color-mc-red: var(--mc-red);
     --color-mc-black: var(--mc-black);
 
+    /* Semantic colors */
     --color-background: var(--mc-white);
     --color-foreground: var(--mc-black);
     --color-primary: var(--mc-orange);
@@ -27,6 +29,27 @@
     --color-muted-foreground: var(--mc-gray);
     --color-accent: var(--mc-yellow);
     --color-border: var(--mc-lightgray);
+
+    /* Font families */
+    --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+    --font-serif: "Georgia", ui-serif, serif;
+    --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+    /* Font sizes */
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.5rem;
+    --text-3xl: 1.875rem;
+    --text-4xl: 2.25rem;
+
+    /* Border radius */
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-full: 9999px;
 }
 
 :root {
@@ -46,4 +69,243 @@
     --mc-green: #4e552c;
     --mc-red: #8d3a2d;
     --mc-black: #251710;
+}
+
+/* Base styles */
+html {
+    background-color: var(--mc-white);
+    color: var(--mc-black);
+}
+
+body {
+    font-family: var(--font-sans);
+    line-height: 1.6;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--mc-brown);
+}
+
+h1 { font-size: var(--text-4xl); }
+h2 { font-size: var(--text-3xl); }
+h3 { font-size: var(--text-2xl); }
+h4 { font-size: var(--text-xl); }
+h5 { font-size: var(--text-lg); }
+h6 { font-size: var(--text-base); }
+
+p {
+    margin-bottom: 1rem;
+}
+
+a {
+    color: var(--mc-orange);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--mc-red);
+}
+
+/* Code */
+code {
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+    background-color: var(--mc-lightgray);
+    padding: 0.125rem 0.25rem;
+    border-radius: var(--radius-sm);
+}
+
+pre {
+    font-family: var(--font-mono);
+    background-color: var(--mc-black);
+    color: var(--mc-white);
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    overflow-x: auto;
+    max-width: 100%;
+    width: 100%;
+    min-width: 0;
+    scrollbar-width: thin;
+    scrollbar-color: var(--mc-orange) var(--mc-brown);
+}
+
+/* Webkit scrollbar for pre (Chrome, Safari, Edge) */
+pre::-webkit-scrollbar {
+    height: 8px;
+}
+
+pre::-webkit-scrollbar-track {
+    background: var(--mc-brown);
+    border-radius: var(--radius-sm);
+}
+
+pre::-webkit-scrollbar-thumb {
+    background: var(--mc-orange);
+    border-radius: var(--radius-sm);
+}
+
+pre::-webkit-scrollbar-thumb:hover {
+    background: var(--mc-yellow);
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
+
+/* Selection */
+::selection {
+    background-color: var(--mc-yellow);
+    color: var(--mc-black);
+}
+
+/* Blockquotes - purple accent */
+blockquote {
+    border-left: 4px solid var(--mc-purple);
+    background-color: color-mix(in srgb, var(--mc-purple) 10%, transparent);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    font-style: italic;
+    color: var(--mc-gray);
+}
+
+/* Lists - lime markers */
+ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+ul li::marker {
+    color: var(--mc-lime);
+}
+
+ol {
+    list-style: decimal;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+ol li::marker {
+    color: var(--mc-blue);
+    font-weight: 600;
+}
+
+li {
+    margin-bottom: 0.25rem;
+}
+
+/* Horizontal rule - lightblue */
+hr {
+    border: none;
+    height: 2px;
+    background: linear-gradient(
+        to right,
+        transparent,
+        var(--mc-lightblue),
+        var(--mc-cyan),
+        var(--mc-lightblue),
+        transparent
+    );
+    margin: 2rem 0;
+}
+
+/* Mark/highlight - yellow */
+mark {
+    background-color: var(--mc-yellow);
+    color: var(--mc-black);
+    padding: 0.125rem 0.25rem;
+    border-radius: var(--radius-sm);
+}
+
+/* Keyboard input - cyan */
+kbd {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    background-color: var(--mc-cyan);
+    color: var(--mc-white);
+    padding: 0.125rem 0.5rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--mc-gray);
+    box-shadow: 0 2px 0 var(--mc-gray);
+}
+
+/* Strong/bold - magenta tint */
+strong, b {
+    font-weight: 700;
+    color: var(--mc-magenta);
+}
+
+/* Emphasis/italic - lightblue tint */
+em, i {
+    font-style: italic;
+    color: var(--mc-lightblue);
+}
+
+/* Small text */
+small {
+    font-size: var(--text-sm);
+    color: var(--mc-lightgray);
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+}
+
+th {
+    background-color: var(--mc-brown);
+    color: var(--mc-white);
+    font-weight: 600;
+    text-align: left;
+    padding: 0.75rem 1rem;
+}
+
+td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--mc-lightgray);
+}
+
+tr:hover td {
+    background-color: color-mix(in srgb, var(--mc-yellow) 15%, transparent);
+}
+
+/* Focus states - pink */
+:focus-visible {
+    outline: 2px solid var(--mc-pink);
+    outline-offset: 2px;
+}
+
+/* Abbreviations - green underline */
+abbr[title] {
+    text-decoration: underline dotted var(--mc-green);
+    cursor: help;
+}
+
+/* Details/summary - cyan accent */
+details {
+    border: 1px solid var(--mc-cyan);
+    border-radius: var(--radius-md);
+    padding: 0.5rem 1rem;
+    margin: 1rem 0;
+}
+
+summary {
+    font-weight: 600;
+    color: var(--mc-cyan);
+    cursor: pointer;
+}
+
+details[open] summary {
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid var(--mc-cyan);
+    padding-bottom: 0.5rem;
 }
