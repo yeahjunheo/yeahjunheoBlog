@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const pageTitle = "Home - YJ's Playground";
+
+---
+
+<BaseLayout pageTitle={pageTitle}>
+	<!-- banner for blog intro -->
+	 <div class="flex space-x-4 items-center w-auto">
+		<div class="">
+			<h1>Welcome to YJ's Playground!</h1>
+			<p>This is Yeahjun HEO's personal blog where I share my thoughts on software development, technology, and life experiences.</p>
+		</div>
+		<img src="/me_doodle.png" alt="" class="w-24">
+	 </div>
+
+	 <!-- recent posts up to x amount -->
+</BaseLayout>

@@ -1,0 +1,50 @@
+---
+import '../styles/global.css';
+import './Social.astro';
+
+import { Icon } from 'astro-icon/components';
+
+  const socialLinks = [
+    {
+      name: 'GitHub',
+      icon: 'lucide:github',
+      href: 'https://github.com/yeahjunheo',
+      color: 'hover:text-purple'
+    },
+    {
+      name: 'LinkedIn',
+      icon: 'lucide:linkedin',
+      href: 'https://linkedin.com/in/yeahjunheo',
+      color: 'hover:text-cyan'
+    },
+    {
+      name: 'Twitter',
+      icon: 'lucide:twitter',
+      href: 'https://twitter.com/yeahjunheo',
+      color: 'hover:text-coral'
+    },
+    {
+      name: 'Email',
+      icon: 'lucide:mail',
+      href: 'mailto:your.email@example.com',
+      color: 'hover:text-orange'
+    },
+  ];
+---
+<footer>
+  <div class="mx-auto">
+    <p>© {new Date().getFullYear()} Yeahjun HEO. All rights reserved.</p>
+    <div class="flex space-x-4 justify-self-center">
+      {socialLinks.map(link => (
+        <a
+          href={link.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          class={link.color}
+          aria-label={link.name}
+        >
+          <Icon name={link.icon} size="24" />
+        </a>
+      ))}
+  </div>
+</footer>

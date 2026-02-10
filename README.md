@@ -1,1 +1,0 @@
-# Yeahjun's Personal Blog

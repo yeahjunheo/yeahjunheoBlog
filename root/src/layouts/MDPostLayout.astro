@@ -1,0 +1,12 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+
+const formatter = Astro.props;
+---
+
+<BaseLayout pageTitle={formatter.title}>
+    <h1>{formatter.title}</h1>
+    <p>{formatter.pubDate.toString().slice(0,10)}</p>
+    <p><em>{formatter.description}</em></p>
+    <slot />
+</BaseLayout>

@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+@theme {
+    --color-mc-white: var(--mc-white);
+    --color-mc-orange: var(--mc-orange);
+    --color-mc-magenta: var(--mc-magenta);
+    --color-mc-lightblue: var(--mc-lightblue);
+    --color-mc-yellow: var(--mc-yellow);
+    --color-mc-lime: var(--mc-lime);
+    --color-mc-pink: var(--mc-pink);
+    --color-mc-gray: var(--mc-gray);
+    --color-mc-lightgray: var(--mc-lightgray);
+    --color-mc-cyan: var(--mc-cyan);
+    --color-mc-purple: var(--mc-purple);
+    --color-mc-blue: var(--mc-blue);
+    --color-mc-brown: var(--mc-brown);
+    --color-mc-green: var(--mc-green);
+    --color-mc-red: var(--mc-red);
+    --color-mc-black: var(--mc-black);
+
+    --color-background: var(--mc-white);
+    --color-foreground: var(--mc-black);
+    --color-primary: var(--mc-orange);
+    --color-primary-foreground: var(--mc-white);
+    --color-secondary: var(--mc-brown);
+    --color-muted: var(--mc-lightgray);
+    --color-muted-foreground: var(--mc-gray);
+    --color-accent: var(--mc-yellow);
+    --color-border: var(--mc-lightgray);
+}
+
+:root {
+    --mc-white: #d2b1a1;
+    --mc-orange: #9d4123;
+    --mc-magenta: #94566c;
+    --mc-lightblue: #766f8c;
+    --mc-yellow: #b88221;
+    --mc-lime: #677535;
+    --mc-pink: #a65151;
+    --mc-gray: #3a2b24;
+    --mc-lightgray: #876b62;
+    --mc-cyan: #565c5c;
+    --mc-purple: #7b4a59;
+    --mc-blue: #4a3b5b;
+    --mc-brown: #4f3524;
+    --mc-green: #4e552c;
+    --mc-red: #8d3a2d;
+    --mc-black: #251710;
+}
