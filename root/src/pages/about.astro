@@ -1,6 +1,5 @@
 ---
-import '../styles/global.css';
-import Header from '../components/Header.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
 
 const pageTitle = "About - YJ's Blog";
 
@@ -9,41 +8,40 @@ const identity = {
     lastName: "HEO",
     nationality: "South Korea",
     hobbies: [],
-    livedIn: ["South Korea", "Japan", "Malta", "Philippines", "Tunisia", "Oman"],
+    livedIn: [
+        "South Korea",
+        "Japan",
+        "Malta",
+        "Philippines",
+        "Tunisia",
+        "Oman",
+    ],
     language: {
         korean: "native",
         enlglish: "native",
-        japanese: "fluent (JLPT N1)"
-    }
-}
+        japanese: "fluent (JLPT N1)",
+    },
+};
 
-const education = {}
+const education = {};
 
-const workExperience = {}
+const workExperience = {};
 
-const programmingLanguages = {}
+const programmingLanguages = {};
 
-const technicalSkills = {}
+const technicalSkills = {};
 
-const personalProjects = {}
+const personalProjects = {};
 
-const contactInformation = {}
+const contactInformation = {};
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{pageTitle}</title>
-	</head>
-	<body>
-        <Header />
-        
-		<h1>This is Yeahjun HEO</h1>
-        <h2>Who is Yeahjun?</h2>
-        <p>Yeahjun HEO is a Korean-born but Internationally-raised individual, aspiring to become a software developer who creates impactful and innovative solutions.</p>
-	</body>
-</html>
+<BaseLayout pageTitle={pageTitle}>
+    <h1>This is Yeahjun HEO</h1>
+    <h2>Who is Yeahjun?</h2>
+    <p>
+        Yeahjun HEO is a Korean-born but Internationally-raised individual,
+        aspiring to become a software developer who creates impactful and
+        innovative solutions.
+    </p>
+</BaseLayout>
