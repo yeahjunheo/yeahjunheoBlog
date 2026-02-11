@@ -11,7 +11,7 @@ const recentFivePosts = (await getCollection("blog", ({ data }) => !data.draft))
 
 <BaseLayout pageTitle={pageTitle}>
 	<!-- banner for blog intro -->
-	 <div class="flex flex-col md:flex-row md:space-x-4 space-y-4 md:space-y-0 items-center w-auto">
+	 <div class="flex flex-col-reverse md:flex-row gap-4 items-center w-auto">
 		<div class="">
 			<h1>Welcome to YJ's Playground!</h1>
 			<p>This is Yeahjun HEO's personal blog where I share my thoughts on software development, technology, and life experiences.</p>
