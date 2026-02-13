@@ -47,7 +47,11 @@ const randomFacts = [
         </header>
         <article class="flex flex-col gap-2 w-full">
             <h2 class="text-center">Random Fact About Me</h2>
-            <p>{randomFacts[Math.floor(Math.random() * randomFacts.length)]}</p>
+            <p id="random-fact"></p>
         </article>
+        <script is:inline define:vars={{ randomFacts }}>
+            const el = document.getElementById("random-fact");
+            el.textContent = randomFacts[Math.floor(Math.random() * randomFacts.length)];
+        </script>
     </section>
 </BaseLayout>
