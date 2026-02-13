@@ -1,0 +1,69 @@
+---
+interface Props {
+    href: string;
+    speed?: number;
+    gap?: string
+}
+
+const { href, speed = 10, gap = "4rem"} = Astro.props;
+---
+
+<a href={href} class="marquee" style={`--duration: ${speed}s; --gap: ${gap};`}>
+  <div class="marquee-content">
+    <span><slot/></span>
+  </div>
+</a>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.marquee').forEach(marquee => {
+    const content = marquee.querySelector<HTMLElement>('.marquee-content');
+    if (!content || content.dataset.initialized) return;
+
+    const span = content.querySelector<HTMLElement>('span');
+    if (!span) return;
+
+    const containerWidth = marquee.offsetWidth;
+    const gap = parseFloat(getComputedStyle(content).gap) || 0;
+    const spanWidth = span.offsetWidth + gap;
+
+    const copies = Math.ceil(containerWidth / spanWidth) + 1;
+
+    for (let i = 1; i < copies; i++) {
+      content.appendChild(span.cloneNode(true));
+    }
+
+    content.style.setProperty('--single-width', `${spanWidth}px`);
+    content.dataset.initialized = 'true';
+  })
+</script>
+
+<style>
+    .marquee {
+        display: block;
+        overflow: hidden;
+    }
+
+    .marquee-content {
+        display: flex;
+        gap: var(--gap);
+        width: fit-content;
+        animation: marquee var(--duration) linear infinite;
+    }
+
+    .marquee-content span {
+      white-space: nowrap;
+    }
+
+    .marquee:hover .marquee-content {
+        animation-play-state: paused;
+    }
+
+    @keyframes marquee {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(calc(-1 * var(--single-width)));
+        }
+    }
+</style>

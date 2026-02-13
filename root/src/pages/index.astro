@@ -1,24 +1,28 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import LatestPost from "../components/LatestPost.astro";
 
 const pageTitle = "Home";
 
-const recentFivePosts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-).slice(0, 5);
+const recentFivePosts = (await getCollection("blog", ({ data }) => !data.draft))
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+    .slice(0, 5);
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-	<!-- banner for blog intro -->
-	 <div class="flex flex-col-reverse md:flex-row gap-4 items-center w-auto">
-		<div class="">
-			<h1>Welcome to YJ's Playground!</h1>
-			<p>This is Yeahjun HEO's personal blog where I share my thoughts on software development, technology, and life experiences.</p>
-		</div>
-		<div
-			class="w-36 h-36 bg-mc-brown"
-			style="
+    <LatestPost />
+    <div class="flex flex-col-reverse md:flex-row gap-4 items-center w-auto">
+        <div class="">
+            <h1>Welcome to YJ's Playground!</h1>
+            <p>
+                This is Yeahjun HEO's personal blog where I share my thoughts on
+                software development, technology, and life experiences.
+            </p>
+        </div>
+        <div
+            class="w-36 h-36 bg-mc-brown"
+            style="
 				-webkit-mask-image: url('/me_doodle.png');
 				mask-image: url('/me_doodle.png');
 				-webkit-mask-size: contain;
@@ -27,17 +31,21 @@ const recentFivePosts = (await getCollection("blog", ({ data }) => !data.draft))
 				mask-repeat: no-repeat;
 				mask-position: center;
 			"
-			role="img"
-			aria-label="Doodle of YJ"
-		></div>
-	 </div>
+            role="img"
+            aria-label="Doodle of YJ"
+        >
+        </div>
+    </div>
 
-	 <!-- recent posts up to x amount -->
-	  <ul>
-		{recentFivePosts.map((post) => (
-			<li>
-				<a href={`/blog/${post.slug}/`}>{post.data.title}</a> - <time>{post.data.pubDate.toString().slice(0,10)}</time>
-			</li>
-		))}
-	  </ul>
+    <!-- recent posts up to x amount -->
+    <ul>
+        {
+            recentFivePosts.map((post) => (
+                <li>
+                    <a href={`/blog/${post.slug}/`}>{post.data.title}</a> -{" "}
+                    <time>{post.data.pubDate.toString().slice(0, 10)}</time>
+                </li>
+            ))
+        }
+    </ul>
 </BaseLayout>

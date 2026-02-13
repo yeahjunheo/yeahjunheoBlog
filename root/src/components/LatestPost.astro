@@ -1,0 +1,11 @@
+---
+import { getCollection } from "astro:content";
+import Marquee from "./Marquee.astro";
+
+const posts = getCollection("blog", ({ data }) => !data.draft);
+const latestPost = (await posts).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+)[0];
+---
+
+<Marquee href={`/blog/${latestPost.slug}`} speed={10}>Check out the latest post! - {latestPost.data.title}</Marquee>
