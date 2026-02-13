@@ -1,7 +1,8 @@
 ---
-title: "Atcoder Typical 90 - Score Sum Queires (★2)"
+title: "Atcoder Typical 90 - Score Sum Queries (★2)"
 description: "Day two of practicing the Atcoder problems. Follow this on the official website at (https://atcoder.jp/contests/typical90)!"
 pubDate: 2026-02-12
+updateDate: 2026-02-13
 tags: ["code", "atcoder"]
 draft: False
 ---
