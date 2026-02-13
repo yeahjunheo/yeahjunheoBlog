@@ -8,4 +8,4 @@ const latestPost = (await posts).sort(
 )[0];
 ---
 
-<Marquee href={`/blog/${latestPost.slug}`} speed={10}>Check out the latest post! - {latestPost.data.title}</Marquee>
+<Marquee href={`/blog/${latestPost.slug}`} speed={10} class="bg-mc-brown text-mc-white">Check out the latest post! - {latestPost.data.title}</Marquee>

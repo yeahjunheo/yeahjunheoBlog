@@ -71,238 +71,239 @@
     --mc-black: #251710;
 }
 
-/* Base styles */
-html {
-    background-color: var(--mc-white);
-    color: var(--mc-black);
-    overflow-x: hidden;
-}
+@layer base{
+    html {
+        background-color: var(--mc-white);
+        color: var(--mc-black);
+        overflow-x: hidden;
+    }
 
-body {
-    font-family: var(--font-sans);
-    line-height: 1.6;
-    overflow-x: hidden;
-    width: 100%;
-}
+    body {
+        font-family: var(--font-sans);
+        line-height: 1.6;
+        overflow-x: hidden;
+        width: 100%;
+    }
 
-/* Typography */
-h1, h2, h3, h4, h5, h6 {
-    font-weight: 700;
-    line-height: 1.2;
-    color: var(--mc-brown);
-}
+    /* Typography */
+    h1, h2, h3, h4, h5, h6 {
+        font-weight: 700;
+        line-height: 1.2;
+        color: var(--mc-brown);
+    }
 
-h1 { font-size: var(--text-4xl); }
-h2 { font-size: var(--text-3xl); }
-h3 { font-size: var(--text-2xl); }
-h4 { font-size: var(--text-xl); }
-h5 { font-size: var(--text-lg); }
-h6 { font-size: var(--text-base); }
+    h1 { font-size: var(--text-4xl); }
+    h2 { font-size: var(--text-3xl); }
+    h3 { font-size: var(--text-2xl); }
+    h4 { font-size: var(--text-xl); }
+    h5 { font-size: var(--text-lg); }
+    h6 { font-size: var(--text-base); }
 
-p {
-    margin-bottom: 1rem;
-}
+    p {
+        margin-bottom: 1rem;
+    }
 
-a {
-    color: var(--mc-orange);
-    text-decoration: underline;
-    text-underline-offset: 2px;
-    transition: color 0.2s ease;
-}
+    a {
+        color: var(--mc-orange);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        transition: color 0.2s ease;
+    }
 
-a:hover {
-    color: var(--mc-red);
-}
+    a:hover {
+        color: var(--mc-red);
+    }
 
-/* Inline code (not in pre blocks) */
-:not(pre) > code {
-    font-family: var(--font-mono);
-    font-size: 0.9em;
-    background-color: var(--mc-lightgray);
-    padding: 0.125rem 0.25rem;
-    border-radius: var(--radius-sm);
-}
+    /* Inline code (not in pre blocks) */
+    :not(pre) > code {
+        font-family: var(--font-mono);
+        font-size: 0.9em;
+        background-color: var(--mc-lightgray);
+        padding: 0.125rem 0.25rem;
+        border-radius: var(--radius-sm);
+    }
 
-/* Expressive Code - constrain to viewport width */
-.expressive-code {
-    max-width: 100%;
-    overflow: hidden;
-}
+    /* Expressive Code - constrain to viewport width */
+    .expressive-code {
+        max-width: 100%;
+        overflow: hidden;
+    }
 
-/* Custom scrollbar for code blocks */
-.expressive-code pre {
-    max-width: 100%;
-    overflow-x: auto;
-    scrollbar-width: thin;
-    scrollbar-color: var(--mc-orange) var(--mc-brown);
-}
+    /* Custom scrollbar for code blocks */
+    .expressive-code pre {
+        max-width: 100%;
+        overflow-x: auto;
+        scrollbar-width: thin;
+        scrollbar-color: var(--mc-orange) var(--mc-brown);
+    }
 
-.expressive-code pre::-webkit-scrollbar {
-    height: 8px;
-}
+    .expressive-code pre::-webkit-scrollbar {
+        height: 8px;
+    }
 
-.expressive-code pre::-webkit-scrollbar-track {
-    background: var(--mc-brown);
-    border-radius: var(--radius-sm);
-}
+    .expressive-code pre::-webkit-scrollbar-track {
+        background: var(--mc-brown);
+        border-radius: var(--radius-sm);
+    }
 
-.expressive-code pre::-webkit-scrollbar-thumb {
-    background: var(--mc-orange);
-    border-radius: var(--radius-sm);
-}
+    .expressive-code pre::-webkit-scrollbar-thumb {
+        background: var(--mc-orange);
+        border-radius: var(--radius-sm);
+    }
 
-.expressive-code pre::-webkit-scrollbar-thumb:hover {
-    background: var(--mc-yellow);
-}
+    .expressive-code pre::-webkit-scrollbar-thumb:hover {
+        background: var(--mc-yellow);
+    }
 
-/* Selection */
-::selection {
-    background-color: var(--mc-yellow);
-    color: var(--mc-black);
-}
+    /* Selection */
+    ::selection {
+        background-color: var(--mc-yellow);
+        color: var(--mc-black);
+    }
 
-/* Blockquotes - purple accent */
-blockquote {
-    border-left: 4px solid var(--mc-purple);
-    background-color: color-mix(in srgb, var(--mc-purple) 10%, transparent);
-    padding: 1rem 1.5rem;
-    margin: 1.5rem 0;
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
-    font-style: italic;
-    color: var(--mc-gray);
-}
+    /* Blockquotes - purple accent */
+    blockquote {
+        border-left: 4px solid var(--mc-purple);
+        background-color: color-mix(in srgb, var(--mc-purple) 10%, transparent);
+        padding: 1rem 1.5rem;
+        margin: 1.5rem 0;
+        border-radius: 0 var(--radius-md) var(--radius-md) 0;
+        font-style: italic;
+        color: var(--mc-gray);
+    }
 
-/* Lists - lime markers */
-ul {
-    list-style: disc;
-    padding-left: 1.5rem;
-    margin-bottom: 1rem;
-}
+    /* Lists - lime markers */
+    ul {
+        list-style: disc;
+        padding-left: 1.5rem;
+        margin-bottom: 1rem;
+    }
 
-ul li::marker {
-    color: var(--mc-lime);
-}
+    ul li::marker {
+        color: var(--mc-lime);
+    }
 
-ol {
-    list-style: decimal;
-    padding-left: 1.5rem;
-    margin-bottom: 1rem;
-}
+    ol {
+        list-style: decimal;
+        padding-left: 1.5rem;
+        margin-bottom: 1rem;
+    }
 
-ol li::marker {
-    color: var(--mc-blue);
-    font-weight: 600;
-}
+    ol li::marker {
+        color: var(--mc-blue);
+        font-weight: 600;
+    }
 
-li {
-    margin-bottom: 0.25rem;
-}
+    li {
+        margin-bottom: 0.25rem;
+    }
 
-/* Horizontal rule - lightblue */
-hr {
-    border: none;
-    height: 2px;
-    background: linear-gradient(
-        to right,
-        transparent,
-        var(--mc-lightblue),
-        var(--mc-cyan),
-        var(--mc-lightblue),
-        transparent
-    );
-    margin: 2rem 0;
-}
+    /* Horizontal rule - lightblue */
+    hr {
+        border: none;
+        height: 2px;
+        background: linear-gradient(
+            to right,
+            transparent,
+            var(--mc-lightblue),
+            var(--mc-cyan),
+            var(--mc-lightblue),
+            transparent
+        );
+        margin: 2rem 0;
+    }
 
-/* Mark/highlight - yellow */
-mark {
-    background-color: var(--mc-yellow);
-    color: var(--mc-black);
-    padding: 0.125rem 0.25rem;
-    border-radius: var(--radius-sm);
-}
+    /* Mark/highlight - yellow */
+    mark {
+        background-color: var(--mc-yellow);
+        color: var(--mc-black);
+        padding: 0.125rem 0.25rem;
+        border-radius: var(--radius-sm);
+    }
 
-/* Keyboard input - cyan */
-kbd {
-    font-family: var(--font-mono);
-    font-size: 0.85em;
-    background-color: var(--mc-cyan);
-    color: var(--mc-white);
-    padding: 0.125rem 0.5rem;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--mc-gray);
-    box-shadow: 0 2px 0 var(--mc-gray);
-}
+    /* Keyboard input - cyan */
+    kbd {
+        font-family: var(--font-mono);
+        font-size: 0.85em;
+        background-color: var(--mc-cyan);
+        color: var(--mc-white);
+        padding: 0.125rem 0.5rem;
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--mc-gray);
+        box-shadow: 0 2px 0 var(--mc-gray);
+    }
 
-/* Strong/bold - magenta tint */
-strong, b {
-    font-weight: 700;
-    color: var(--mc-magenta);
-}
+    /* Strong/bold - magenta tint */
+    strong, b {
+        font-weight: 700;
+        color: var(--mc-magenta);
+    }
 
-/* Emphasis/italic - lightblue tint */
-em, i {
-    font-style: italic;
-    color: var(--mc-lightblue);
-}
+    /* Emphasis/italic - lightblue tint */
+    em, i {
+        font-style: italic;
+        color: var(--mc-lightblue);
+    }
 
-/* Small text */
-small {
-    font-size: var(--text-sm);
-    color: var(--mc-lightgray);
-}
+    /* Small text */
+    small {
+        font-size: var(--text-sm);
+        color: var(--mc-lightgray);
+    }
 
-/* Tables */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 1.5rem 0;
-}
+    /* Tables */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.5rem 0;
+    }
 
-th {
-    background-color: var(--mc-brown);
-    color: var(--mc-white);
-    font-weight: 600;
-    text-align: left;
-    padding: 0.75rem 1rem;
-}
+    th {
+        background-color: var(--mc-brown);
+        color: var(--mc-white);
+        font-weight: 600;
+        text-align: left;
+        padding: 0.75rem 1rem;
+    }
 
-td {
-    padding: 0.75rem 1rem;
-    border-bottom: 1px solid var(--mc-lightgray);
-}
+    td {
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid var(--mc-lightgray);
+    }
 
-tr:hover td {
-    background-color: color-mix(in srgb, var(--mc-yellow) 15%, transparent);
-}
+    tr:hover td {
+        background-color: color-mix(in srgb, var(--mc-yellow) 15%, transparent);
+    }
 
-/* Focus states - pink */
-:focus-visible {
-    outline: 2px solid var(--mc-pink);
-    outline-offset: 2px;
-}
+    /* Focus states - pink */
+    :focus-visible {
+        outline: 2px solid var(--mc-pink);
+        outline-offset: 2px;
+    }
 
-/* Abbreviations - green underline */
-abbr[title] {
-    text-decoration: underline dotted var(--mc-green);
-    cursor: help;
-}
+    /* Abbreviations - green underline */
+    abbr[title] {
+        text-decoration: underline dotted var(--mc-green);
+        cursor: help;
+    }
 
-/* Details/summary - cyan accent */
-details {
-    border: 1px solid var(--mc-cyan);
-    border-radius: var(--radius-md);
-    padding: 0.5rem 1rem;
-    margin: 1rem 0;
-}
+    /* Details/summary - cyan accent */
+    details {
+        border: 1px solid var(--mc-cyan);
+        border-radius: var(--radius-md);
+        padding: 0.5rem 1rem;
+        margin: 1rem 0;
+    }
 
-summary {
-    font-weight: 600;
-    color: var(--mc-cyan);
-    cursor: pointer;
-}
+    summary {
+        font-weight: 600;
+        color: var(--mc-cyan);
+        cursor: pointer;
+    }
 
-details[open] summary {
-    margin-bottom: 0.5rem;
-    border-bottom: 1px solid var(--mc-cyan);
-    padding-bottom: 0.5rem;
+    details[open] summary {
+        margin-bottom: 0.5rem;
+        border-bottom: 1px solid var(--mc-cyan);
+        padding-bottom: 0.5rem;
+    }
 }

@@ -3,12 +3,13 @@ interface Props {
     href: string;
     speed?: number;
     gap?: string
+    class?: string;
 }
 
-const { href, speed = 10, gap = "4rem"} = Astro.props;
+const { href, speed = 10, gap = "4rem", class: className = "" } = Astro.props;
 ---
 
-<a href={href} class="marquee" style={`--duration: ${speed}s; --gap: ${gap};`}>
+<a href={href} class={`marquee ${className}`} style={`--duration: ${speed}s; --gap: ${gap};`}>
   <div class="marquee-content">
     <span><slot/></span>
   </div>
@@ -48,6 +49,7 @@ const { href, speed = 10, gap = "4rem"} = Astro.props;
         gap: var(--gap);
         width: fit-content;
         animation: marquee var(--duration) linear infinite;
+        padding: 0.25rem 0;
     }
 
     .marquee-content span {

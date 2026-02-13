@@ -4,24 +4,22 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import LatestPost from "../components/LatestPost.astro";
 
 const pageTitle = "Home";
-
-const recentFivePosts = (await getCollection("blog", ({ data }) => !data.draft))
-    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-    .slice(0, 5);
+const randomFacts = [
+    "I am the middle child of three siblings so survival has been my forte since childhood. I taught myself how to hide snacks to reserve them for later, and to bribe my way out of trouble or to mitigate damages.",
+    "I like to take my time chewing my food, but when times call for it, I fight amongst starved beggars to get the last piece of bread.",
+    "I swam competitively from elementary school all the way to early high school. But I had to quit because academic pressure got a bit unbearable while I was in Korea.",
+    "Some say I'm fat, others say I'm chubby, but my closest friends call me THICC. I like to think that my legs do be THICC but my stomach is kinda getting out of hand.",
+	"My girlfriend and I have an interesting dynamic. I cook, clean, plan, and take care of most things, while she just exists. It works for us.",
+	"I like using red onions for my salsa, but occasionally they can be a bit too overpowering. Just last week, I made a batch and my mouth tasted of onions for two days straight.",
+	"I have to go serve my country for two years, and its not that SERVE but more for the country's defence. I'm kinda looking forwards to it, but also kinda worried about what will happen after."
+];
 ---
 
 <BaseLayout pageTitle={pageTitle}>
     <LatestPost />
-    <div class="flex flex-col-reverse md:flex-row gap-4 items-center w-auto">
-        <div class="">
-            <h1>Welcome to YJ's Playground!</h1>
-            <p>
-                This is Yeahjun HEO's personal blog where I share my thoughts on
-                software development, technology, and life experiences.
-            </p>
-        </div>
+    <section class="flex flex-col gap-4 py-6">
         <div
-            class="w-36 h-36 bg-mc-brown"
+            class="mx-auto w-48 h-48 bg-mc-brown hover:rotate-3 hover:scale-105 active:rotate-360 active:scale-95 transition-all duration-300"
             style="
 				-webkit-mask-image: url('/me_doodle.png');
 				mask-image: url('/me_doodle.png');
@@ -35,17 +33,21 @@ const recentFivePosts = (await getCollection("blog", ({ data }) => !data.draft))
             aria-label="Doodle of YJ"
         >
         </div>
-    </div>
-
-    <!-- recent posts up to x amount -->
-    <ul>
-        {
-            recentFivePosts.map((post) => (
-                <li>
-                    <a href={`/blog/${post.slug}/`}>{post.data.title}</a> -{" "}
-                    <time>{post.data.pubDate.toString().slice(0, 10)}</time>
-                </li>
-            ))
-        }
-    </ul>
+        <header class="flex flex-col gap-2 w-full">
+            <h1 class="text-center">Welcome to Yeahjun HEO's Playground</h1>
+            <p>
+                Hi there! Welcome to my little corner of the internet. I'm
+                Yeahjun HEO, I'm a CS major at Kyoto University trying to make
+                it somewhere. To keep things simple, this is my personal website
+                where I share my projects, thoughts, and experiences. This
+                ranges from my notes on solving coding problems to something
+                interesting I read about. Feel free to explore and connect with
+                me!
+            </p>
+        </header>
+        <article class="flex flex-col gap-2 w-full">
+            <h2 class="text-center">Random Fact About Me</h2>
+            <p>{randomFacts[Math.floor(Math.random() * randomFacts.length)]}</p>
+        </article>
+    </section>
 </BaseLayout>
