@@ -1,9 +1,9 @@
 ---
 title: "Atcoder Typical 90 - Cubic Cake (★2)"
-description: "Day three of practicing the Atcoder problems. Follow this on the official website at (https://atcoder.jp/contests/typical90)!"
+description: "Day four of practicing the Atcoder problems. Follow this on the official website at (https://atcoder.jp/contests/typical90)!"
 pubDate: 2026-02-13
 tags: ["code", "atcoder"]
-draft: True
+draft: False
 ---
 
 Today was a long day.
