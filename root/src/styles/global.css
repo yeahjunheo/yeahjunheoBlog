@@ -302,3 +302,51 @@
         padding-bottom: 0.5rem;
     }
 }
+
+@keyframes idle-hover-x {
+    0%, 100% { transform: translateX(0); }
+    17% { transform: translateX(3px); }
+    44% { transform: translateX(-2px); }
+    68% { transform: translateX(1px); }
+    87% { transform: translateX(-3px); }
+}
+
+@keyframes idle-hover-y {
+    0%, 100% { transform: translateY(0); }
+    23% { transform: translateY(-4px); }
+    51% { transform: translateY(1px); }
+    74% { transform: translateY(-3px); }
+    91% { transform: translateY(2px); }
+}
+
+@keyframes idle-hover-rotate {
+    0%, 100% { rotate: 0deg; }
+    19% { rotate: 1.2deg; }
+    42% { rotate: -0.8deg; }
+    63% { rotate: 0.5deg; }
+    83% { rotate: -1deg; }
+}
+
+.animate-idle-hover {
+    animation:
+        idle-hover-x 7s ease-in-out infinite,
+        idle-hover-y 5s ease-in-out infinite,
+        idle-hover-rotate 6s ease-in-out infinite;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    10% { transform: translate(-3px, 2px) rotate(-4deg); }
+    20% { transform: translate(3px, -1px) rotate(3deg); }
+    30% { transform: translate(-2px, -2px) rotate(-3deg); }
+    40% { transform: translate(2px, 1px) rotate(4deg); }
+    50% { transform: translate(-3px, -1px) rotate(-2deg); }
+    60% { transform: translate(3px, 2px) rotate(3deg); }
+    70% { transform: translate(-1px, -2px) rotate(-4deg); }
+    80% { transform: translate(2px, 1px) rotate(2deg); }
+    90% { transform: translate(-2px, -1px) rotate(-3deg); }
+}
+
+.animate-idle-hover:active {
+    animation: shake 0.4s ease-in-out infinite;
+}

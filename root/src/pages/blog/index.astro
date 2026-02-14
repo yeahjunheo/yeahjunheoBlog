@@ -10,6 +10,34 @@ const allPosts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
 
 <BaseLayout pageTitle={pageTitle}>
     <section class="flex flex-col gap-4 py-6 items-center">
+        <div class="flex flex-row items-center justify-center gap-2 mx-auto" role="img" aria-label="Blog paper with pencil">
+            <div
+                class="w-48 h-48 bg-mc-brown animate-idle-hover"
+                style="
+                    -webkit-mask-image: url('/blog_paper.png');
+                    mask-image: url('/blog_paper.png');
+                    -webkit-mask-size: contain;
+                    mask-size: contain;
+                    -webkit-mask-repeat: no-repeat;
+                    mask-repeat: no-repeat;
+                    mask-position: center;
+                "
+            >
+            </div>
+            <!-- <div
+                class="w-18 h-36 bg-mc-brown origin-bottom hover:rotate-24 hover:-translate-y-2 transition-all duration-300"
+                style="
+                    -webkit-mask-image: url('/pencil.png');
+                    mask-image: url('/pencil.png');
+                    -webkit-mask-size: contain;
+                    mask-size: contain;
+                    -webkit-mask-repeat: no-repeat;
+                    mask-repeat: no-repeat;
+                    mask-position: bottom;
+                "
+            >
+            </div> -->
+        </div>
         <h1>Blog Posts</h1>
         <ul>
             {
