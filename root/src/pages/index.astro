@@ -5,13 +5,13 @@ import LatestPost from "../components/LatestPost.astro";
 
 const pageTitle = "Home";
 const randomFacts = [
-    "I am the middle child of three siblings so survival has been my forte since childhood. I taught myself how to hide snacks to reserve them for later, and to bribe my way out of trouble or to mitigate damages.",
+    "I'm the middle child of three siblings so survival has been my forte since childhood. I taught myself how to hide snacks to reserve them for later, and to bribe my way out of trouble or to mitigate damages.",
     "I like to take my time chewing my food, but when times call for it, I fight amongst starved beggars to get the last piece of bread.",
     "I swam competitively from elementary school all the way to early high school. But I had to quit because academic pressure got a bit unbearable while I was in Korea.",
     "Some say I'm fat, others say I'm chubby, but my closest friends call me THICC. I like to think that my legs do be THICC but my stomach is kinda getting out of hand.",
-	"My girlfriend and I have an interesting dynamic. I cook, clean, plan, and take care of most things, while she just exists. It works for us.",
-	"I like using red onions for my salsa, but occasionally they can be a bit too overpowering. Just last week, I made a batch and my mouth tasted of onions for two days straight.",
-	"I have to go serve my country for two years, and its not that SERVE but more for the country's defence. I'm kinda looking forwards to it, but also kinda worried about what will happen after."
+    "My girlfriend and I have an interesting dynamic. I cook, clean, plan, and take care of most things, while she just exists. It works for us.",
+    "I like using red onions for my salsa, but occasionally they can be a bit too overpowering. Just last week, I made a batch and my mouth tasted of onions for two days straight.",
+    "I have to go serve my country for two years, not that SERVE, but more for the country's defence. I'm kinda looking forwards to it, but also kinda worried about what will happen after.",
 ];
 ---
 
@@ -36,9 +36,9 @@ const randomFacts = [
         <header class="flex flex-col gap-2 w-full">
             <h1 class="text-center">Welcome to Yeahjun HEO's Playground</h1>
             <p>
-                Hi there! Welcome to my little corner of the internet. I'm
-                Yeahjun HEO, I'm a CS major at Kyoto University trying to make
-                it somewhere. To keep things simple, this is my personal website
+                Hi there! Welcome to my little corner of the internet. My name's
+                YJ and I'm a CS major at Kyoto University hoping to make it
+                someday. To keep things simple, this is my personal website
                 where I share my projects, thoughts, and experiences. This
                 ranges from my notes on solving coding problems to something
                 interesting I read about. Feel free to explore and connect with
@@ -51,7 +51,8 @@ const randomFacts = [
         </article>
         <script is:inline define:vars={{ randomFacts }}>
             const el = document.getElementById("random-fact");
-            el.textContent = randomFacts[Math.floor(Math.random() * randomFacts.length)];
+            el.textContent =
+                randomFacts[Math.floor(Math.random() * randomFacts.length)];
         </script>
     </section>
 </BaseLayout>

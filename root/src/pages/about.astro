@@ -3,45 +3,107 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 const pageTitle = "About";
 
-const identity = {
-    firstName: "Yeahjun",
-    lastName: "HEO",
-    nationality: "South Korea",
-    hobbies: [],
-    livedIn: [
-        "South Korea",
-        "Japan",
-        "Malta",
-        "Philippines",
-        "Tunisia",
-        "Oman",
-    ],
-    language: {
-        korean: "native",
-        enlglish: "native",
-        japanese: "fluent (JLPT N1)",
+const education = [
+    // {
+    //     school: "",
+    //     degree: "",
+    //     years: "",
+    //     note: "",
+    // },
+    {
+        school: "Kyoto University",
+        degree: "Masters of Informatics",
+        years: "Apr 2026 - Present",
+        note: "Researching at OKABE lab (distributed systems) with focus on IoT systems and network security.",
     },
-};
+    {
+        school: "Kyoto University",
+        degree: "B.S. Computer Science",
+        years: "Apr 2022 - Mar 2026",
+        note: "Researching at OKABE lab (distributed systems) with focus on IoT systems and network security.",
+    },
+    {
+        school: "Institute of Liberal Arts and Sciences (Kyoto University)",
+        degree: "Prepratory course for Kyoto University",
+        years: "Sept 2021 - Mar 2022",
+        note: "Preparation for academic life in Japan by raising Japanese proficiency.",
+    },
+    {
+        school: "Fukuoka International School (FIS)",
+        degree: "IBDP (International Baccalaureate Diploma Programme)",
+        years: "August 2019 - June 2021",
+        note: "Achieved 44/45 (Math AnA HL 7, Physics HL 7, B&M HL 7, Korean A SL 7, Chem HL 7, Eng A Lang&Lit 6).",
+    },
+];
 
-const education = {};
-
-const workExperience = {};
-
-const programmingLanguages = {};
-
-const technicalSkills = {};
-
-const personalProjects = {};
-
-const contactInformation = {};
+const workExperience = [
+    // {
+    //     company: "",
+    //     role: "",
+    //     years: "",
+    //     note: "",
+    // },
+];
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-    <h1>This is Yeahjun HEO</h1>
-    <h2>Who is Yeahjun?</h2>
-    <p>
-        Yeahjun HEO is a Korean-born but Internationally-raised individual,
-        aspiring to become a software developer who creates impactful and
-        innovative solutions.
-    </p>
+    <section class="flex flex-col gap-6 py-4">
+        <header class="flex flex-col gap-2">
+            <p class="text-center">I'll add a picture here...</p>
+            <h1 class="text-center">More About Yeahjun Heo!</h1>
+            <p>
+                I see you've come here to find out more about me, so here is a
+                rundown. I'm a Korean born but internationally raised third
+                culture kid (TCK) that ended up in Kyoto, Japan for his studies.
+                I study CS at Kyoto University with the specialization on IoT
+                systems and network security. I intend to stay based in Japan
+                for the next half decade or so, but I'm down to move wherever I
+                can shine. Now let's go over some details about me, shall we?
+            </p>
+        </header>
+        <article class="flex flex-col gap-2">
+            <h2 class="text-center">I'm a 21st Century Nomad.</h2>
+            <p>
+                My definition of <em>home</em> has never been set place. Sometimes
+                its South Korea, another time its where my family is. At one point,
+                home was where I found the most comfort existing. And after living
+                in five very distinct countries &mdash; South Korea, Oman, Philippines,
+                Malta, and Japan &mdash; I've realized that I don't need to force
+                a definition on the word. As long as I can form some meaning in my
+                stay, then I can make that my home(s).
+            </p>
+            <p>
+                Although this might sound obvious to some, it took a while for
+                myself to fully digest, especially so as a young adult. Moving
+                from country to country
+            </p>
+        </article>
+        <article class="flex flex-col gap-2">
+            <h2 class="text-center">My Education</h2>
+            <p>
+                I've moved a bunch and went to a number of schools, but here's a
+                list of the most recent I've dropped by.
+            </p>
+            <ul>
+                {
+                    education.map((ed) => (
+                        <li>
+                            <strong>{ed.school}</strong> - {ed.degree}
+                            <p>
+                                <em class="text-mc-green">{ed.years}</em>
+                            </p>
+                            {ed.note && <p>{ed.note}</p>}
+                        </li>
+                    ))
+                }
+            </ul>
+        </article>
+        <!-- <article class="flex flex-col gap-2">
+            <h2 class="text-center">My Work Experience</h2>
+        </article> -->
+        <!-- <article class="flex flex-col gap-2">
+            <h2 class="text-center">My Hobbies</h2>
+            <p></p>
+        </article> -->
+    </section>
 </BaseLayout>

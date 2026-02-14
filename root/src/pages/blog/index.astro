@@ -9,7 +9,7 @@ const allPosts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-    <div class="flex flex-col justify-self-center">
+    <section class="flex flex-col gap-4 py-6 items-center">
         <h1>Blog Posts</h1>
         <ul>
             {
@@ -21,5 +21,5 @@ const allPosts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
                 ))
             }
         </ul>
-    </div>
+    </section>
 </BaseLayout>
