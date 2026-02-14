@@ -1,60 +1,52 @@
 ---
-title: "Atcoder Typical 90 - Cubic Cake (★2)"
+title: "Atcoder Typical 90 - Select +/- One(★2)"
 description: "Day four of practicing the Atcoder problems. Follow this on the official website at (https://atcoder.jp/contests/typical90)!"
-pubDate: 2026-02-13
+pubDate: 2026-02-14
 tags: ["code", "atcoder"]
 draft: False
 ---
 
-Today was a long day.
-I just added a new visual compoenent to the home screen for this blog.
-Also, I had to clean out my closet to slowly get ready for my move from Kyoto to Osaka.
-Life is getting too real lately...
+I do think these two star questions are on the easier side, but I do want to warmup before attempting the harder ones.
+Let's give the fifth one a try.
 
-## What do we have to do this time?
+## What does this want?
 
-The question for today was an odd one.
-We're given a rectangular prism (cake) with sides A, B and C.
-With this immovable cake, it asks to return the minimum number of cuts to get cubes.
+We're given two lists with `N` integers inside.
+We want to check if we're given an interger `K`, would it be possible to convert one list to the other by adding or subtracting by `1` to an element at a time.
 
-If we have the sides A, B, and C, what can tell us the maximum side length of each cube?
-Most likely it'll be the greatest common divisor for each side.
-That way we know the maximum size of each cube that is potentially acheivable for our cake.
+For example, if we're given `N = 2, K = 5` and two lists `[1,3]` and `[2,1]`, the answer would be `Yes`.
+The steps would look like `[1,3]` to `[2,3]` then `[2,2]` and `[2,1]`.
+Since we have two extra steps left, we can just subtract and add `1` to the same element to change nothing.
 
-## Best answer?
+## Quick solution
 
-Implementing this would just mean checking the three inputs for the greatest common divisor (gcd) for three elements,
-then followed by adding all the cuts on each side to get these cubes with the gcd value.
-As to get the gcd, we can just use the Euclidean algorithm, and since this is usually for two integers, we can run it twice with A and B first than with C.
+Since we've gone through the logic, let's check the solution.
+What I've come up with is the following.
 
 ```python
-def gcd(x, y):
-    while y:
-        x, y = y, x % y
-    return x
+N, K = map(int, input().split())
+listA = input().split()
+listB = input().split()
 
-A, B, C= map(int, input().split())
-cube = gcd(gcd(a, b), c)
-print((A // cube) + (B // cube) + (C // cube) - 3)
+for _ in range(N):
+    diff = abs(int(listA.pop()) - int(listB.pop()))
+    K -= diff
+
+if K < 0:
+    print("No")
+elif K%2==1:
+    print("No")
+else:
+    print("Yes")
 ```
 
-The space complexity for this is obviously just `O(1)` since we only store a constant number of values.
-As for the time complexity, it'll be `O(log(min(A,B,C)))`.
-The time complexity does look weird, but heres the thought process behind it.
+Once we get the two lists, we'll check each the difference between each integer at the same index.
+Since we're adding or subtracting by `1`, the difference is basically the number of steps.
+Next, if the total difference is more than `K`, then that would be we can't.
+If not, then we can check if whater remainder is even or odd.
+This way we can check an element can revert itself back after a change.
 
-### Time complexity how...
+The time complexity for this is just `O(N)` since we deal with everything within one single for-loop followed by just simple comparisons right after.
+The space complexity is also just `O(N)` to store our input lists.
 
-If we look at the Euclidean algorithm, we follow a simple pattern.
-
-From two values `x` and `y`, we switch their places and save them as `y` and `x%y`.
-This way if `y` is bigger than `x`, nothing really changes,
-but if `x` is bigger than `y`, we reduce `x` to a value smaller than `y`.
-And with this movement `x -> x%y` we know for a fact that `x%y < x/2` holds.
-- if `y <= x/2`: `x%y < y <= x/2`
-- if `y > x/2`: `x%y < x-y < x/2`
-
-If we follow through with this, the time complexity for each iteration will decrease by a factor of 2 and so on, giving us an upper bound of `log(N)`.
-Since the smaller value between `A` and `B` will dictate when the algorithm will stop, we can look for the minimum value.
-
-Through this idea, we get this time complexity!
-Hopefully my message got across.
+Pretty simple stuff!
