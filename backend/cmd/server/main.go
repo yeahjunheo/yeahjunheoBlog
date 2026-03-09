@@ -4,16 +4,21 @@ import (
 	"context"
 	"log"
 	"net/http"
+	"time"
 
-	"github.com/go-chi/chi/v5"
-	"github.com/go-chi/chi/v5/middleware"
 	"github.com/golang-migrate/migrate/v4"
+	_ "github.com/golang-migrate/migrate/v4/database/postgres"
+	_ "github.com/golang-migrate/migrate/v4/source/file"
 	"github.com/jackc/pgx/v5/pgxpool"
+	"github.com/joho/godotenv"
+	"github.com/yeahjun/blog/backend/internal/api"
+	"github.com/yeahjun/blog/backend/internal/auth"
 	"github.com/yeahjun/blog/backend/internal/config"
 	db "github.com/yeahjun/blog/backend/internal/db/generated"
 )
 
 func main() {
+	godotenv.Load()
 	cfg, err := config.Load()
 	if err != nil {
 		log.Fatalf("config error: %v", err)
@@ -38,11 +43,17 @@ func main() {
 	}
 	defer pool.Close()
 
-	sqlc := db.New(pool)
-	_ = sqlc
-	c := chi.NewRouter()
-	c.Use(middleware.Logger)
-	c.Use(middleware.Recoverer)
+	queries := db.New(pool)
+
+	tokenConfig := auth.TokenConfig{
+		Secret:             cfg.JWTSecret,
+		AccessTokenExpiry:  15 * time.Minute,
+		RefreshTokenExpiry: 30 * 24 * time.Hour,
+	}
+
+	handler := api.NewHandler(queries, tokenConfig)
+	r := handler.Routes()
+
 	log.Printf("server is starting: %v", cfg.Port)
-	log.Fatal(http.ListenAndServe(":"+cfg.Port, c))
+	log.Fatal(http.ListenAndServe(":"+cfg.Port, r))
 }
