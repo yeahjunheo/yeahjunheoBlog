@@ -22,7 +22,7 @@ func GenerateAccessToken(authorID string, cfg TokenConfig) (string, error) {
 		"iat": time.Now().Unix(),
 		"exp": time.Now().Add(cfg.AccessTokenExpiry).Unix(),
 	}
-	token := jwt.NewWithClaims(jwt.SigningMethodES256, claims)
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	return token.SignedString([]byte(cfg.Secret))
 }
 
