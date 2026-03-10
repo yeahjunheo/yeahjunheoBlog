@@ -1,5 +1,6 @@
 ---
 import "../../styles/global.css";
+const apiUrl = process.env.API_URL || "http://localhost:8080";
 ---
 
 <!doctype html>
@@ -8,6 +9,7 @@ import "../../styles/global.css";
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Login | Admin</title>
+    <script define:vars={{ apiUrl }}>window.__API_URL = apiUrl;</script>
   </head>
   <body class="min-h-screen flex items-center justify-center bg-gray-50">
     <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-sm">

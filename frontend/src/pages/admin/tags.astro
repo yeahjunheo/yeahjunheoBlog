@@ -38,7 +38,7 @@ import AdminLayout from "../../layouts/AdminLayout.astro";
     import { createTag, deleteTag } from "../../lib/api";
     import { slugify } from "../../lib/utils";
 
-    const API_URL = import.meta.env.PUBLIC_API_URL || "http://localhost:8080";
+    const API_URL = (window as any).__API_URL || "http://localhost:8080";
     const nameInput = document.getElementById("tag-name") as HTMLInputElement;
     const slugInput = document.getElementById("tag-slug") as HTMLInputElement;
     const form = document.getElementById("tag-form") as HTMLFormElement;

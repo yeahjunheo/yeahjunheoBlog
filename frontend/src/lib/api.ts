@@ -26,29 +26,41 @@ export interface PostTag {
   tag_id: string;
 }
 
-// --- Server-side helpers (called from .astro frontmatter, no cookies) ---
+// --- API URL resolution ---
+// Server-side: read from process.env at runtime
+// Client-side: read from window.__API_URL injected by the layout
 
-const API_URL = import.meta.env.PUBLIC_API_URL || "http://localhost:8080";
+function getApiUrl(): string {
+  if (typeof window !== "undefined") {
+    return (window as any).__API_URL || "http://localhost:8080";
+  }
+  return process.env.API_URL || "http://localhost:8080";
+}
+
+// --- Server-side helpers (called from .astro frontmatter, no cookies) ---
 
 export async function getPublishedPosts(
   limit = 10,
   offset = 0
 ): Promise<Post[]> {
+  const url = getApiUrl();
   const res = await fetch(
-    `${API_URL}/api/posts?limit=${limit}&offset=${offset}`
+    `${url}/api/posts?limit=${limit}&offset=${offset}`
   );
   if (!res.ok) return [];
   return (await res.json()) ?? [];
 }
 
 export async function getPostBySlug(slug: string): Promise<Post | null> {
-  const res = await fetch(`${API_URL}/api/posts/${slug}`);
+  const url = getApiUrl();
+  const res = await fetch(`${url}/api/posts/${slug}`);
   if (!res.ok) return null;
   return res.json();
 }
 
 export async function getAllTags(): Promise<Tag[]> {
-  const res = await fetch(`${API_URL}/api/tags`);
+  const url = getApiUrl();
+  const res = await fetch(`${url}/api/tags`);
   if (!res.ok) return [];
   return (await res.json()) ?? [];
 }
@@ -58,8 +70,9 @@ export async function getPostsByTag(
   limit = 10,
   offset = 0
 ): Promise<Post[]> {
+  const url = getApiUrl();
   const res = await fetch(
-    `${API_URL}/api/tags/${slug}/posts?limit=${limit}&offset=${offset}`
+    `${url}/api/tags/${slug}/posts?limit=${limit}&offset=${offset}`
   );
   if (!res.ok) return [];
   const rows = await res.json();
@@ -83,7 +96,8 @@ async function clientFetch(
   path: string,
   init: RequestInit = {}
 ): Promise<Response> {
-  const res = await fetch(`${API_URL}${path}`, {
+  const url = getApiUrl();
+  const res = await fetch(`${url}${path}`, {
     credentials: "include",
     ...init,
     headers: {
@@ -94,13 +108,13 @@ async function clientFetch(
 
   if (res.status === 401) {
     // Try refreshing the access token
-    const refreshRes = await fetch(`${API_URL}/api/auth/refresh`, {
+    const refreshRes = await fetch(`${url}/api/auth/refresh`, {
       method: "POST",
       credentials: "include",
     });
     if (refreshRes.ok) {
       // Retry original request
-      return fetch(`${API_URL}${path}`, {
+      return fetch(`${url}${path}`, {
         credentials: "include",
         ...init,
         headers: {
@@ -120,7 +134,8 @@ export async function login(
   username: string,
   password: string
 ): Promise<boolean> {
-  const res = await fetch(`${API_URL}/api/auth/login`, {
+  const url = getApiUrl();
+  const res = await fetch(`${url}/api/auth/login`, {
     method: "POST",
     credentials: "include",
     headers: { "Content-Type": "application/json" },
@@ -130,7 +145,8 @@ export async function login(
 }
 
 export async function logout(): Promise<void> {
-  await fetch(`${API_URL}/api/auth/logout`, {
+  const url = getApiUrl();
+  await fetch(`${url}/api/auth/logout`, {
     method: "POST",
     credentials: "include",
   });

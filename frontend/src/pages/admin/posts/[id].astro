@@ -150,7 +150,7 @@ const { id } = Astro.params;
     }
 
     async function loadTags() {
-      const API_URL = import.meta.env.PUBLIC_API_URL || "http://localhost:8080";
+      const API_URL = (window as any).__API_URL || "http://localhost:8080";
       const res = await fetch(`${API_URL}/api/tags`);
       allTags = res.ok ? await res.json() : [];
 
