@@ -34,7 +34,7 @@ function getApiUrl(): string {
   if (typeof window !== "undefined") {
     return (window as any).__API_URL || "http://localhost:8080";
   }
-  return process.env.API_URL || "http://localhost:8080";
+  return process.env.PUBLIC_API_URL || "http://localhost:8080";
 }
 
 // --- Server-side helpers (called from .astro frontmatter, no cookies) ---

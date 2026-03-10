@@ -9,7 +9,7 @@ interface Props {
 }
 
 const { title, description = "A personal blog" } = Astro.props;
-const apiUrl = process.env.API_URL || "http://localhost:8080";
+const apiUrl = process.env.PUBLIC_API_URL || "http://localhost:8080";
 ---
 
 <!doctype html>
