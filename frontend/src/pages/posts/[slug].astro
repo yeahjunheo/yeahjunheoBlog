@@ -1,0 +1,30 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getPostBySlug } from "../../lib/api";
+import { renderMarkdown } from "../../lib/markdown";
+import { formatDate } from "../../lib/utils";
+
+const { slug } = Astro.params;
+const post = await getPostBySlug(slug!);
+
+if (!post) {
+  return Astro.redirect("/404");
+}
+
+const html = renderMarkdown(post.content);
+---
+
+<BaseLayout title={post.title} description={post.excerpt || undefined}>
+  <article>
+    <header class="mb-8">
+      <h1 class="text-3xl font-bold">{post.title}</h1>
+      <time class="text-sm text-gray-500 mt-2 block">
+        {formatDate(post.published_at || post.created_at)}
+      </time>
+    </header>
+    <div class="prose prose-gray max-w-none" set:html={html} />
+  </article>
+  <div class="mt-8 pt-4 border-t border-gray-100">
+    <a href="/" class="text-gray-600 hover:text-gray-900">&larr; Back to posts</a>
+  </div>
+</BaseLayout>

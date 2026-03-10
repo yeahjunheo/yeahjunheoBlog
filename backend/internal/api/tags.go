@@ -42,6 +42,24 @@ func (h *Handler) GetPostsByTag(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(posts)
 }
 
+func (h *Handler) GetPostTags(w http.ResponseWriter, r *http.Request) {
+	idStr := chi.URLParam(r, "id")
+	id, err := parseUUID(idStr)
+	if err != nil {
+		http.Error(w, "invalid id", http.StatusBadRequest)
+		return
+	}
+
+	tags, err := h.sqlc.GetPostTags(r.Context(), id)
+	if err != nil {
+		http.Error(w, "internal error", http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(tags)
+}
+
 func (h *Handler) CreateTag(w http.ResponseWriter, r *http.Request) {
 	var req db.CreateTagParams
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {

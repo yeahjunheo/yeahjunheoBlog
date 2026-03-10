@@ -51,7 +51,7 @@ func main() {
 		RefreshTokenExpiry: 30 * 24 * time.Hour,
 	}
 
-	handler := api.NewHandler(queries, tokenConfig)
+	handler := api.NewHandler(queries, tokenConfig, cfg.AllowedOrigin)
 	r := handler.Routes()
 
 	log.Printf("server is starting: %v", cfg.Port)

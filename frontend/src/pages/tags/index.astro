@@ -1,0 +1,20 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import TagBadge from "../../components/TagBadge.astro";
+import { getAllTags } from "../../lib/api";
+
+const tags = await getAllTags();
+---
+
+<BaseLayout title="Tags">
+  <h1 class="text-3xl font-bold mb-6">Tags</h1>
+  {tags.length === 0 ? (
+    <p class="text-gray-500">No tags yet.</p>
+  ) : (
+    <div class="flex flex-wrap gap-2">
+      {tags.map((tag) => (
+        <TagBadge tag={tag} />
+      ))}
+    </div>
+  )}
+</BaseLayout>

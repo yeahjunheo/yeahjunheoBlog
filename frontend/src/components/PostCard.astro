@@ -1,0 +1,19 @@
+---
+import type { Post } from "../lib/api";
+import { formatDate } from "../lib/utils";
+
+interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+const excerpt = post.excerpt || post.content.slice(0, 200) + (post.content.length > 200 ? "..." : "");
+---
+
+<article class="py-6 border-b border-gray-100 last:border-0">
+  <a href={`/posts/${post.slug}`} class="group">
+    <h2 class="text-xl font-semibold group-hover:text-gray-600">{post.title}</h2>
+  </a>
+  <time class="text-sm text-gray-500 mt-1 block">{formatDate(post.published_at || post.created_at)}</time>
+  <p class="text-gray-600 mt-2 line-clamp-3">{excerpt}</p>
+</article>

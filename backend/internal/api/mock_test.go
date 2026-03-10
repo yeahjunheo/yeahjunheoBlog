@@ -97,5 +97,6 @@ func newTestHandler(mock *mockQuerier) *Handler {
 			AccessTokenExpiry:  15 * time.Minute,
 			RefreshTokenExpiry: 7 * 24 * time.Hour,
 		},
+		allowedOrigin: "http://localhost:4321",
 	}
 }

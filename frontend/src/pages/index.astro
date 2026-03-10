@@ -1,0 +1,28 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PostCard from "../components/PostCard.astro";
+import Pagination from "../components/Pagination.astro";
+import { getPublishedPosts } from "../lib/api";
+
+const POSTS_PER_PAGE = 10;
+const page = Math.max(1, Number(Astro.url.searchParams.get("page")) || 1);
+const offset = (page - 1) * POSTS_PER_PAGE;
+
+const posts = await getPublishedPosts(POSTS_PER_PAGE + 1, offset);
+const hasMore = posts.length > POSTS_PER_PAGE;
+const displayPosts = posts.slice(0, POSTS_PER_PAGE);
+---
+
+<BaseLayout title="yeahjunheo">
+  <h1 class="text-3xl font-bold mb-6">Posts</h1>
+  {displayPosts.length === 0 ? (
+    <p class="text-gray-500">No posts yet.</p>
+  ) : (
+    <div>
+      {displayPosts.map((post) => (
+        <PostCard post={post} />
+      ))}
+    </div>
+  )}
+  <Pagination currentPage={page} hasMore={hasMore} baseUrl="/" />
+</BaseLayout>

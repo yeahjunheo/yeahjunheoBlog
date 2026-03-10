@@ -14,6 +14,7 @@ func (h *Handler) Routes() *chi.Mux {
 	authLimiter := auth.NewRateLimiter(5, 1*time.Minute)
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
+	r.Use(CORSMiddleware(h.allowedOrigin))
 	r.Use(globalLimiter.Limit)
 
 	r.Route("/api", func(r chi.Router) {
@@ -31,9 +32,11 @@ func (h *Handler) Routes() *chi.Mux {
 
 		r.Route("/admin", func(r chi.Router) {
 			r.Use(auth.JWTMiddleware(h.tokenConfig.Secret))
+			r.Get("/posts", h.ListPostsAdmin)
 			r.Post("/posts", h.CreatePost)
 			r.Put("/posts/{id}", h.UpdatePost)
 			r.Delete("/posts/{id}", h.DeletePost)
+			r.Get("/posts/{id}/tags", h.GetPostTags)
 			r.Post("/tags", h.CreateTag)
 			r.Delete("/tags/{id}", h.DeleteTag)
 			r.Post("/posts/{id}/tags", h.AddTagToPost)

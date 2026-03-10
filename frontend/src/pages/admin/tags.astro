@@ -1,0 +1,119 @@
+---
+import AdminLayout from "../../layouts/AdminLayout.astro";
+---
+
+<AdminLayout title="Tags">
+  <h1 class="text-2xl font-bold mb-6">Tags</h1>
+
+  <form id="tag-form" class="flex gap-2 mb-6">
+    <input
+      type="text"
+      id="tag-name"
+      placeholder="Tag name"
+      required
+      class="border border-gray-300 rounded px-3 py-2 flex-1 focus:outline-none focus:ring-2 focus:ring-gray-900"
+    />
+    <input
+      type="text"
+      id="tag-slug"
+      placeholder="slug"
+      required
+      class="border border-gray-300 rounded px-3 py-2 w-48 focus:outline-none focus:ring-2 focus:ring-gray-900"
+    />
+    <button
+      type="submit"
+      class="bg-gray-900 text-white px-4 py-2 rounded hover:bg-gray-800 text-sm"
+    >
+      Create Tag
+    </button>
+  </form>
+
+  <div id="error" class="text-red-600 text-sm hidden mb-4"></div>
+
+  <div id="loading" class="text-gray-500">Loading...</div>
+  <ul id="tags-list" class="space-y-2 hidden"></ul>
+  <p id="empty" class="text-gray-500 hidden">No tags yet.</p>
+
+  <script>
+    import { createTag, deleteTag } from "../../lib/api";
+    import { slugify } from "../../lib/utils";
+
+    const API_URL = import.meta.env.PUBLIC_API_URL || "http://localhost:8080";
+    const nameInput = document.getElementById("tag-name") as HTMLInputElement;
+    const slugInput = document.getElementById("tag-slug") as HTMLInputElement;
+    const form = document.getElementById("tag-form") as HTMLFormElement;
+    const errorEl = document.getElementById("error")!;
+    const loading = document.getElementById("loading")!;
+    const tagsList = document.getElementById("tags-list")!;
+    const empty = document.getElementById("empty")!;
+
+    nameInput.addEventListener("input", () => {
+      slugInput.value = slugify(nameInput.value);
+    });
+
+    async function loadTags() {
+      const res = await fetch(`${API_URL}/api/tags`);
+      const tags = res.ok ? await res.json() : [];
+
+      loading.classList.add("hidden");
+
+      if (tags.length === 0) {
+        tagsList.classList.add("hidden");
+        empty.classList.remove("hidden");
+        return;
+      }
+
+      empty.classList.add("hidden");
+      tagsList.classList.remove("hidden");
+      tagsList.innerHTML = tags
+        .map(
+          (t: any) => `
+        <li class="flex items-center justify-between bg-white p-3 rounded border border-gray-200">
+          <div>
+            <span class="font-medium">${escapeHtml(t.name)}</span>
+            <span class="text-sm text-gray-500 ml-2">${escapeHtml(t.slug)}</span>
+          </div>
+          <button data-delete="${t.id}" class="text-red-600 hover:text-red-800 text-sm">Delete</button>
+        </li>
+      `
+        )
+        .join("");
+
+      tagsList.querySelectorAll("[data-delete]").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          const id = (btn as HTMLElement).dataset.delete!;
+          if (!confirm("Delete this tag?")) return;
+          const ok = await deleteTag(id);
+          if (ok) loadTags();
+        });
+      });
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      errorEl.classList.add("hidden");
+
+      const tag = await createTag({
+        name: nameInput.value,
+        slug: slugInput.value,
+      });
+
+      if (tag) {
+        nameInput.value = "";
+        slugInput.value = "";
+        loadTags();
+      } else {
+        errorEl.textContent = "Failed to create tag.";
+        errorEl.classList.remove("hidden");
+      }
+    });
+
+    function escapeHtml(str: string) {
+      const d = document.createElement("div");
+      d.textContent = str;
+      return d.innerHTML;
+    }
+
+    loadTags();
+  </script>
+</AdminLayout>

@@ -1,0 +1,26 @@
+---
+interface Props {
+  currentPage: number;
+  hasMore: boolean;
+  baseUrl: string;
+}
+
+const { currentPage, hasMore, baseUrl } = Astro.props;
+const prevUrl = currentPage > 1 ? `${baseUrl}?page=${currentPage - 1}` : null;
+const nextUrl = hasMore ? `${baseUrl}?page=${currentPage + 1}` : null;
+---
+
+{(prevUrl || nextUrl) && (
+  <div class="flex justify-between items-center mt-8 pt-4 border-t border-gray-100">
+    {prevUrl ? (
+      <a href={prevUrl} class="text-gray-600 hover:text-gray-900">&larr; Previous</a>
+    ) : (
+      <span />
+    )}
+    {nextUrl ? (
+      <a href={nextUrl} class="text-gray-600 hover:text-gray-900">Next &rarr;</a>
+    ) : (
+      <span />
+    )}
+  </div>
+)}
