@@ -1,6 +1,10 @@
 ---
 import AdminLayout from "../../../layouts/AdminLayout.astro";
 
+if (!Astro.cookies.has("access_token")) {
+  return Astro.redirect("/admin/login");
+}
+
 const { id } = Astro.params;
 ---
 
