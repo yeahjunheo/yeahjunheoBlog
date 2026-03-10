@@ -12,7 +12,11 @@ env:
   SERVICE: blog-frontend
 
 jobs:
+  check:
+    uses: ./.github/workflows/check-frontend.yml
+
   deploy:
+    needs: check
     runs-on: ubuntu-latest
     permissions:
       contents: read

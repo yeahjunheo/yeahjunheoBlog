@@ -12,7 +12,7 @@ import (
 func (h *Handler) ListTags(w http.ResponseWriter, r *http.Request) {
 	tags, err := h.sqlc.GetAllTags(r.Context())
 	if err != nil {
-		http.Error(w, "internal error", http.StatusInternalServerError)
+		jsonError(w, "internal error", http.StatusInternalServerError)
 		return
 	}
 
@@ -34,7 +34,7 @@ func (h *Handler) GetPostsByTag(w http.ResponseWriter, r *http.Request) {
 		Offset: int32(offset),
 	})
 	if err != nil {
-		http.Error(w, "internal error", http.StatusInternalServerError)
+		jsonError(w, "internal error", http.StatusInternalServerError)
 		return
 	}
 
@@ -46,13 +46,13 @@ func (h *Handler) GetPostTags(w http.ResponseWriter, r *http.Request) {
 	idStr := chi.URLParam(r, "id")
 	id, err := parseUUID(idStr)
 	if err != nil {
-		http.Error(w, "invalid id", http.StatusBadRequest)
+		jsonError(w, "invalid id", http.StatusBadRequest)
 		return
 	}
 
 	tags, err := h.sqlc.GetPostTags(r.Context(), id)
 	if err != nil {
-		http.Error(w, "internal error", http.StatusInternalServerError)
+		jsonError(w, "internal error", http.StatusInternalServerError)
 		return
 	}
 
@@ -63,13 +63,13 @@ func (h *Handler) GetPostTags(w http.ResponseWriter, r *http.Request) {
 func (h *Handler) CreateTag(w http.ResponseWriter, r *http.Request) {
 	var req db.CreateTagParams
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, "invalid request body", http.StatusBadRequest)
+		jsonError(w, "invalid request body", http.StatusBadRequest)
 		return
 	}
 
 	tag, err := h.sqlc.CreateTag(r.Context(), req)
 	if err != nil {
-		http.Error(w, "internal error", http.StatusInternalServerError)
+		jsonError(w, "internal error", http.StatusInternalServerError)
 		return
 	}
 
@@ -82,13 +82,13 @@ func (h *Handler) DeleteTag(w http.ResponseWriter, r *http.Request) {
 	idStr := chi.URLParam(r, "id")
 	id, err := parseUUID(idStr)
 	if err != nil {
-		http.Error(w, "invalid id", http.StatusBadRequest)
+		jsonError(w, "invalid id", http.StatusBadRequest)
 		return
 	}
 
 	err = h.sqlc.DeleteTagByID(r.Context(), id)
 	if err != nil {
-		http.Error(w, "internal error", http.StatusInternalServerError)
+		jsonError(w, "internal error", http.StatusInternalServerError)
 		return
 	}
 
@@ -99,7 +99,7 @@ func (h *Handler) AddTagToPost(w http.ResponseWriter, r *http.Request) {
 	postIDStr := chi.URLParam(r, "id")
 	postID, err := parseUUID(postIDStr)
 	if err != nil {
-		http.Error(w, "invalid post id", http.StatusBadRequest)
+		jsonError(w, "invalid post id", http.StatusBadRequest)
 		return
 	}
 
@@ -107,13 +107,13 @@ func (h *Handler) AddTagToPost(w http.ResponseWriter, r *http.Request) {
 		TagID string `json:"tag_id"`
 	}
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, "invalid request body", http.StatusBadRequest)
+		jsonError(w, "invalid request body", http.StatusBadRequest)
 		return
 	}
 
 	tagID, err := parseUUID(req.TagID)
 	if err != nil {
-		http.Error(w, "invalid tag id", http.StatusBadRequest)
+		jsonError(w, "invalid tag id", http.StatusBadRequest)
 		return
 	}
 
@@ -122,7 +122,7 @@ func (h *Handler) AddTagToPost(w http.ResponseWriter, r *http.Request) {
 		TagID:  tagID,
 	})
 	if err != nil {
-		http.Error(w, "internal error", http.StatusInternalServerError)
+		jsonError(w, "internal error", http.StatusInternalServerError)
 		return
 	}
 
@@ -133,14 +133,14 @@ func (h *Handler) RemoveTagFromPost(w http.ResponseWriter, r *http.Request) {
 	postIDStr := chi.URLParam(r, "id")
 	postID, err := parseUUID(postIDStr)
 	if err != nil {
-		http.Error(w, "invalid post id", http.StatusBadRequest)
+		jsonError(w, "invalid post id", http.StatusBadRequest)
 		return
 	}
 
 	tagIDStr := chi.URLParam(r, "tagID")
 	tagID, err := parseUUID(tagIDStr)
 	if err != nil {
-		http.Error(w, "invalid tag id", http.StatusBadRequest)
+		jsonError(w, "invalid tag id", http.StatusBadRequest)
 		return
 	}
 
@@ -149,7 +149,7 @@ func (h *Handler) RemoveTagFromPost(w http.ResponseWriter, r *http.Request) {
 		TagID:  tagID,
 	})
 	if err != nil {
-		http.Error(w, "internal error", http.StatusInternalServerError)
+		jsonError(w, "internal error", http.StatusInternalServerError)
 		return
 	}
 

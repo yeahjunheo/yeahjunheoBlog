@@ -22,7 +22,7 @@ func (h *Handler) ListPublishedPosts(w http.ResponseWriter, r *http.Request) {
 		Offset: int32(offset),
 	})
 	if err != nil {
-		http.Error(w, "internal error", http.StatusInternalServerError)
+		jsonError(w, "internal error", http.StatusInternalServerError)
 		return
 	}
 
@@ -35,7 +35,7 @@ func (h *Handler) GetPost(w http.ResponseWriter, r *http.Request) {
 
 	post, err := h.sqlc.GetPostBySlug(r.Context(), slug)
 	if err != nil {
-		http.Error(w, "post not found", http.StatusNotFound)
+		jsonError(w, "post not found", http.StatusNotFound)
 		return
 	}
 
@@ -55,7 +55,7 @@ func (h *Handler) ListPostsAdmin(w http.ResponseWriter, r *http.Request) {
 		Offset: int32(offset),
 	})
 	if err != nil {
-		http.Error(w, "internal error", http.StatusInternalServerError)
+		jsonError(w, "internal error", http.StatusInternalServerError)
 		return
 	}
 
@@ -66,13 +66,13 @@ func (h *Handler) ListPostsAdmin(w http.ResponseWriter, r *http.Request) {
 func (h *Handler) CreatePost(w http.ResponseWriter, r *http.Request) {
 	var req db.CreatePostParams
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, "invalid request body", http.StatusBadRequest)
+		jsonError(w, "invalid request body", http.StatusBadRequest)
 		return
 	}
 
 	post, err := h.sqlc.CreatePost(r.Context(), req)
 	if err != nil {
-		http.Error(w, "internal error", http.StatusInternalServerError)
+		jsonError(w, "internal error", http.StatusInternalServerError)
 		return
 	}
 
@@ -85,20 +85,20 @@ func (h *Handler) UpdatePost(w http.ResponseWriter, r *http.Request) {
 	idStr := chi.URLParam(r, "id")
 	id, err := parseUUID(idStr)
 	if err != nil {
-		http.Error(w, "invalid id", http.StatusBadRequest)
+		jsonError(w, "invalid id", http.StatusBadRequest)
 		return
 	}
 
 	var req db.UpdatePostByIDParams
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, "invalid request body", http.StatusBadRequest)
+		jsonError(w, "invalid request body", http.StatusBadRequest)
 		return
 	}
 	req.ID = id
 
 	post, err := h.sqlc.UpdatePostByID(r.Context(), req)
 	if err != nil {
-		http.Error(w, "internal error", http.StatusInternalServerError)
+		jsonError(w, "internal error", http.StatusInternalServerError)
 		return
 	}
 
@@ -110,13 +110,13 @@ func (h *Handler) DeletePost(w http.ResponseWriter, r *http.Request) {
 	idStr := chi.URLParam(r, "id")
 	id, err := parseUUID(idStr)
 	if err != nil {
-		http.Error(w, "invalid id", http.StatusBadRequest)
+		jsonError(w, "invalid id", http.StatusBadRequest)
 		return
 	}
 
 	err = h.sqlc.DeletePostByID(r.Context(), id)
 	if err != nil {
-		http.Error(w, "internal error", http.StatusInternalServerError)
+		jsonError(w, "internal error", http.StatusInternalServerError)
 		return
 	}
 

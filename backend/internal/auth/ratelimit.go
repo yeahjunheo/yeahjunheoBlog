@@ -1,6 +1,7 @@
 package auth
 
 import (
+	"encoding/json"
 	"net"
 	"net/http"
 	"strings"
@@ -58,7 +59,9 @@ func (rl *RateLimiter) Limit(next http.Handler) http.Handler {
 		a.count++
 		if a.count > rl.max {
 			rl.mu.Unlock()
-			http.Error(w, "too many requests", http.StatusTooManyRequests)
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(http.StatusTooManyRequests)
+			json.NewEncoder(w).Encode(map[string]string{"error": "too many requests"})
 			return
 		}
 		rl.mu.Unlock()

@@ -1,6 +1,7 @@
 package api
 
 import (
+	"net/http"
 	"time"
 
 	"github.com/go-chi/chi/v5"
@@ -16,6 +17,11 @@ func (h *Handler) Routes() *chi.Mux {
 	r.Use(middleware.Recoverer)
 	r.Use(CORSMiddleware(h.allowedOrigin))
 	r.Use(globalLimiter.Limit)
+
+	r.Get("/health", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		w.Write([]byte(`{"status":"ok"}`))
+	})
 
 	r.Route("/api", func(r chi.Router) {
 		r.Get("/posts", h.ListPublishedPosts)

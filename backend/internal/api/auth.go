@@ -19,30 +19,30 @@ type loginRequest struct {
 func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 	var req loginRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		http.Error(w, "invalid request body", http.StatusBadRequest)
+		jsonError(w, "invalid request body", http.StatusBadRequest)
 		return
 	}
 
 	author, err := h.sqlc.GetAuthorByUsername(r.Context(), req.Username)
 	if err != nil {
-		http.Error(w, "invalid credentials", http.StatusUnauthorized)
+		jsonError(w, "invalid credentials", http.StatusUnauthorized)
 		return
 	}
 
 	if !auth.ComparePassword(author.PasswordHash, req.Password) {
-		http.Error(w, "invalid credentials", http.StatusUnauthorized)
+		jsonError(w, "invalid credentials", http.StatusUnauthorized)
 		return
 	}
 
 	accessToken, err := auth.GenerateAccessToken(uuid.UUID(author.ID.Bytes).String(), h.tokenConfig)
 	if err != nil {
-		http.Error(w, "internal error", http.StatusInternalServerError)
+		jsonError(w, "internal error", http.StatusInternalServerError)
 		return
 	}
 
 	refreshToken, err := auth.GenerateRefreshToken()
 	if err != nil {
-		http.Error(w, "internal error", http.StatusInternalServerError)
+		jsonError(w, "internal error", http.StatusInternalServerError)
 		return
 	}
 
@@ -55,7 +55,7 @@ func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 		},
 	})
 	if err != nil {
-		http.Error(w, "internal error", http.StatusInternalServerError)
+		jsonError(w, "internal error", http.StatusInternalServerError)
 		return
 	}
 
@@ -86,13 +86,13 @@ func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 func (h *Handler) Logout(w http.ResponseWriter, r *http.Request) {
 	cookie, err := r.Cookie("refresh_token")
 	if err != nil {
-		http.Error(w, "unauthorized", http.StatusUnauthorized)
+		jsonError(w, "unauthorized", http.StatusUnauthorized)
 		return
 	}
 
 	err = h.sqlc.DeleteRefreshToken(r.Context(), auth.HashToken(cookie.Value))
 	if err != nil {
-		http.Error(w, "internal error", http.StatusInternalServerError)
+		jsonError(w, "internal error", http.StatusInternalServerError)
 		return
 	}
 
@@ -123,26 +123,26 @@ func (h *Handler) Logout(w http.ResponseWriter, r *http.Request) {
 func (h *Handler) Refresh(w http.ResponseWriter, r *http.Request) {
 	cookie, err := r.Cookie("refresh_token")
 	if err != nil {
-		http.Error(w, "unauthorized", http.StatusUnauthorized)
+		jsonError(w, "unauthorized", http.StatusUnauthorized)
 		return
 	}
 
 	tokenHash := auth.HashToken(cookie.Value)
 	stored, err := h.sqlc.GetRefreshToken(r.Context(), tokenHash)
 	if err != nil {
-		http.Error(w, "unauthorized", http.StatusUnauthorized)
+		jsonError(w, "unauthorized", http.StatusUnauthorized)
 		return
 	}
 
 	if time.Now().After(stored.ExpiresAt.Time) {
 		h.sqlc.DeleteRefreshToken(r.Context(), tokenHash)
-		http.Error(w, "token expired", http.StatusUnauthorized)
+		jsonError(w, "token expired", http.StatusUnauthorized)
 		return
 	}
 
 	err = h.sqlc.DeleteRefreshToken(r.Context(), tokenHash)
 	if err != nil {
-		http.Error(w, "internal error", http.StatusInternalServerError)
+		jsonError(w, "internal error", http.StatusInternalServerError)
 		return
 	}
 
@@ -150,13 +150,13 @@ func (h *Handler) Refresh(w http.ResponseWriter, r *http.Request) {
 
 	accessToken, err := auth.GenerateAccessToken(authorID, h.tokenConfig)
 	if err != nil {
-		http.Error(w, "internal error", http.StatusInternalServerError)
+		jsonError(w, "internal error", http.StatusInternalServerError)
 		return
 	}
 
 	newRefreshToken, err := auth.GenerateRefreshToken()
 	if err != nil {
-		http.Error(w, "internal error", http.StatusInternalServerError)
+		jsonError(w, "internal error", http.StatusInternalServerError)
 		return
 	}
 
@@ -169,7 +169,7 @@ func (h *Handler) Refresh(w http.ResponseWriter, r *http.Request) {
 		},
 	})
 	if err != nil {
-		http.Error(w, "internal error", http.StatusInternalServerError)
+		jsonError(w, "internal error", http.StatusInternalServerError)
 		return
 	}
 
