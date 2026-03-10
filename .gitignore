@@ -27,6 +27,9 @@ draft.*.md
 .DS_Store
 *.local
 *.pem
+context.md
+cookies.txt
+hash.go
 
 
 # debug
@@ -44,3 +47,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+terraform.tfvars

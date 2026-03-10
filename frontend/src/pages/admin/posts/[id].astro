@@ -1,0 +1,231 @@
+---
+import AdminLayout from "../../../layouts/AdminLayout.astro";
+
+const { id } = Astro.params;
+---
+
+<AdminLayout title="Edit Post">
+  <h1 class="text-2xl font-bold mb-6">Edit Post</h1>
+  <div id="loading" class="text-gray-500">Loading...</div>
+
+  <form id="post-form" class="space-y-4 hidden">
+    <div>
+      <label for="title" class="block text-sm font-medium text-gray-700 mb-1">Title</label>
+      <input
+        type="text"
+        id="title"
+        required
+        class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-900"
+      />
+    </div>
+    <div>
+      <label for="slug" class="block text-sm font-medium text-gray-700 mb-1">Slug</label>
+      <input
+        type="text"
+        id="slug"
+        required
+        class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-900"
+      />
+    </div>
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label for="status" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+        <select
+          id="status"
+          class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-900"
+        >
+          <option value="draft">Draft</option>
+          <option value="published">Published</option>
+        </select>
+      </div>
+      <div>
+        <label for="published_at" class="block text-sm font-medium text-gray-700 mb-1">Published At</label>
+        <input
+          type="datetime-local"
+          id="published_at"
+          class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-900"
+        />
+      </div>
+    </div>
+    <div>
+      <label for="excerpt" class="block text-sm font-medium text-gray-700 mb-1">Excerpt</label>
+      <textarea
+        id="excerpt"
+        rows="2"
+        class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-900"
+      ></textarea>
+    </div>
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1">Content (Markdown)</label>
+      <div class="grid grid-cols-2 gap-4">
+        <textarea
+          id="content"
+          rows="20"
+          required
+          class="border border-gray-300 rounded px-3 py-2 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-gray-900"
+        ></textarea>
+        <div
+          id="preview"
+          class="border border-gray-200 rounded px-3 py-2 prose prose-sm max-w-none overflow-auto"
+        ></div>
+      </div>
+    </div>
+
+    <!-- Tag management -->
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-1">Tags</label>
+      <div id="current-tags" class="flex flex-wrap gap-2 mb-2"></div>
+      <div class="flex gap-2">
+        <select id="tag-select" class="border border-gray-300 rounded px-3 py-2 text-sm flex-1">
+          <option value="">Add a tag...</option>
+        </select>
+        <button
+          type="button"
+          id="add-tag-btn"
+          class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-2 rounded text-sm"
+        >
+          Add
+        </button>
+      </div>
+    </div>
+
+    <div id="error" class="text-red-600 text-sm hidden"></div>
+    <button
+      type="submit"
+      class="bg-gray-900 text-white px-6 py-2 rounded hover:bg-gray-800"
+    >
+      Save Changes
+    </button>
+  </form>
+
+  <script define:vars={{ id }}>
+    window.__postId = id;
+  </script>
+
+  <script>
+    import { getAdminPosts, updatePost, getPostTags, addTagToPost, removeTagFromPost } from "../../../lib/api";
+    import type { Tag } from "../../../lib/api";
+    import { renderMarkdown } from "../../../lib/markdown";
+
+    const postId = (window as any).__postId as string;
+
+    const loading = document.getElementById("loading")!;
+    const form = document.getElementById("post-form") as HTMLFormElement;
+    const titleInput = document.getElementById("title") as HTMLInputElement;
+    const slugInput = document.getElementById("slug") as HTMLInputElement;
+    const statusSelect = document.getElementById("status") as HTMLSelectElement;
+    const publishedAtInput = document.getElementById("published_at") as HTMLInputElement;
+    const excerptInput = document.getElementById("excerpt") as HTMLTextAreaElement;
+    const contentInput = document.getElementById("content") as HTMLTextAreaElement;
+    const preview = document.getElementById("preview")!;
+    const errorEl = document.getElementById("error")!;
+    const currentTagsEl = document.getElementById("current-tags")!;
+    const tagSelect = document.getElementById("tag-select") as HTMLSelectElement;
+    const addTagBtn = document.getElementById("add-tag-btn")!;
+
+    let allTags: Tag[] = [];
+
+    async function loadPost() {
+      const posts = await getAdminPosts();
+      const post = posts.find((p) => p.id === postId);
+      if (!post) {
+        loading.textContent = "Post not found.";
+        return;
+      }
+
+      titleInput.value = post.title;
+      slugInput.value = post.slug;
+      statusSelect.value = post.status;
+      if (post.published_at) {
+        publishedAtInput.value = new Date(post.published_at).toISOString().slice(0, 16);
+      }
+      excerptInput.value = post.excerpt || "";
+      contentInput.value = post.content;
+      preview.innerHTML = renderMarkdown(post.content);
+
+      loading.classList.add("hidden");
+      form.classList.remove("hidden");
+
+      await loadTags();
+    }
+
+    async function loadTags() {
+      const API_URL = import.meta.env.PUBLIC_API_URL || "http://localhost:8080";
+      const res = await fetch(`${API_URL}/api/tags`);
+      allTags = res.ok ? await res.json() : [];
+
+      const postTags = await getPostTags(postId);
+      const postTagIds = new Set(postTags.map((t) => t.id));
+
+      renderCurrentTags(postTags.map((pt) => ({ id: pt.id, name: pt.name, slug: pt.slug })));
+      renderTagSelect(allTags.filter((t) => !postTagIds.has(t.id)));
+    }
+
+    function renderCurrentTags(tags: Tag[]) {
+      currentTagsEl.innerHTML = tags.length === 0
+        ? '<span class="text-sm text-gray-400">No tags</span>'
+        : tags
+            .map(
+              (t) =>
+                `<span class="inline-flex items-center gap-1 bg-gray-100 text-gray-700 text-sm px-3 py-1 rounded-full">
+                  ${escapeHtml(t.name)}
+                  <button type="button" data-remove-tag="${t.id}" class="text-gray-400 hover:text-red-600">&times;</button>
+                </span>`
+            )
+            .join("");
+
+      currentTagsEl.querySelectorAll("[data-remove-tag]").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          const tagId = (btn as HTMLElement).dataset.removeTag!;
+          await removeTagFromPost(postId, tagId);
+          await loadTags();
+        });
+      });
+    }
+
+    function renderTagSelect(tags: Tag[]) {
+      tagSelect.innerHTML = '<option value="">Add a tag...</option>' +
+        tags.map((t) => `<option value="${t.id}">${escapeHtml(t.name)}</option>`).join("");
+    }
+
+    addTagBtn.addEventListener("click", async () => {
+      const tagId = tagSelect.value;
+      if (!tagId) return;
+      await addTagToPost(postId, tagId);
+      await loadTags();
+    });
+
+    contentInput.addEventListener("input", () => {
+      preview.innerHTML = renderMarkdown(contentInput.value);
+    });
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      errorEl.classList.add("hidden");
+
+      const result = await updatePost(postId, {
+        title: titleInput.value,
+        slug: slugInput.value,
+        content: contentInput.value,
+        excerpt: excerptInput.value || null,
+        status: statusSelect.value,
+        published_at: publishedAtInput.value ? new Date(publishedAtInput.value).toISOString() : null,
+      });
+
+      if (result) {
+        window.location.href = "/admin";
+      } else {
+        errorEl.textContent = "Failed to save changes.";
+        errorEl.classList.remove("hidden");
+      }
+    });
+
+    function escapeHtml(str: string) {
+      const d = document.createElement("div");
+      d.textContent = str;
+      return d.innerHTML;
+    }
+
+    loadPost();
+  </script>
+</AdminLayout>

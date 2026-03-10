@@ -1,0 +1,91 @@
+---
+import AdminLayout from "../../layouts/AdminLayout.astro";
+---
+
+<AdminLayout title="Dashboard">
+  <div class="flex items-center justify-between mb-6">
+    <h1 class="text-2xl font-bold">Posts</h1>
+    <a
+      href="/admin/posts/new"
+      class="bg-gray-900 text-white px-4 py-2 rounded hover:bg-gray-800 text-sm"
+    >
+      New Post
+    </a>
+  </div>
+
+  <div id="loading" class="text-gray-500">Loading...</div>
+  <table id="posts-table" class="w-full hidden">
+    <thead>
+      <tr class="border-b border-gray-200 text-left text-sm text-gray-500">
+        <th class="pb-2">Title</th>
+        <th class="pb-2">Status</th>
+        <th class="pb-2">Created</th>
+        <th class="pb-2"></th>
+      </tr>
+    </thead>
+    <tbody id="posts-body"></tbody>
+  </table>
+  <p id="empty" class="text-gray-500 hidden">No posts yet.</p>
+
+  <script>
+    import { getAdminPosts, deletePost } from "../../lib/api";
+    import { formatDate } from "../../lib/utils";
+
+    async function loadPosts() {
+      const loading = document.getElementById("loading")!;
+      const table = document.getElementById("posts-table")!;
+      const tbody = document.getElementById("posts-body")!;
+      const empty = document.getElementById("empty")!;
+
+      const posts = await getAdminPosts();
+
+      loading.classList.add("hidden");
+
+      if (posts.length === 0) {
+        empty.classList.remove("hidden");
+        return;
+      }
+
+      table.classList.remove("hidden");
+      tbody.innerHTML = posts
+        .map(
+          (p) => `
+        <tr class="border-b border-gray-100">
+          <td class="py-3">
+            <a href="/admin/posts/${p.id}" class="hover:text-gray-600 font-medium">${escapeHtml(p.title)}</a>
+          </td>
+          <td class="py-3">
+            <span class="text-xs px-2 py-1 rounded-full ${
+              p.status === "published"
+                ? "bg-green-100 text-green-800"
+                : "bg-yellow-100 text-yellow-800"
+            }">${p.status}</span>
+          </td>
+          <td class="py-3 text-sm text-gray-500">${formatDate(p.created_at)}</td>
+          <td class="py-3">
+            <button data-delete="${p.id}" class="text-red-600 hover:text-red-800 text-sm">Delete</button>
+          </td>
+        </tr>
+      `
+        )
+        .join("");
+
+      tbody.querySelectorAll("[data-delete]").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          const id = (btn as HTMLElement).dataset.delete!;
+          if (!confirm("Delete this post?")) return;
+          const ok = await deletePost(id);
+          if (ok) loadPosts();
+        });
+      });
+    }
+
+    function escapeHtml(str: string) {
+      const d = document.createElement("div");
+      d.textContent = str;
+      return d.innerHTML;
+    }
+
+    loadPosts();
+  </script>
+</AdminLayout>
