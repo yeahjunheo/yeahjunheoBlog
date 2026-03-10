@@ -10,9 +10,11 @@ import (
 
 func (h *Handler) Routes() *chi.Mux {
 	r := chi.NewRouter()
-	limiter := auth.NewRateLimiter(5, 1*time.Minute)
+	globalLimiter := auth.NewRateLimiter(60, 1*time.Minute)
+	authLimiter := auth.NewRateLimiter(5, 1*time.Minute)
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
+	r.Use(globalLimiter.Limit)
 
 	r.Route("/api", func(r chi.Router) {
 		r.Get("/posts", h.ListPublishedPosts)
@@ -21,7 +23,7 @@ func (h *Handler) Routes() *chi.Mux {
 		r.Get("/tags/{slug}/posts", h.GetPostsByTag)
 
 		r.Route("/auth", func(r chi.Router) {
-			r.Use(limiter.Limit)
+			r.Use(authLimiter.Limit)
 			r.Post("/login", h.Login)
 			r.Post("/logout", h.Logout)
 			r.Post("/refresh", h.Refresh)
