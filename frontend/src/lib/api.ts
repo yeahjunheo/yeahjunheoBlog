@@ -123,7 +123,8 @@ async function clientFetch(
         },
       });
     }
-    // Refresh failed — redirect to login
+    // Refresh failed — clear session and redirect to login
+    document.cookie = "logged_in=; path=/; max-age=0";
     window.location.href = "/admin/login";
   }
 
@@ -141,6 +142,9 @@ export async function login(
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ username, password }),
   });
+  if (res.ok) {
+    document.cookie = "logged_in=1; path=/; max-age=86400";
+  }
   return res.ok;
 }
 
@@ -150,6 +154,7 @@ export async function logout(): Promise<void> {
     method: "POST",
     credentials: "include",
   });
+  document.cookie = "logged_in=; path=/; max-age=0";
 }
 
 export async function getAdminPosts(): Promise<Post[]> {

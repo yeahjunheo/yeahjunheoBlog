@@ -1,7 +1,7 @@
 ---
 import AdminLayout from "../../../layouts/AdminLayout.astro";
 
-if (!Astro.cookies.has("access_token")) {
+if (!Astro.cookies.has("logged_in")) {
   return Astro.redirect("/admin/login");
 }
 
