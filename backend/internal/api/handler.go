@@ -6,11 +6,11 @@ import (
 )
 
 type Handler struct {
-	sqlc        *db.Queries
+	sqlc        db.Querier
 	tokenConfig auth.TokenConfig
 }
 
-func NewHandler(queries *db.Queries, tokenConfig auth.TokenConfig) *Handler {
+func NewHandler(queries db.Querier, tokenConfig auth.TokenConfig) *Handler {
 	return &Handler{
 		sqlc:        queries,
 		tokenConfig: tokenConfig,

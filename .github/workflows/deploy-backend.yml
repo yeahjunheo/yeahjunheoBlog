@@ -12,7 +12,11 @@ env:
   SERVICE: blog-backend
 
 jobs:
+  test:
+    uses: ./.github/workflows/test-backend.yml
+
   deploy:
+    needs: test
     runs-on: ubuntu-latest
     permissions:
       contents: read
