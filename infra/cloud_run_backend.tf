@@ -29,7 +29,7 @@ resource "google_cloud_run_v2_service" "backend" {
 
       env {
         name  = "DATABASE_URL"
-        value = "postgres://${var.db_user}:${var.db_password}@/${var.db_name}?host=/cloudsql/${google_sql_database_instance.blog.connection_name}"
+        value = "postgres://${var.db_user}:${urlencode(var.db_password)}@/${var.db_name}?host=/cloudsql/${google_sql_database_instance.blog.connection_name}"
       }
 
       env {
@@ -40,11 +40,6 @@ resource "google_cloud_run_v2_service" "backend" {
             version = "latest"
           }
         }
-      }
-
-      env {
-        name  = "PORT"
-        value = "8080"
       }
 
       env {

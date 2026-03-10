@@ -25,9 +25,8 @@ resource "google_cloud_run_v2_service" "frontend" {
         value = "0.0.0.0"
       }
 
-      env {
-        name  = "PORT"
-        value = "4321"
+      ports {
+        container_port = 4321
       }
 
       env {

@@ -5,6 +5,7 @@ resource "google_sql_database_instance" "blog" {
 
   settings {
     tier              = var.db_tier
+    edition           = "ENTERPRISE"
     availability_type = "ZONAL"
 
     backup_configuration {

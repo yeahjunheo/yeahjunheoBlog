@@ -55,12 +55,7 @@ variable "frontend_image" {
   description = "Frontend container image (e.g. us-central1-docker.pkg.dev/PROJECT/blog/frontend:latest)"
 }
 
-variable "billing_account" {
-  type        = string
-  description = "GCP billing account ID"
-}
-
 variable "alert_email" {
   type        = string
-  description = "Email address for budget and monitoring alerts"
+  description = "Email address for monitoring alerts"
 }
