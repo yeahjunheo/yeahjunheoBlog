@@ -14,6 +14,16 @@ export default defineConfig({
     host: true
   },
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    build: {
+      rollupOptions: {
+        onwarn(warning, defaultHandler) {
+          // Suppress known @astrojs/node 10 warnings (upstream issues)
+          if (warning.message?.includes('experimentalDisableStreaming')) return;
+          if (warning.message?.includes('externalized for browser compatibility')) return;
+          defaultHandler(warning);
+        }
+      }
+    }
   }
 });
