@@ -9,6 +9,7 @@
   --color-border-light: #e5e5e5;
   --color-border-medium: #d4d4d4;
   --color-bg-warm: #fafaf8;
+  --font-serif: "Playfair Display", serif;
 }
 
 @layer base {
