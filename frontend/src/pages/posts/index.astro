@@ -1,0 +1,50 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PostCard from "../../components/PostCard.astro";
+import Pagination from "../../components/Pagination.astro";
+import { getPublishedPosts } from "../../lib/api";
+
+const POSTS_PER_PAGE = 10;
+const page = Math.max(1, Number(Astro.url.searchParams.get("page")) || 1);
+const offset = (page - 1) * POSTS_PER_PAGE;
+
+const posts = await getPublishedPosts(POSTS_PER_PAGE + 1, offset);
+const hasMore = posts.length > POSTS_PER_PAGE;
+const displayPosts = posts.slice(0, POSTS_PER_PAGE);
+
+const featuredPost = displayPosts[0];
+const gridPosts = displayPosts.slice(1);
+---
+
+<BaseLayout title="Posts — yeahjunheo">
+  <section>
+    <h2 class="text-sm uppercase tracking-widest text-text-secondary mb-1">Latest</h2>
+    <div class="border-t border-border-medium mb-6"></div>
+
+    {displayPosts.length === 0 ? (
+      <p class="text-text-secondary">No posts yet.</p>
+    ) : (
+      <>
+        {page === 1 && featuredPost && (
+          <>
+            <PostCard post={featuredPost} featured />
+            {gridPosts.length > 0 && (
+              <div class="border-t border-border-light"></div>
+            )}
+          </>
+        )}
+
+        {gridPosts.length > 0 && (
+          <div class="grid grid-cols-1 md:grid-cols-2 md:gap-x-8">
+            {(page === 1 ? gridPosts : displayPosts).map((post) => (
+              <div class="border-b border-border-light last:border-0 md:last:border-b md:[&:nth-last-child(2)]:border-b">
+                <PostCard post={post} />
+              </div>
+            ))}
+          </div>
+        )}
+      </>
+    )}
+  </section>
+  <Pagination currentPage={page} hasMore={hasMore} baseUrl="/posts" />
+</BaseLayout>

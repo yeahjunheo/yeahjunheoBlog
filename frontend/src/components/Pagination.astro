@@ -11,14 +11,14 @@ const nextUrl = hasMore ? `${baseUrl}?page=${currentPage + 1}` : null;
 ---
 
 {(prevUrl || nextUrl) && (
-  <div class="flex justify-between items-center mt-8 pt-4 border-t border-gray-100">
+  <div class="flex justify-between items-center mt-10 pt-4 border-t border-border-light">
     {prevUrl ? (
-      <a href={prevUrl} class="text-gray-600 hover:text-gray-900">&larr; Previous</a>
+      <a href={prevUrl} class="text-xs uppercase tracking-widest text-text-secondary hover:text-accent transition-colors">&larr; Previous</a>
     ) : (
       <span />
     )}
     {nextUrl ? (
-      <a href={nextUrl} class="text-gray-600 hover:text-gray-900">Next &rarr;</a>
+      <a href={nextUrl} class="text-xs uppercase tracking-widest text-text-secondary hover:text-accent transition-colors">Next &rarr;</a>
     ) : (
       <span />
     )}

@@ -1,19 +1,39 @@
 ---
 import type { Post } from "../lib/api";
-import { formatDate } from "../lib/utils";
+import { formatDate, readingTime } from "../lib/utils";
 
 interface Props {
   post: Post;
+  featured?: boolean;
 }
 
-const { post } = Astro.props;
+const { post, featured = false } = Astro.props;
 const excerpt = post.excerpt || post.content.slice(0, 200) + (post.content.length > 200 ? "..." : "");
+const time = readingTime(post.content);
 ---
 
-<article class="py-6 border-b border-gray-100 last:border-0">
-  <a href={`/posts/${post.slug}`} class="group">
-    <h2 class="text-xl font-semibold group-hover:text-gray-600">{post.title}</h2>
-  </a>
-  <time class="text-sm text-gray-500 mt-1 block">{formatDate(post.published_at || post.created_at)}</time>
-  <p class="text-gray-600 mt-2 line-clamp-3">{excerpt}</p>
-</article>
+{featured ? (
+  <article class="py-8">
+    <a href={`/posts/${post.slug}`} class="group">
+      <h2 class="text-3xl md:text-4xl font-bold leading-tight group-hover:text-accent transition-colors">{post.title}</h2>
+    </a>
+    <div class="flex items-center gap-3 mt-3 text-sm text-text-secondary">
+      <time>{formatDate(post.published_at || post.created_at)}</time>
+      <span>&middot;</span>
+      <span>{time}</span>
+    </div>
+    <p class="text-text-secondary mt-4 text-lg leading-relaxed">{excerpt}</p>
+  </article>
+) : (
+  <article class="py-5">
+    <a href={`/posts/${post.slug}`} class="group">
+      <h2 class="text-xl font-bold group-hover:text-accent transition-colors">{post.title}</h2>
+    </a>
+    <div class="flex items-center gap-3 mt-1 text-sm text-text-secondary">
+      <time>{formatDate(post.published_at || post.created_at)}</time>
+      <span>&middot;</span>
+      <span>{time}</span>
+    </div>
+    <p class="text-text-secondary mt-2 line-clamp-2">{excerpt}</p>
+  </article>
+)}

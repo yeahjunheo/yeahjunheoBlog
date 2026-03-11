@@ -1,7 +1,6 @@
 ---
 import "../styles/global.css";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
+import Sidebar from "../components/Sidebar.astro";
 
 interface Props {
   title: string;
@@ -10,6 +9,7 @@ interface Props {
 
 const { title, description = "A personal blog" } = Astro.props;
 const apiUrl = process.env.PUBLIC_API_URL || "http://localhost:8080";
+const year = new Date().getFullYear();
 ---
 
 <!doctype html>
@@ -19,13 +19,25 @@ const apiUrl = process.env.PUBLIC_API_URL || "http://localhost:8080";
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
     <script define:vars={{ apiUrl }}>window.__API_URL = apiUrl;</script>
   </head>
-  <body class="min-h-screen flex flex-col bg-white text-gray-900">
-    <Header />
-    <main class="flex-1 max-w-3xl mx-auto w-full px-4 py-8">
-      <slot />
-    </main>
-    <Footer />
+  <body class="min-h-screen flex bg-white">
+    <Sidebar />
+    <div class="flex-1 flex flex-col min-h-screen">
+      <main class="flex-1 max-w-3xl w-full px-8 py-10">
+        <slot />
+      </main>
+      <footer class="px-8 py-6">
+        <div class="border-t border-border-light pt-4">
+          <p class="text-text-secondary text-xs">&copy; {year} yeahjunheo. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
   </body>
 </html>

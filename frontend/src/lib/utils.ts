@@ -8,6 +8,12 @@ export function formatDate(dateStr: string | null): string {
   });
 }
 
+export function readingTime(content: string): string {
+  const words = content.trim().split(/\s+/).length;
+  const minutes = Math.max(1, Math.round(words / 200));
+  return `${minutes} min read`;
+}
+
 export function slugify(text: string): string {
   return text
     .toLowerCase()

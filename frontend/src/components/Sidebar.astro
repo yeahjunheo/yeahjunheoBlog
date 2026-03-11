@@ -1,0 +1,57 @@
+---
+const now = new Date();
+const dateStr = now.toLocaleDateString("en-US", {
+  month: "long",
+  day: "numeric",
+  year: "numeric",
+});
+
+const pathname = Astro.url.pathname;
+---
+
+<aside class="w-56 shrink-0 border-r border-border-medium h-screen sticky top-0 flex flex-col justify-between px-6 py-8">
+  <div>
+    <a href="/" class="hover:opacity-80">
+      <h1 class="text-2xl font-bold tracking-tight leading-tight">yeahjunheo</h1>
+    </a>
+    <p class="text-text-secondary text-xs mt-1">{dateStr}</p>
+
+    <div class="border-t border-border-light mt-6 mb-6"></div>
+
+    <nav class="flex flex-col gap-4">
+      <a
+        href="/"
+        class:list={[
+          "text-xs uppercase tracking-widest transition-colors",
+          pathname === "/" ? "text-accent font-semibold" : "text-text-secondary hover:text-accent",
+        ]}
+      >Home</a>
+      <a
+        href="/posts"
+        class:list={[
+          "text-xs uppercase tracking-widest transition-colors",
+          pathname.startsWith("/posts") ? "text-accent font-semibold" : "text-text-secondary hover:text-accent",
+        ]}
+      >Posts</a>
+      <a
+        href="/tags"
+        class:list={[
+          "text-xs uppercase tracking-widest transition-colors",
+          pathname.startsWith("/tags") ? "text-accent font-semibold" : "text-text-secondary hover:text-accent",
+        ]}
+      >Tags</a>
+      <a
+        href="/about"
+        class:list={[
+          "text-xs uppercase tracking-widest transition-colors",
+          pathname === "/about" ? "text-accent font-semibold" : "text-text-secondary hover:text-accent",
+        ]}
+      >About</a>
+    </nav>
+  </div>
+
+  <div>
+    <div class="border-t border-border-light mb-4"></div>
+    <p class="text-text-secondary text-xs leading-relaxed">May the eyes that come across this page turn a little brighter.</p>
+  </div>
+</aside>
