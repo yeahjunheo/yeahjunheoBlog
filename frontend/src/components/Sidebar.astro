@@ -9,7 +9,80 @@ const dateStr = now.toLocaleDateString("en-US", {
 const pathname = Astro.url.pathname;
 ---
 
-<aside class="w-56 shrink-0 border-r border-border-medium h-screen sticky top-0 flex flex-col justify-between px-6 py-8">
+<!-- Mobile top bar -->
+<div class="md:hidden fixed top-0 left-0 right-0 z-40 bg-white border-b border-border-medium flex items-center px-4 h-14">
+  <button id="mobile-menu-toggle" aria-label="Open menu" class="p-2 -ml-2 text-text-secondary hover:text-accent transition-colors">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </button>
+  <div class="absolute left-1/2 -translate-x-1/2 text-center">
+    <a href="/" class="hover:opacity-80">
+      <h1 class="text-2xl font-bold tracking-tight leading-tight">yeahjunheo</h1>
+    </a>
+  </div>
+</div>
+
+<!-- Mobile fullscreen menu -->
+<div id="mobile-menu" class="md:hidden fixed inset-0 z-50 bg-white flex-col justify-between px-6 py-8 hidden">
+  <div>
+    <div class="flex items-center justify-between">
+      <a href="/" class="hover:opacity-80">
+        <h1 class="text-2xl font-bold tracking-tight leading-tight">yeahjunheo</h1>
+      </a>
+      <button id="mobile-menu-close" aria-label="Close menu" class="p-2 text-text-secondary hover:text-accent transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+    <p class="text-text-secondary text-xs mt-1">{dateStr}</p>
+
+    <div class="border-t border-border-light mt-6 mb-6"></div>
+
+    <nav class="flex flex-col gap-4">
+      <a
+        href="/"
+        class:list={[
+          "text-xs uppercase tracking-widest transition-colors",
+          pathname === "/" ? "text-accent font-semibold" : "text-text-secondary hover:text-accent",
+        ]}
+      >Home</a>
+      <a
+        href="/posts"
+        class:list={[
+          "text-xs uppercase tracking-widest transition-colors",
+          pathname.startsWith("/posts") ? "text-accent font-semibold" : "text-text-secondary hover:text-accent",
+        ]}
+      >Posts</a>
+      <a
+        href="/tags"
+        class:list={[
+          "text-xs uppercase tracking-widest transition-colors",
+          pathname.startsWith("/tags") ? "text-accent font-semibold" : "text-text-secondary hover:text-accent",
+        ]}
+      >Tags</a>
+      <a
+        href="/about"
+        class:list={[
+          "text-xs uppercase tracking-widest transition-colors",
+          pathname === "/about" ? "text-accent font-semibold" : "text-text-secondary hover:text-accent",
+        ]}
+      >About</a>
+    </nav>
+  </div>
+
+  <div>
+    <div class="border-t border-border-light mb-4"></div>
+    <p class="text-text-secondary text-xs leading-relaxed">May the eyes that come across this page turn a little brighter.</p>
+  </div>
+</div>
+
+<!-- Desktop sidebar -->
+<aside class="hidden md:flex w-56 shrink-0 border-r border-border-medium h-screen sticky top-0 flex-col justify-between px-6 py-8">
   <div>
     <a href="/" class="hover:opacity-80">
       <h1 class="text-2xl font-bold tracking-tight leading-tight">yeahjunheo</h1>
@@ -55,3 +128,24 @@ const pathname = Astro.url.pathname;
     <p class="text-text-secondary text-xs leading-relaxed">May the eyes that come across this page turn a little brighter.</p>
   </div>
 </aside>
+
+<script>
+  const openBtn = document.getElementById("mobile-menu-toggle");
+  const closeBtn = document.getElementById("mobile-menu-close");
+  const menu = document.getElementById("mobile-menu");
+
+  function open() {
+    menu?.classList.remove("hidden");
+    menu?.classList.add("flex");
+    document.body.style.overflow = "hidden";
+  }
+
+  function close() {
+    menu?.classList.add("hidden");
+    menu?.classList.remove("flex");
+    document.body.style.overflow = "";
+  }
+
+  openBtn?.addEventListener("click", open);
+  closeBtn?.addEventListener("click", close);
+</script>

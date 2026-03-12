@@ -40,4 +40,13 @@
   .prose a:hover {
     color: var(--color-accent-light);
   }
+
+  .prose pre {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  .prose :where(pre code) {
+    white-space: pre;
+  }
 }
