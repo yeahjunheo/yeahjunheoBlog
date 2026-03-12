@@ -20,6 +20,7 @@
     "katex": "^0.16.38",
     "marked": "^17.0.4",
     "marked-katex-extension": "^5.1.7",
+    "shiki": "^4.0.2",
     "tailwindcss": "^4.2.1"
   },
   "devDependencies": {
