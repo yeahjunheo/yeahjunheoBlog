@@ -13,7 +13,7 @@ WHERE id = $1;
 SELECT * FROM posts
 JOIN post_tags ON post_tags.post_id = posts.id
 JOIN tags ON tags.id = post_tags.tag_id
-WHERE tags.slug = $1
+WHERE tags.slug = $1 AND posts.status = 'published'
 ORDER BY posts.published_at DESC
 LIMIT $2 OFFSET $3;
 
