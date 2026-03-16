@@ -59,3 +59,14 @@ variable "alert_email" {
   type        = string
   description = "Email address for monitoring alerts"
 }
+
+variable "cloudflare_api_token" {
+  type        = string
+  sensitive   = true
+  description = "Cloudflare API token with Zone and DNS edit permissions"
+}
+
+variable "cloudflare_account_id" {
+  type        = string
+  description = "Cloudflare account ID"
+}

@@ -14,12 +14,9 @@ output "artifact_registry_url" {
   value = "${var.region}-docker.pkg.dev/${var.project_id}/${google_artifact_registry_repository.blog.repository_id}"
 }
 
-output "frontend_dns_records" {
-  value = google_cloud_run_domain_mapping.frontend.status[0].resource_records
-}
-
-output "backend_dns_records" {
-  value = google_cloud_run_domain_mapping.backend.status[0].resource_records
+output "cloudflare_nameservers" {
+  value       = cloudflare_zone.blog.name_servers
+  description = "Set these nameservers in Squarespace"
 }
 
 output "github_wif_provider" {
