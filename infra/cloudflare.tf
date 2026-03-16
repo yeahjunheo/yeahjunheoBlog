@@ -6,24 +6,71 @@ resource "cloudflare_zone" "blog" {
   type = "full"
 }
 
-# Frontend: yeahjunheo.com → Cloud Run
+# Google Cloud Run domain mapping IPs (stable anycast IPs for custom domain routing)
+locals {
+  cloud_run_domain_mapping_ips = [
+    "216.239.32.21",
+    "216.239.34.21",
+    "216.239.36.21",
+    "216.239.38.21",
+  ]
+}
+
+# Frontend: yeahjunheo.com → Cloud Run domain mapping IPs
 resource "cloudflare_dns_record" "frontend" {
+  for_each = toset(local.cloud_run_domain_mapping_ips)
+  zone_id  = cloudflare_zone.blog.id
+  name     = var.domain
+  type     = "A"
+  content  = each.value
+  proxied  = true
+  ttl      = 1
+}
+
+# Backend: api.yeahjunheo.com → Cloud Run domain mapping IPs
+resource "cloudflare_dns_record" "backend" {
+  for_each = toset(local.cloud_run_domain_mapping_ips)
+  zone_id  = cloudflare_zone.blog.id
+  name     = "api"
+  type     = "A"
+  content  = each.value
+  proxied  = true
+  ttl      = 1
+}
+
+# www → yeahjunheo.com redirect (needs a proxied record + redirect rule)
+resource "cloudflare_dns_record" "www" {
   zone_id = cloudflare_zone.blog.id
-  name    = var.domain
+  name    = "www"
   type    = "CNAME"
-  content = trimprefix(google_cloud_run_v2_service.frontend.uri, "https://")
+  content = var.domain
   proxied = true
   ttl     = 1
 }
 
-# Backend: api.yeahjunheo.com → Cloud Run
-resource "cloudflare_dns_record" "backend" {
-  zone_id = cloudflare_zone.blog.id
-  name    = "api"
-  type    = "CNAME"
-  content = trimprefix(google_cloud_run_v2_service.backend.uri, "https://")
-  proxied = true
-  ttl     = 1
+resource "cloudflare_ruleset" "www_redirect" {
+  zone_id     = cloudflare_zone.blog.id
+  name        = "Redirect www to apex"
+  description = "301 redirect www.yeahjunheo.com to yeahjunheo.com"
+  kind        = "zone"
+  phase       = "http_request_dynamic_redirect"
+
+  rules = [
+    {
+      ref         = "www_redirect"
+      description = "Redirect www to apex"
+      expression  = "(http.host eq \"www.${var.domain}\")"
+      action      = "redirect"
+      action_parameters = {
+        from_value = {
+          status_code = 301
+          target_url = {
+            expression = "concat(\"https://${var.domain}\", http.request.uri.path)"
+          }
+        }
+      }
+    }
+  ]
 }
 
 # SSL: Full mode — encrypts to origin (Cloud Run *.run.app has valid certs)
