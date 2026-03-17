@@ -39,36 +39,36 @@ const pathname = Astro.url.pathname;
         </svg>
       </button>
     </div>
-    <p class="text-text-secondary text-xs mt-1">{dateStr}</p>
+    <p class="text-text-secondary text-sm mt-1">{dateStr}</p>
 
     <div class="border-t border-border-light mt-6 mb-6"></div>
 
-    <nav class="flex flex-col gap-4">
+    <nav class="flex flex-col gap-1">
       <a
         href="/"
         class:list={[
-          "text-xs uppercase tracking-widest transition-colors",
+          "text-base uppercase tracking-widest transition-colors py-3",
           pathname === "/" ? "text-accent font-semibold" : "text-text-secondary hover:text-accent",
         ]}
       >Home</a>
       <a
         href="/posts"
         class:list={[
-          "text-xs uppercase tracking-widest transition-colors",
+          "text-base uppercase tracking-widest transition-colors py-3",
           pathname.startsWith("/posts") ? "text-accent font-semibold" : "text-text-secondary hover:text-accent",
         ]}
       >Posts</a>
       <a
         href="/tags"
         class:list={[
-          "text-xs uppercase tracking-widest transition-colors",
+          "text-base uppercase tracking-widest transition-colors py-3",
           pathname.startsWith("/tags") ? "text-accent font-semibold" : "text-text-secondary hover:text-accent",
         ]}
       >Tags</a>
       <a
         href="/about"
         class:list={[
-          "text-xs uppercase tracking-widest transition-colors",
+          "text-base uppercase tracking-widest transition-colors py-3",
           pathname === "/about" ? "text-accent font-semibold" : "text-text-secondary hover:text-accent",
         ]}
       >About</a>
@@ -77,7 +77,7 @@ const pathname = Astro.url.pathname;
 
   <div>
     <div class="border-t border-border-light mb-4"></div>
-    <p class="text-text-secondary text-xs leading-relaxed">May the eyes that come across this page turn a little brighter.</p>
+    <p class="text-text-secondary text-sm leading-relaxed">May the eyes that come across this page turn a little brighter.</p>
   </div>
 </div>
 

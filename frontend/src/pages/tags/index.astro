@@ -11,7 +11,7 @@ const tags = await getAllTags();
   {tags.length === 0 ? (
     <p class="text-text-secondary">No tags yet.</p>
   ) : (
-    <div class="flex flex-wrap gap-3">
+    <div class="flex flex-wrap gap-4 md:gap-3">
       {tags.map((tag) => (
         <TagBadge tag={tag} />
       ))}

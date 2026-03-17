@@ -10,7 +10,7 @@ const { tag } = Astro.props;
 
 <a
   href={`/tags/${tag.slug}`}
-  class="inline-block border border-border-medium text-text-secondary text-sm px-3 py-1 hover:border-accent hover:text-accent transition-colors"
+  class="inline-block border border-border-medium text-text-secondary text-base md:text-sm px-4 py-2 md:px-3 md:py-1 hover:border-accent hover:text-accent transition-colors"
 >
   {tag.name}
 </a>

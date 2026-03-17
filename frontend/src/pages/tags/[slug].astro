@@ -16,7 +16,7 @@ const displayPosts = posts.slice(0, POSTS_PER_PAGE);
 
 <BaseLayout title={`Posts tagged "${slug}"`}>
   <h1 class="text-4xl font-bold mb-2">Tag: {slug}</h1>
-  <a href="/tags" class="text-sm text-accent hover:text-accent-light transition-colors mb-6 inline-block">&larr; All tags</a>
+  <a href="/tags" class="text-base md:text-sm text-accent hover:text-accent-light transition-colors mb-6 inline-block py-1">&larr; All tags</a>
   {displayPosts.length === 0 ? (
     <p class="text-text-secondary mt-4">No posts with this tag.</p>
   ) : (
