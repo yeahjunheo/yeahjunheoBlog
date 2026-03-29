@@ -24,3 +24,10 @@ VALUES ($1, $2);
 -- name: RemoveTagFromPost :exec
 DELETE FROM post_tags
 WHERE post_id = $1 AND tag_id = $2;
+
+-- name: GetAllTagsWithCounts :many
+SELECT t.id, t.name, t.slug, COUNT(pt.post_id)::int as post_count
+FROM tags t
+LEFT JOIN post_tags pt ON pt.tag_id = t.id
+LEFT JOIN posts p ON p.id = pt.post_id AND p.status = 'published'
+GROUP BY t.id, t.name, t.slug;

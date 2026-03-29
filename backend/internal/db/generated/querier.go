@@ -21,6 +21,7 @@ type Querier interface {
 	DeleteRefreshTokenByAuthor(ctx context.Context, authorID pgtype.UUID) error
 	DeleteTagByID(ctx context.Context, id pgtype.UUID) error
 	GetAllTags(ctx context.Context) ([]Tag, error)
+	GetAllTagsWithCounts(ctx context.Context) ([]GetAllTagsWithCountsRow, error)
 	GetAuthorByUsername(ctx context.Context, username string) (Author, error)
 	GetPostBySlug(ctx context.Context, slug string) (Post, error)
 	GetPostByTagSlug(ctx context.Context, arg GetPostByTagSlugParams) ([]GetPostByTagSlugRow, error)

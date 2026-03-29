@@ -1,4 +1,6 @@
 ---
+import { getAllTags } from "../lib/api";
+
 const now = new Date();
 const dateStr = now.toLocaleDateString("en-US", {
   month: "long",
@@ -7,6 +9,7 @@ const dateStr = now.toLocaleDateString("en-US", {
 });
 
 const pathname = Astro.url.pathname;
+const tags = await getAllTags();
 ---
 
 <!-- Mobile top bar -->
@@ -58,13 +61,31 @@ const pathname = Astro.url.pathname;
           pathname.startsWith("/posts") ? "text-accent font-semibold" : "text-text-secondary hover:text-accent",
         ]}
       >Posts</a>
-      <a
-        href="/tags"
-        class:list={[
-          "text-base uppercase tracking-widest transition-colors py-3",
-          pathname.startsWith("/tags") ? "text-accent font-semibold" : "text-text-secondary hover:text-accent",
-        ]}
-      >Tags</a>
+      <div>
+        <div class="flex items-center gap-2 py-3">
+          <a
+            href="/tags"
+            class:list={[
+              "text-base uppercase tracking-widest transition-colors",
+              pathname.startsWith("/tags") ? "text-accent font-semibold" : "text-text-secondary hover:text-accent",
+            ]}
+          >Tags</a>
+          <button data-mobile-tags-toggle class="text-text-secondary hover:text-accent transition-colors">
+            <svg class="w-3 h-3 transition-transform duration-200 rotate-180" data-mobile-tags-chevron viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 4 6 8 10 4"></polyline></svg>
+          </button>
+        </div>
+        <div data-mobile-tags-list class="flex flex-col gap-1 pl-4 pb-2">
+          {tags.map((tag) => (
+            <a
+              href={`/tags/${tag.slug}`}
+              class:list={[
+                "text-base transition-colors py-2",
+                pathname === `/tags/${tag.slug}` ? "text-accent font-medium" : "text-text-secondary hover:text-accent",
+              ]}
+            >{tag.name}</a>
+          ))}
+        </div>
+      </div>
       <a
         href="/about"
         class:list={[
@@ -106,13 +127,31 @@ const pathname = Astro.url.pathname;
           pathname.startsWith("/posts") ? "text-accent font-semibold" : "text-text-secondary hover:text-accent",
         ]}
       >Posts</a>
-      <a
-        href="/tags"
-        class:list={[
-          "text-xs uppercase tracking-widest transition-colors",
-          pathname.startsWith("/tags") ? "text-accent font-semibold" : "text-text-secondary hover:text-accent",
-        ]}
-      >Tags</a>
+      <div>
+        <div class="flex items-center gap-1.5">
+          <a
+            href="/tags"
+            class:list={[
+              "text-xs uppercase tracking-widest transition-colors",
+              pathname.startsWith("/tags") ? "text-accent font-semibold" : "text-text-secondary hover:text-accent",
+            ]}
+          >Tags</a>
+          <button data-desktop-tags-toggle class="text-text-secondary hover:text-accent transition-colors">
+            <svg class="w-2.5 h-2.5 transition-transform duration-200 rotate-180" data-desktop-tags-chevron viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 4 6 8 10 4"></polyline></svg>
+          </button>
+        </div>
+        <div data-desktop-tags-list class="flex flex-col gap-2 pl-3 mt-2">
+          {tags.map((tag) => (
+            <a
+              href={`/tags/${tag.slug}`}
+              class:list={[
+                "text-xs transition-colors",
+                pathname === `/tags/${tag.slug}` ? "text-accent font-medium" : "text-text-secondary hover:text-accent",
+              ]}
+            >{tag.name}</a>
+          ))}
+        </div>
+      </div>
       <a
         href="/about"
         class:list={[
@@ -148,4 +187,27 @@ const pathname = Astro.url.pathname;
 
   openBtn?.addEventListener("click", open);
   closeBtn?.addEventListener("click", close);
+
+  function setupTagsDropdown(toggleAttr: string, listAttr: string, chevronAttr: string) {
+    const toggle = document.querySelector(`[${toggleAttr}]`);
+    const list = document.querySelector(`[${listAttr}]`);
+    const chevron = document.querySelector(`[${chevronAttr}]`);
+    if (!toggle || !list) return;
+
+    toggle.addEventListener("click", () => {
+      const isVisible = !list.classList.contains("hidden");
+      if (isVisible) {
+        list.classList.add("hidden");
+        list.classList.remove("flex");
+        chevron?.classList.remove("rotate-180");
+      } else {
+        list.classList.remove("hidden");
+        list.classList.add("flex");
+        chevron?.classList.add("rotate-180");
+      }
+    });
+  }
+
+  setupTagsDropdown("data-desktop-tags-toggle", "data-desktop-tags-list", "data-desktop-tags-chevron");
+  setupTagsDropdown("data-mobile-tags-toggle", "data-mobile-tags-list", "data-mobile-tags-chevron");
 </script>

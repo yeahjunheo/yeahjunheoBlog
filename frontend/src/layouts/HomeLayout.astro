@@ -1,0 +1,44 @@
+---
+import "../styles/global.css";
+import Sidebar from "../components/Sidebar.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "A personal blog" } = Astro.props;
+const apiUrl = process.env.PUBLIC_API_URL || "http://localhost:8080";
+const year = new Date().getFullYear();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css" />
+    <script define:vars={{ apiUrl }}>window.__API_URL = apiUrl;</script>
+  </head>
+  <body class="min-h-screen flex bg-white">
+    <Sidebar />
+    <div class="flex-1 flex flex-col min-h-screen min-w-0">
+      <main class="flex-1 px-5 md:px-8 pt-20 pb-10 md:py-10">
+        <slot />
+      </main>
+      <footer class="px-5 md:px-8 py-6">
+        <div class="border-t border-border-light pt-4">
+          <p class="text-text-secondary text-sm md:text-xs">&copy; {year} yeahjunheo. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

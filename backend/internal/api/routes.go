@@ -27,6 +27,7 @@ func (h *Handler) Routes() *chi.Mux {
 		r.Get("/posts", h.ListPublishedPosts)
 		r.Get("/posts/{slug}", h.GetPost)
 		r.Get("/tags", h.ListTags)
+		r.Get("/tags/counts", h.ListTagsWithCounts)
 		r.Get("/tags/{slug}/posts", h.GetPostsByTag)
 
 		r.Route("/auth", func(r chi.Router) {

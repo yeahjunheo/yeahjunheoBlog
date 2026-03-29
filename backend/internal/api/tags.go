@@ -9,6 +9,17 @@ import (
 	db "github.com/yeahjun/blog/backend/internal/db/generated"
 )
 
+func (h *Handler) ListTagsWithCounts(w http.ResponseWriter, r *http.Request) {
+	tags, err := h.sqlc.GetAllTagsWithCounts(r.Context())
+	if err != nil {
+		jsonError(w, "internal error", http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(tags)
+}
+
 func (h *Handler) ListTags(w http.ResponseWriter, r *http.Request) {
 	tags, err := h.sqlc.GetAllTags(r.Context())
 	if err != nil {

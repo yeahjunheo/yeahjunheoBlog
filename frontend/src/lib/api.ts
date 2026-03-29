@@ -18,6 +18,10 @@ export interface Tag {
   slug: string;
 }
 
+export interface TagWithCount extends Tag {
+  post_count: number;
+}
+
 export interface PostTag {
   id: string;
   name: string;
@@ -61,6 +65,13 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
 export async function getAllTags(): Promise<Tag[]> {
   const url = getApiUrl();
   const res = await fetch(`${url}/api/tags`);
+  if (!res.ok) return [];
+  return (await res.json()) ?? [];
+}
+
+export async function getAllTagsWithCounts(): Promise<TagWithCount[]> {
+  const url = getApiUrl();
+  const res = await fetch(`${url}/api/tags/counts`);
   if (!res.ok) return [];
   return (await res.json()) ?? [];
 }

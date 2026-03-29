@@ -77,6 +77,46 @@ func (q *Queries) GetAllTags(ctx context.Context) ([]Tag, error) {
 	return items, nil
 }
 
+const getAllTagsWithCounts = `-- name: GetAllTagsWithCounts :many
+SELECT t.id, t.name, t.slug, COUNT(pt.post_id)::int as post_count
+FROM tags t
+LEFT JOIN post_tags pt ON pt.tag_id = t.id
+LEFT JOIN posts p ON p.id = pt.post_id AND p.status = 'published'
+GROUP BY t.id, t.name, t.slug
+`
+
+type GetAllTagsWithCountsRow struct {
+	ID        pgtype.UUID `json:"id"`
+	Name      string      `json:"name"`
+	Slug      string      `json:"slug"`
+	PostCount int32       `json:"post_count"`
+}
+
+func (q *Queries) GetAllTagsWithCounts(ctx context.Context) ([]GetAllTagsWithCountsRow, error) {
+	rows, err := q.db.Query(ctx, getAllTagsWithCounts)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []GetAllTagsWithCountsRow
+	for rows.Next() {
+		var i GetAllTagsWithCountsRow
+		if err := rows.Scan(
+			&i.ID,
+			&i.Name,
+			&i.Slug,
+			&i.PostCount,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const getPostByTagSlug = `-- name: GetPostByTagSlug :many
 SELECT posts.id, title, posts.slug, content, excerpt, status, published_at, created_at, updated_at, post_id, tag_id, tags.id, name, tags.slug FROM posts
 JOIN post_tags ON post_tags.post_id = posts.id
