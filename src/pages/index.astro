@@ -3,24 +3,192 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
 import { formatDate } from "../lib/utils";
 
-const posts = (await getCollection("posts"))
+const allPosts = (await getCollection("posts"))
   .filter((post) => post.data.published)
-  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime())
-  .slice(0, 5);
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+
+const postCount = allPosts.length;
+const recentPosts = allPosts.slice(0, 5);
 ---
 
 <BaseLayout title="yeahjunheo">
-  <h1 class="mb-8 text-3xl font-bold">Latest Posts</h1>
-  {posts.length === 0 && <p class="text-gray-500">No posts yet.</p>}
-  <ul class="space-y-6">
-    {posts.map((post) => (
-      <li>
-        <a href={`/posts/${post.id}`} class="group block">
-          <h2 class="text-xl font-semibold group-hover:underline">{post.data.title}</h2>
-          <time class="text-sm text-gray-500">{formatDate(post.data.publishedAt)}</time>
-          {post.data.excerpt && <p class="mt-1 text-gray-600">{post.data.excerpt}</p>}
-        </a>
-      </li>
-    ))}
-  </ul>
+  <!-- 1. Date with time comparison -->
+  <div class="mb-10 text-center">
+    <p class="font-serif text-2xl" id="date-line"></p>
+<p class="mt-2 font-serif text-sm italic text-zissou-bright-black" id="time-quip"></p>
+  </div>
+
+  <!-- 2. Body text in large letters -->
+  <section class="mb-10">
+    <p class="font-serif text-3xl leading-relaxed">
+      Why <span id="hello-there" class="cursor-pointer hover:text-zissou-red">hello there!</span> I'm <span class="font-bold text-zissou-blue">Yeahjun</span> and you've just stumbled on my <span class="wiggle inline-block text-zissou-magenta">think pad</span> on the <span class="bounce inline-block font-bold text-zissou-red">WEB</span>. I'm trying to do more <a href="/blog" class="text-zissou-green underline decoration-wavy hover:text-zissou-blue">writing</a>, <span class="text-zissou-yellow" id="dibble-dabble"></span>, and more with this site. If that's also your jam, keep a <span class="bookmark cursor-pointer text-zissou-magenta underline" id="bookmark-cta">bookmark</span> to give this page a try.
+    </p>
+  </section>
+
+  <!-- 3. Post counter -->
+  <section class="mb-10 text-center">
+    <p class="font-serif text-7xl font-bold text-zissou-foreground">{postCount}</p>
+    <p class="text-sm text-zissou-bright-black">posts so far!</p>
+  </section>
+
+  <!-- 4. Recent ramblings -->
+  <section>
+    <h2 class="mb-6 font-serif text-2xl font-bold text-center">Recent Ramblings</h2>
+    {recentPosts.length === 0 && <p class="text-zissou-bright-black">No posts yet.</p>}
+    <ul class="space-y-6">
+      {recentPosts.map((post) => (
+        <li>
+          <a href={`/blog/${post.id}`} class="group block">
+            <h3 class="text-lg font-semibold group-hover:text-zissou-blue">{post.data.title}</h3>
+            <time class="text-sm text-zissou-bright-black">{formatDate(post.data.publishedAt)}</time>
+            {post.data.excerpt && <p class="mt-1 text-zissou-bright-black">{post.data.excerpt}</p>}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
 </BaseLayout>
+
+<script>
+  function getHourOffset(localTz: string): number {
+    const now = new Date();
+    const localStr = now.toLocaleString("en-US", { timeZone: localTz, hour12: false, hour: "2-digit", minute: "2-digit" });
+    const kyotoStr = now.toLocaleString("en-US", { timeZone: "Asia/Tokyo", hour12: false, hour: "2-digit", minute: "2-digit" });
+    const [lh, lm] = localStr.split(":").map(Number);
+    const [kh, km] = kyotoStr.split(":").map(Number);
+    return (lh * 60 + lm - (kh * 60 + km)) / 60;
+  }
+
+  function pickQuip(diffHours: number): string {
+    const abs = Math.abs(Math.round(diffHours));
+    const unit = abs === 1 ? "hour" : "hours";
+
+    if (abs === 0) {
+      const sameZone = [
+        "we're watching the same sunset right now",
+        "same timezone, same vibes",
+        "oh hey neighbor — same clock, same sky",
+        "our clocks agree, that's a good start",
+        "you're right on time",
+        "look at us, perfectly in sync",
+        "no time travel needed between us",
+        "we share a timezone — it's basically fate",
+        "zero hours apart, maximum solidarity",
+        "the rare same-time visitor. welcome",
+      ];
+      return sameZone[Math.floor(Math.random() * sameZone.length)];
+    }
+
+    if (diffHours > 0) {
+      // Reader is ahead of Kyoto
+      const ahead = [
+        `you're reading notes from someone ${abs} ${unit} in your past`,
+        `you live ${abs} ${unit} in my future — any spoilers?`,
+        `by the time I write this, you've already had ${abs} more ${unit} of coffee`,
+        `you're ${abs} ${unit} ahead — save me a seat in tomorrow`,
+        `from ${abs} ${unit} in your past, I hope the future is nice`,
+        `you've had ${abs} extra ${unit} to figure life out. how's that going?`,
+        `${abs} ${unit} ahead of me — you're basically a time traveler`,
+        `I'm still catching up to your ${abs}-${unit} head start`,
+        `you already know what happens ${abs} ${unit} from now`,
+        `writing this ${abs} ${unit} behind you. no rush though`,
+      ];
+      return ahead[Math.floor(Math.random() * ahead.length)];
+    }
+
+    // Reader is behind Kyoto
+    const behind = [
+      `I'm writing this ${abs} ${unit} from your future`,
+      `you're ${abs} ${unit} behind — take your time, I'll wait`,
+      `greetings from ${abs} ${unit} in your future. it's fine here`,
+      `I've already lived the ${abs} ${unit} you're about to`,
+      `${abs} ${unit} ahead of you — the tea is still warm`,
+      `sending this back ${abs} ${unit} through the internet tubes`,
+      `you'll get here in ${abs} ${unit}. no spoilers`,
+      `I'm ${abs} ${unit} ahead but somehow still procrastinating`,
+      `from ${abs} ${unit} in your future: it's worth the wait`,
+      `living ${abs} ${unit} ahead, still no flying cars though`,
+    ];
+    return behind[Math.floor(Math.random() * behind.length)];
+  }
+
+  function updateDateLine() {
+    const now = new Date();
+    const localTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+    const localDate = new Intl.DateTimeFormat("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      timeZone: localTz,
+    }).format(now);
+
+    const dateEl = document.getElementById("date-line");
+    const quipEl = document.getElementById("time-quip");
+
+    if (dateEl) dateEl.textContent = localDate;
+    if (quipEl) {
+      const diff = getHourOffset(localTz);
+      quipEl.textContent = `[ ${pickQuip(diff)} ]`;
+    }
+  }
+
+  updateDateLine();
+
+  // Obi-Wan hello there — audio only for now
+  const helloAudio = new Audio("/audio/obi-wan-hello-there.mp3");
+  const helloTrigger = document.getElementById("hello-there");
+
+  helloTrigger?.addEventListener("click", () => {
+    helloAudio.currentTime = 0;
+    helloAudio.play();
+  });
+
+  // Dibble-dabbling wave
+  const dibble = document.getElementById("dibble-dabble");
+  if (dibble) {
+    const text = "dibble-dabbling";
+    dibble.innerHTML = text.split("").map((ch, i) =>
+      ch === " "
+        ? " "
+        : `<span class="wave-letter" style="animation-delay:${i * 0.08}s">${ch}</span>`
+    ).join("");
+  }
+
+  // Bookmark CTA
+  document.getElementById("bookmark-cta")?.addEventListener("click", () => {
+    alert("Press Ctrl+D (or Cmd+D on Mac) to bookmark this page!");
+  });
+</script>
+
+<style is:global>
+  .wiggle {
+    animation: wiggle 3s ease-in-out infinite;
+  }
+
+  .bounce {
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  .wave-letter {
+    display: inline-block;
+    animation: wave 1.5s ease-in-out infinite;
+  }
+
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(2deg); }
+    75% { transform: rotate(-2deg); }
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+
+  @keyframes wave {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+</style>

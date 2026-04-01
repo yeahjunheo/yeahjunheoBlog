@@ -14,7 +14,7 @@ const posts = (await getCollection("posts"))
   <ul class="space-y-6">
     {posts.map((post) => (
       <li>
-        <a href={`/posts/${post.id}`} class="group block">
+        <a href={`/blog/${post.id}`} class="group block">
           <h2 class="text-xl font-semibold group-hover:underline">{post.data.title}</h2>
           <div class="flex items-center gap-3 text-sm text-gray-500">
             <time>{formatDate(post.data.publishedAt)}</time>

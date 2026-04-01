@@ -1,2 +1,19 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+
+@theme {
+  --font-sans: "Merriweather Sans", sans-serif;
+  --font-serif: "Merriweather", serif;
+
+  --color-zissou-black: #20111B;
+  --color-zissou-red: #BE100E;
+  --color-zissou-green: #858162;
+  --color-zissou-yellow: #EAA549;
+  --color-zissou-blue: #426A79;
+  --color-zissou-magenta: #97522C;
+  --color-zissou-cyan: #989A9C;
+  --color-zissou-white: #968C83;
+  --color-zissou-bright-black: #5E5252;
+  --color-zissou-cream: #D5CCBA;
+  --color-zissou-foreground: #45373C;
+}

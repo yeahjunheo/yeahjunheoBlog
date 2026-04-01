@@ -1,0 +1,48 @@
+---
+import { Icon } from "astro-icon/components";
+const pathname = Astro.url.pathname;
+---
+
+<header class="px-6 py-6">
+    <div class="mx-auto flex max-w-3xl items-center justify-between">
+        <nav class="flex gap-6 text-sm">
+            <a
+                href="/"
+                class:list={[
+                    "hover:text-zissou-blue",
+                    pathname === "/" && "text-zissou-blue font-semibold",
+                ]}>Home</a
+            >
+            <a
+                href="/blog"
+                class:list={[
+                    "hover:text-zissou-blue",
+                    pathname.startsWith("/blog") &&
+                        "text-zissou-blue font-semibold",
+                ]}>Blog</a
+            >
+            <a
+                href="/hobby"
+                class:list={[
+                    "hover:text-zissou-blue",
+                    pathname.startsWith("/hobby") &&
+                        "text-zissou-blue font-semibold",
+                ]}>Hobby</a
+            >
+            <a
+                href="/about"
+                class:list={[
+                    "hover:text-zissou-blue",
+                    pathname === "/about" && "text-zissou-blue font-semibold",
+                ]}>About</a
+            >
+        </nav>
+        <a href="/" aria-label="Home">
+            <Icon
+                name="ph:plant"
+                size={24}
+                class="text-zissou-foreground hover:text-zissou-green"
+            />
+        </a>
+    </div>
+</header>
