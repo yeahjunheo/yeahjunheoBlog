@@ -9,5 +9,11 @@
 	},
 	"observability": {
 		"enabled": true
-	}
+	},
+	"routes": [
+		{
+			"pattern": "yeahjunheo.com",
+			"custom_domain": true
+		}
+	]
 }
