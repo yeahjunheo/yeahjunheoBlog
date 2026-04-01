@@ -1,6 +1,53 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+::selection {
+  background-color: var(--color-zissou-yellow);
+  color: var(--color-zissou-black);
+}
+
+.prose {
+  --tw-prose-body: var(--color-zissou-foreground);
+  --tw-prose-headings: var(--color-zissou-black);
+  --tw-prose-links: var(--color-zissou-blue);
+  --tw-prose-bold: var(--color-zissou-foreground);
+  --tw-prose-bullets: var(--color-zissou-bright-black);
+  --tw-prose-counters: var(--color-zissou-bright-black);
+  --tw-prose-hr: var(--color-zissou-white);
+  --tw-prose-quotes: var(--color-zissou-foreground);
+  --tw-prose-quote-borders: var(--color-zissou-magenta);
+  --tw-prose-code: var(--color-zissou-magenta);
+  --tw-prose-th-borders: var(--color-zissou-white);
+  --tw-prose-td-borders: var(--color-zissou-white);
+}
+
+.prose :where(code):not(:where(pre code)) {
+  background-color: color-mix(in srgb, var(--color-zissou-foreground) 10%, transparent);
+  padding: 0.15em 0.35em;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+}
+
+.prose :where(h2, h3, h4) {
+  margin-top: 1.25em;
+  margin-bottom: 0.5em;
+}
+
+.prose :where(p) {
+  margin-top: 0.75em;
+  margin-bottom: 0.75em;
+}
+
+.prose :where(ul, ol) {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.prose :where(blockquote) {
+  border-left-width: 3px;
+  font-style: italic;
+}
+
 @theme {
   --font-sans: "Merriweather Sans", sans-serif;
   --font-serif: "Merriweather", serif;

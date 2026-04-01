@@ -33,23 +33,31 @@ const recentPosts = allPosts.slice(0, 5);
   <!-- 3. Post counter -->
   <section class="mb-10 text-center">
     <p class="font-serif text-7xl font-bold text-zissou-foreground">{postCount}</p>
-    <p class="text-sm text-zissou-bright-black">posts so far!</p>
+    <p class="font-serif text-lg text-zissou-bright-black">posts so far!</p>
   </section>
 
   <!-- 4. Recent ramblings -->
   <section>
-    <h2 class="mb-6 font-serif text-2xl font-bold text-center">Recent Ramblings</h2>
+    <h2 class="mb-6 font-serif text-3xl font-bold text-center">Recent Ramblings</h2>
     {recentPosts.length === 0 && <p class="text-zissou-bright-black">No posts yet.</p>}
-    <ul class="space-y-6">
-      {recentPosts.map((post) => (
-        <li>
-          <a href={`/blog/${post.id}`} class="group block">
-            <h3 class="text-lg font-semibold group-hover:text-zissou-blue">{post.data.title}</h3>
-            <time class="text-sm text-zissou-bright-black">{formatDate(post.data.publishedAt)}</time>
-            {post.data.excerpt && <p class="mt-1 text-zissou-bright-black">{post.data.excerpt}</p>}
-          </a>
-        </li>
-      ))}
+    <ul class="space-y-4">
+      {recentPosts.map((post) => {
+        const d = post.data.publishedAt;
+        const month = d.toLocaleDateString("en-US", { month: "short" }).toUpperCase();
+        const day = d.getDate();
+        return (
+          <li>
+            <a href={`/blog/${post.id}`} class="group flex items-center gap-4">
+              <span class="shrink-0 text-sm text-zissou-bright-black">{month}</span>
+              <span class="self-stretch w-0.5 bg-zissou-white"></span>
+              <div class="flex flex-col justify-center">
+                <h3 class="font-semibold group-hover:text-zissou-blue">{post.data.title}</h3>
+                {post.data.excerpt && <p class="mt-0.5 text-sm text-zissou-bright-black">{post.data.excerpt}</p>}
+              </div>
+            </a>
+          </li>
+        );
+      })}
     </ul>
   </section>
 </BaseLayout>

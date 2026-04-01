@@ -1,0 +1,52 @@
+---
+import type { GetStaticPaths } from "astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import { formatDate } from "../../lib/utils";
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const posts = (await getCollection("posts"))
+    .filter((post) => post.data.published)
+    .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+
+  return paginate(posts, { pageSize: 10 });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+---
+
+<BaseLayout title={`Blog${page.currentPage > 1 ? ` - Page ${page.currentPage}` : ""} - yeahjunheo`}>
+  <h1 class="mb-8 text-3xl font-bold">All Posts</h1>
+  {page.data.length === 0 && <p class="text-zissou-bright-black">No posts yet.</p>}
+  <ul class="space-y-4">
+    {page.data.map((post) => {
+      const d = post.data.publishedAt;
+      const month = d.toLocaleDateString("en-US", { month: "short" }).toUpperCase();
+      const day = d.getDate();
+      return (
+        <li>
+          <a href={`/blog/${post.id}`} class="group flex items-center gap-4">
+            <span class="shrink-0 text-sm text-zissou-bright-black">{month} {day}</span>
+            <span class="self-stretch w-0.5 bg-zissou-white"></span>
+            <div class="flex flex-col justify-center">
+              <h3 class="font-semibold group-hover:text-zissou-blue">{post.data.title}</h3>
+              {post.data.excerpt && <p class="mt-0.5 text-sm text-zissou-bright-black">{post.data.excerpt}</p>}
+            </div>
+          </a>
+        </li>
+      );
+    })}
+  </ul>
+
+  {(page.url.prev || page.url.next) && (
+    <nav class="mt-10 flex items-center justify-between">
+      {page.url.prev ? (
+        <a href={page.url.prev} class="text-sm hover:text-zissou-blue">&larr; Newer</a>
+      ) : <span />}
+      <span class="text-sm text-zissou-bright-black">Page {page.currentPage} of {page.lastPage}</span>
+      {page.url.next ? (
+        <a href={page.url.next} class="text-sm hover:text-zissou-blue">Older &rarr;</a>
+      ) : <span />}
+    </nav>
+  )}
+</BaseLayout>

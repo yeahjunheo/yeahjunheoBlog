@@ -1,7 +1,8 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
+import PostLayout from "../../layouts/PostLayout.astro";
+import { Icon } from "astro-icon/components";
 import { getCollection, render } from "astro:content";
-import { formatDate, readingTime } from "../../lib/utils";
+import { readingTime } from "../../lib/utils";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
@@ -13,31 +14,40 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+
+const d = post.data.publishedAt;
+const fullDate = d.toLocaleDateString("en-US", {
+  day: "2-digit",
+  month: "long",
+  year: "numeric",
+});
 ---
 
-<BaseLayout title={`${post.data.title} - yeahjunheo`} description={post.data.excerpt}>
+<PostLayout title={`${post.data.title} - yeahjunheo`} description={post.data.excerpt}>
   <article>
-    <header class="mb-8">
-      <h1 class="text-3xl font-bold">{post.data.title}</h1>
-      <div class="mt-2 flex items-center gap-3 text-sm text-gray-500">
-        <time>{formatDate(post.data.publishedAt)}</time>
-        <span>{readingTime(post.body ?? "")}</span>
-      </div>
+    <!-- Back button -->
+    <a href="/blog" class="mb-6 inline-flex items-center gap-1 text-sm text-zissou-bright-black hover:text-zissou-blue">
+      <Icon name="ph:caret-left-bold" size={14} />
+      Back
+    </a>
+
+    <!-- Date + tags -->
+    <div class="mb-4 flex items-center gap-3 text-sm text-zissou-bright-black">
+      <time>{fullDate}</time>
       {post.data.tags.length > 0 && (
-        <div class="mt-3 flex gap-2">
-          {post.data.tags.map((tag) => (
-            <a
-              href={`/tags/${tag}`}
-              class="rounded bg-gray-100 px-2 py-1 text-xs text-gray-600 hover:bg-gray-200"
-            >
-              {tag}
-            </a>
-          ))}
-        </div>
+        <span class="text-zissou-white">|</span>
       )}
-    </header>
+      {post.data.tags.map((tag) => (
+        <a href={`/tags/${tag}`} class="hover:text-zissou-blue">{tag}</a>
+      ))}
+    </div>
+
+    <!-- Title -->
+    <h1 class="mb-8 text-3xl font-bold">{post.data.title}</h1>
+
+    <!-- Content -->
     <div class="prose max-w-none">
       <Content />
     </div>
   </article>
-</BaseLayout>
+</PostLayout>
