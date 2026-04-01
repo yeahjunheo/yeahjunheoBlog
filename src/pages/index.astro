@@ -15,11 +15,16 @@ const recentPosts = allPosts.slice(0, 5);
   <!-- 1. Date with time comparison -->
   <div class="mb-10 text-center">
     <p class="font-serif text-2xl" id="date-line"></p>
-<p class="mt-2 font-serif text-sm italic text-zissou-bright-black" id="time-quip"></p>
+    <p class="mt-2 font-serif text-sm italic text-zissou-bright-black" id="time-quip"></p>
+  </div>
+
+  <!-- Obi-Wan container -->
+  <div id="obiwan-wrapper" class="obiwan-wrapper">
+    <img src="/obiwan-hello-there.gif" alt="" />
   </div>
 
   <!-- 2. Body text in large letters -->
-  <section class="mb-10">
+  <section id="body-text" class="mb-10">
     <p class="font-serif text-3xl leading-relaxed">
       Why <span id="hello-there" class="cursor-pointer hover:text-zissou-red">hello there!</span> I'm <span class="font-bold text-zissou-blue">Yeahjun</span> and you've just stumbled on my <span class="wiggle inline-block text-zissou-magenta">think pad</span> on the <span class="bounce inline-block font-bold text-zissou-red">WEB</span>. I'm trying to do more <a href="/blog" class="text-zissou-green underline decoration-wavy hover:text-zissou-blue">writing</a>, <span class="text-zissou-yellow" id="dibble-dabble"></span>, and more with this site. If that's also your jam, keep a <span class="bookmark cursor-pointer text-zissou-magenta underline" id="bookmark-cta">bookmark</span> to give this page a try.
     </p>
@@ -135,13 +140,34 @@ const recentPosts = allPosts.slice(0, 5);
 
   updateDateLine();
 
-  // Obi-Wan hello there — audio only for now
+  // Obi-Wan hello there
   const helloAudio = new Audio("/audio/obi-wan-hello-there.mp3");
   const helloTrigger = document.getElementById("hello-there");
+  const wrapper = document.getElementById("obiwan-wrapper")!;
+  const bodySection = document.getElementById("body-text")!;
+  let playing = false;
+
+  helloTrigger?.addEventListener("mouseenter", () => {
+    if (playing) return;
+    wrapper.classList.add("peek");
+  });
+
+  helloTrigger?.addEventListener("mouseleave", () => {
+    if (playing) return;
+    wrapper.classList.remove("peek");
+  });
 
   helloTrigger?.addEventListener("click", () => {
+    if (playing) return;
+    playing = true;
+    wrapper.classList.remove("peek");
+    wrapper.classList.add("reveal");
     helloAudio.currentTime = 0;
     helloAudio.play();
+    setTimeout(() => {
+      wrapper.classList.remove("reveal");
+      setTimeout(() => { playing = false; }, 500);
+    }, 2000);
   });
 
   // Dibble-dabbling wave
@@ -189,6 +215,32 @@ const recentPosts = allPosts.slice(0, 5);
   @keyframes wave {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-6px); }
+  }
+
+  .obiwan-wrapper {
+    overflow: hidden;
+    height: 0;
+    margin-top: 0;
+    display: flex;
+    justify-content: center;
+    transition: height 0.5s ease-out, margin-top 0.5s ease-out;
+  }
+
+  .obiwan-wrapper img {
+    height: 250px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .obiwan-wrapper.peek {
+    height: 60px;
+    margin-top: -60px;
+  }
+
+  .obiwan-wrapper.reveal {
+    height: 250px;
+    margin-top: 0;
+    transition: height 0.6s ease-out, margin-top 0.6s ease-out;
   }
 
 </style>
