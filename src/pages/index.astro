@@ -13,14 +13,17 @@ const recentPosts = allPosts.slice(0, 5);
 
 <BaseLayout title="yeahjunheo">
   <!-- 1. Date with time comparison -->
-  <div class="mb-10 text-center">
+  <div class="mb-6 text-center">
     <p class="font-serif text-2xl" id="date-line"></p>
     <p class="mt-2 font-serif text-sm italic text-zissou-bright-black" id="time-quip"></p>
   </div>
 
   <!-- Obi-Wan container -->
   <div id="obiwan-wrapper" class="obiwan-wrapper">
-    <img src="/obiwan-hello-there.gif" alt="" />
+    <video autoplay loop muted playsinline>
+      <source src="/obiwan-hello-there.mp4" type="video/mp4" />
+      <source src="/obiwan-hello-there.webm" type="video/webm" />
+    </video>
   </div>
 
   <!-- 2. Body text in large letters -->
@@ -276,7 +279,7 @@ const recentPosts = allPosts.slice(0, 5);
     transition: height 0.5s ease-out, margin-top 0.5s ease-out;
   }
 
-  .obiwan-wrapper img {
+  .obiwan-wrapper video {
     height: 250px;
     width: auto;
     object-fit: contain;

@@ -40,4 +40,10 @@ My mum was right all along:
 **I wouldn't say I'm all that better either.**
 Ever since I got my first phone at the ripe age of 14, it's always been within arms reach.
 It doesn't help either that mobile games and access to the internet made this small device a superior source of entertainment.
-And this superior form of entertainment that comes in such a small form factor
+And this superior form of entertainment that comes in such a small form factor so just so accessible that it makes it hard to stay away from it.
+
+## What I've noticed about myself
+
+## Reasons why I still need my phone
+
+## What I'll be doing moving onwards

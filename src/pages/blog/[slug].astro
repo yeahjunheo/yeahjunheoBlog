@@ -26,11 +26,14 @@ const fullDate = d.toLocaleDateString("en-US", {
 
 <PostLayout title={`${post.data.title} - yeahjunheo`} description={post.data.excerpt}>
   <article>
-    <!-- Back button -->
-    <a href="/blog" class="mb-6 inline-flex items-center gap-1 text-sm text-zissou-bright-black hover:text-zissou-blue">
-      <Icon name="ph:caret-left-bold" size={14} />
-      Back
-    </a>
+    <!-- Back button + reading time -->
+    <div class="mb-6 flex items-center justify-between">
+      <a href="/blog" class="inline-flex items-center gap-1 text-sm text-zissou-bright-black hover:text-zissou-blue">
+        <Icon name="ph:caret-left-bold" size={14} />
+        Back
+      </a>
+      <span class="text-sm text-zissou-bright-black">{readingTime(post.body ?? "")}</span>
+    </div>
 
     <!-- Random animal -->
     <img id="animal-img" alt="A random animal" class="mb-4 hidden w-full max-h-80 rounded object-cover" />
@@ -56,16 +59,13 @@ const fullDate = d.toLocaleDateString("en-US", {
 <script>
   const img = document.getElementById("animal-img") as HTMLImageElement;
   if (img) {
-    const isDog = Math.random() > 0.5;
-    const url = isDog
-      ? "https://dog.ceo/api/breeds/image/random"
-      : "https://api.thecatapi.com/v1/images/search";
+    const url = "https://api.thecatapi.com/v1/images/search";
 
     fetch(url)
       .then((r) => r.json())
       .then((data) => {
-        img.src = isDog ? data.message : data[0].url;
-        img.alt = isDog ? "A random dog" : "A random cat";
+        img.src = data[0].url;
+        img.alt = "A random cat";
         img.classList.remove("hidden");
       });
   }
