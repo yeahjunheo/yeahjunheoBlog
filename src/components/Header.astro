@@ -33,7 +33,7 @@ const pathname = Astro.url.pathname;
                 href="/about"
                 class:list={[
                     "hover:text-zissou-blue",
-                    pathname === "/about" && "text-zissou-blue font-semibold",
+                    pathname.startsWith("/about") && "text-zissou-blue font-semibold",
                 ]}>About</a
             >
         </nav>
