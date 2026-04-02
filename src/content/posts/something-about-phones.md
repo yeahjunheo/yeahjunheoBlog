@@ -2,29 +2,42 @@
 title: "Something About Phones "
 excerpt: "I started writing this essay on my commute by train after staring at a number of scalps. Hope it was worth the motion sickness."
 tags: ["essay"]
-published: false
+published: true
 publishedAt: 2026-04-02
 ---
 
-I write this 
+Today's morning commute to Osaka was merciful.
+It wasn't the usual cramped experience of canned sardines, but still close enough to catch a whiff of everyone's morning routine.
+I wouldn't say it was unpleasant, but still close enough.
 
-I write this while I commute by train. Not a lot of people but just enough to start smelling the smell of everyone's homes.
-Not pleasant, just close.
+Being taller than the average height in Japan, I've become used to watching the crowns of everyone's head.
+But today it was even more apparent, especially from that shiny old man where the morning light kept targeting my eye.
+The large majority of people around me had their eyes glued to their tiny screens from chest-level.
+Too busy looking at their screens they don't realize their necks drooping further.
 
-I notice more people balding around me. It could be me projecting or just everyone showing their crown in all directions.
+My mum was right all along:
 
-Too busy looking down at their tiny screens, chest-level high, neck bent like the hook of a candycane.
+<style>
+@keyframes tremble {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(-1px, 1px) rotate(-2deg); }
+  50% { transform: translate(1px, -1px) rotate(1deg); }
+  75% { transform: translate(-1px, -1px) rotate(2deg); }
+  100% { transform: translate(1px, 1px) rotate(-1deg); }
+}
+.tremble span {
+  display: inline-block;
+  animation: tremble 0.15s infinite;
+}
+.tremble span:nth-child(2n) { animation-delay: 0.03s; }
+.tremble span:nth-child(3n) { animation-delay: 0.07s; }
+.tremble span:nth-child(5n) { animation-delay: 0.05s; }
+.tremble span:nth-child(7n) { animation-delay: 0.1s; }
+</style>
 
-It's the damn phone. My mom was right.
+<p class="tremble" style="font-size: 1.5em; text-align: center; font-weight: bold; font-style: italic; color: var(--color-zissou-red);"><span>I</span><span>t</span><span>'</span><span>s</span> <span>t</span><span>h</span><span>e</span> <span>g</span><span>o</span><span>d</span> <span>d</span><span>a</span><span>m</span><span>n</span> <span>p</span><span>h</span><span>o</span><span>n</span><span>e</span><span>.</span></p>
 
-
-I wouldn't say I'm all that better either.
-My phone is always at my side, mostly to be picked up by my right hand.
-It has been this way for the longest time (not something to be proud of).
-Things like mobile games and access to the internet make the phone such a appealing mdium of entertainment.
-Some might chant with me on these the dreaded algorithm that keeps a leash on our throats.
-But these are all just excuses.
-
-
-
-I've been chasing the dopamine that it gives, a quick whiff of laughter, a short-lived high that a addictve as nicotine to my father. This is a problem that i need to 
+**I wouldn't say I'm all that better either.**
+Ever since I got my first phone at the ripe age of 14, it's always been within arms reach.
+It doesn't help either that mobile games and access to the internet made this small device a superior source of entertainment.
+And this superior form of entertainment that comes in such a small form factor

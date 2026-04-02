@@ -26,7 +26,7 @@ const recentPosts = allPosts.slice(0, 5);
   <!-- 2. Body text in large letters -->
   <section id="body-text" class="mb-10">
     <p class="font-serif text-3xl leading-relaxed">
-      Why <span id="hello-there" class="cursor-pointer hover:text-zissou-red">hello there!</span> I'm <span class="font-bold text-zissou-blue">Yeahjun</span> and you've just stumbled on my <span class="wiggle inline-block text-zissou-magenta">think pad</span> on the <span class="bounce inline-block font-bold text-zissou-red">WEB</span>. I'm trying to do more <a href="/blog" class="text-zissou-green underline decoration-wavy hover:text-zissou-blue">writing</a>, <span class="text-zissou-yellow" id="dibble-dabble"></span>, and more with this site. If that's also your jam, keep a <span class="bookmark cursor-pointer text-zissou-magenta underline" id="bookmark-cta">bookmark</span> to give this page a try.
+      Why <span id="hello-there" class="cursor-pointer hover:text-zissou-red">hello there!</span> I'm <span class="font-bold text-zissou-blue">Yeahjun</span> and you've just stumbled on my <span class="wiggle inline-block text-zissou-magenta">think pad</span> on the <span class="bounce inline-block font-bold text-zissou-red">WEB</span>. I'm trying to do more <a href="/blog" class="inline-block text-zissou-green hover:text-zissou-blue" id="typing-writing" style="width:3.9em"></a>, <span class="text-zissou-yellow" id="dibble-dabble"></span>, and more with this site. If that's also your jam, keep a <span class="bookmark cursor-pointer text-zissou-magenta underline" id="bookmark-cta">bookmark</span> to give this page a try.
     </p>
   </section>
 
@@ -189,6 +189,38 @@ const recentPosts = allPosts.slice(0, 5);
     ).join("");
   }
 
+  // Typing effect on "writing"
+  const typingEl = document.getElementById("typing-writing");
+  if (typingEl) {
+    const word = "writing";
+    let i = 0;
+    let deleting = false;
+    typingEl.textContent = "";
+
+    function tick() {
+      if (!deleting) {
+        typingEl!.textContent = word.slice(0, i + 1);
+        i++;
+        if (i >= word.length) {
+          deleting = true;
+          setTimeout(tick, 1500);
+        } else {
+          setTimeout(tick, 150);
+        }
+      } else {
+        i--;
+        typingEl!.textContent = word.slice(0, i);
+        if (i <= 0) {
+          deleting = false;
+          setTimeout(tick, 500);
+        } else {
+          setTimeout(tick, 80);
+        }
+      }
+    }
+    tick();
+  }
+
   // Bookmark CTA
   document.getElementById("bookmark-cta")?.addEventListener("click", () => {
     alert("Press Ctrl+D (or Cmd+D on Mac) to bookmark this page!");
@@ -223,6 +255,16 @@ const recentPosts = allPosts.slice(0, 5);
   @keyframes wave {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-6px); }
+  }
+
+  #typing-writing::after {
+    content: "|";
+    animation: blink 0.7s step-end infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
   }
 
   .obiwan-wrapper {

@@ -5,35 +5,35 @@ const pathname = Astro.url.pathname;
 
 <header class="px-6 py-6">
     <div class="mx-auto flex max-w-3xl items-center justify-between">
-        <nav class="flex gap-6 text-sm">
+        <nav class="flex gap-4 text-sm">
             <a
                 href="/"
                 class:list={[
-                    "hover:text-zissou-blue",
-                    pathname === "/" && "text-zissou-blue font-semibold",
+                    "rounded-md px-3 py-1 hover:text-zissou-blue",
+                    pathname === "/" && "bg-zissou-blue text-zissou-cream font-semibold hover:text-zissou-cream",
                 ]}>Home</a
             >
             <a
                 href="/blog"
                 class:list={[
-                    "hover:text-zissou-blue",
+                    "rounded-md px-3 py-1 hover:text-zissou-blue",
                     pathname.startsWith("/blog") &&
-                        "text-zissou-blue font-semibold",
+                        "bg-zissou-red text-zissou-cream font-semibold hover:text-zissou-cream",
                 ]}>Blog</a
             >
             <!-- <a
                 href="/hobby"
                 class:list={[
-                    "hover:text-zissou-blue",
+                    "rounded-md px-3 py-1 hover:text-zissou-blue",
                     pathname.startsWith("/hobby") &&
-                        "text-zissou-blue font-semibold",
+                        "bg-zissou-blue text-zissou-cream font-semibold hover:text-zissou-cream",
                 ]}>Hobby</a
             > -->
             <a
                 href="/about"
                 class:list={[
-                    "hover:text-zissou-blue",
-                    pathname.startsWith("/about") && "text-zissou-blue font-semibold",
+                    "rounded-md px-3 py-1 hover:text-zissou-blue",
+                    pathname.startsWith("/about") && "bg-zissou-green text-zissou-cream font-semibold hover:text-zissou-cream",
                 ]}>About</a
             >
         </nav>

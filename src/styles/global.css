@@ -1,6 +1,10 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+html {
+  scrollbar-gutter: stable;
+}
+
 ::selection {
   background-color: var(--color-zissou-yellow);
   color: var(--color-zissou-black);
