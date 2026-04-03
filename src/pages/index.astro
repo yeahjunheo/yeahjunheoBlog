@@ -51,8 +51,7 @@ const recentPosts = allPosts.slice(0, 5);
         return (
           <li>
             <a href={`/blog/${post.id}`} class="group flex items-center gap-4">
-              <span class="shrink-0 text-sm text-zissou-bright-black">{month}</span>
-              <span class="self-stretch w-0.5 bg-zissou-white"></span>
+              <span class="w-14 shrink-0 text-sm text-zissou-bright-black">{month}</span>
               <div class="flex flex-col justify-center">
                 <h3 class="font-semibold group-hover:text-zissou-blue">{post.data.title}</h3>
                 {post.data.excerpt && <p class="mt-0.5 text-sm text-zissou-bright-black">{post.data.excerpt}</p>}
