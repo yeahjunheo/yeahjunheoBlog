@@ -1,6 +1,6 @@
 ---
 title: "Comments About Listening to Music"
-excerpt: "I've noticed I don't listen to music as earnestly as I used to do. Maybe you also agree?"
+excerpt: "I've noticed I don't listen to music as earnestly as I used to do. Maybe you can also agree?"
 tags: ["note"]
 published: true
 publishedAt: 2026-04-03
