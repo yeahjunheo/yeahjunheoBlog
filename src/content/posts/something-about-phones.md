@@ -12,7 +12,7 @@ but still close enough to catch a whiff of everyone's breakfast.
 I wouldn't say it was unpleasant (and don't think I'm weird),
 but we were still close enough to do so.
 
-Being taller than average in Japan (probably anywhere else too), you get used to seeing the top of everyone's head.
+Being taller than average in Japan, you get used to seeing the top of everyone's head.
 But today's ride made it more apparent.
 Everyone's crown was pointing directly at my direction, some even shining light into my eyes.
 While trying my best to ignore those targeted attacks, I noticed that this wasn't because of my height.
