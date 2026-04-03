@@ -82,6 +82,17 @@ html {
   margin-bottom: 0.75em;
 }
 
+.drop-cap::first-letter {
+  float: left;
+  font-family: var(--font-serif);
+  font-size: 3.5em;
+  line-height: 0.8;
+  padding-right: 0.08em;
+  padding-top: 0.05em;
+  color: var(--color-zissou-red);
+  font-weight: 700;
+}
+
 .prose :where(ul, ol) {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
