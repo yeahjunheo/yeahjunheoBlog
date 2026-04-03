@@ -66,7 +66,7 @@ Another thing is how dry my nail-fold/cuticle has become.
 This I noticed a year back, and the inconvenience of having to cut it off (ouch) has been bugging me.
 These changes aren't anything major, but came as signs that maybe I should start rethinking my habits.
 
-## Reasons why I need my phone
+## Why do I still need it
 
 Even though I say all this to criticize people (myself included) about phone use,
 I took some time to really think about why I keep coming back to it.
