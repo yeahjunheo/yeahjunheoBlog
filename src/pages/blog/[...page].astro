@@ -46,47 +46,55 @@ const allPostsJson = JSON.stringify(
     <div class="relative" id="date-filter">
       <button
         id="date-filter-btn"
-        class="flex items-center gap-1.5 rounded-full border border-zissou-white px-3 py-1 text-sm text-zissou-bright-black transition-colors hover:border-zissou-blue hover:text-zissou-blue"
+        class="catalogue-handle group flex items-center gap-2"
       >
-        <span id="date-filter-label">All</span>
-        <svg class="h-3.5 w-3.5 transition-transform" id="date-filter-arrow" viewBox="0 0 20 20" fill="currentColor">
+        <span class="catalogue-label" id="date-filter-label">All</span>
+        <svg class="h-3 w-3 text-zissou-cream transition-transform" id="date-filter-arrow" viewBox="0 0 20 20" fill="currentColor">
           <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
         </svg>
       </button>
 
       <div
         id="date-filter-menu"
-        class="absolute left-0 top-full z-10 mt-2 hidden max-h-64 w-48 overflow-y-auto rounded-lg border border-zissou-white bg-zissou-cream shadow-lg"
+        class="catalogue-drawer absolute left-0 top-full z-10 mt-2 hidden"
       >
-        <button
-          class="date-option w-full px-4 py-2 text-left text-sm hover:bg-zissou-white/40"
-          data-year=""
-          data-month=""
-        >
-          All
-        </button>
-        <div class="h-px bg-zissou-white"></div>
-        {sortedYears.map((year) => {
-          const months = [...dateGroups[year]].sort((a, b) => b - a);
-          return (
-            <div>
-              <button
-                class="date-option w-full px-4 pt-3 pb-1 text-left text-xs font-bold tracking-wide text-zissou-bright-black hover:bg-zissou-white/40"
-                data-year={year}
-                data-month=""
-              >{year}</button>
-              {months.map((m) => (
+        <div class="catalogue-drawer-inner">
+          <button
+            class="date-option catalogue-card catalogue-card--all"
+            data-year=""
+            data-month=""
+          >
+            <span class="catalogue-card-text">All Dates</span>
+          </button>
+
+          <div class="catalogue-divider"></div>
+
+          {sortedYears.map((year) => {
+            const months = [...dateGroups[year]].sort((a, b) => b - a);
+            return (
+              <div class="catalogue-year-group">
                 <button
-                  class="date-option w-full px-4 py-1.5 text-left text-sm hover:bg-zissou-white/40"
+                  class="date-option catalogue-tab"
                   data-year={year}
-                  data-month={m}
+                  data-month=""
                 >
-                  {MONTH_NAMES[m]}
+                  <span class="catalogue-tab-text">{year}</span>
                 </button>
-              ))}
-            </div>
-          );
-        })}
+                <div class="catalogue-month-tray">
+                  {months.map((m) => (
+                    <button
+                      class="date-option catalogue-card"
+                      data-year={year}
+                      data-month={m}
+                    >
+                      <span class="catalogue-card-text">{MONTH_NAMES[m]}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   </div>
@@ -104,7 +112,7 @@ const allPostsJson = JSON.stringify(
           <a href={`/blog/${post.id}`} class="group flex items-center gap-4">
             <span class="w-14 shrink-0 text-sm text-zissou-bright-black">{month} {day}</span>
             <div class="flex flex-col justify-center">
-              <h3 class="font-semibold group-hover:text-zissou-blue">{post.data.title}</h3>
+              <h3 class="font-semibold group-hover:text-zissou-red">{post.data.title}</h3>
               {post.data.excerpt && <p class="mt-0.5 text-sm text-zissou-bright-black">{post.data.excerpt}</p>}
             </div>
           </a>
@@ -117,24 +125,24 @@ const allPostsJson = JSON.stringify(
 
   <nav id="filtered-pagination-nav" class="mt-10 hidden grid grid-cols-3 items-center">
     <div class="text-left">
-      <span id="filtered-prev" class="text-sm hover:text-zissou-blue cursor-pointer"></span>
+      <span id="filtered-prev" class="text-sm hover:text-zissou-red cursor-pointer"></span>
     </div>
     <span id="filtered-page-info" class="text-center text-sm text-zissou-bright-black"></span>
     <div class="text-right">
-      <span id="filtered-next" class="text-sm hover:text-zissou-blue cursor-pointer"></span>
+      <span id="filtered-next" class="text-sm hover:text-zissou-red cursor-pointer"></span>
     </div>
   </nav>
 
   <nav id="pagination-nav" class="mt-10 grid grid-cols-3 items-center">
     <div class="text-left">
       {page.url.prev && (
-        <a href={page.url.prev} class="text-sm hover:text-zissou-blue">&larr; Newer</a>
+        <a href={page.url.prev} class="text-sm hover:text-zissou-red">&larr; Newer</a>
       )}
     </div>
     <span class="text-center text-sm text-zissou-bright-black">Page {page.currentPage} of {page.lastPage}</span>
     <div class="text-right">
       {page.url.next && (
-        <a href={page.url.next} class="text-sm hover:text-zissou-blue">Older &rarr;</a>
+        <a href={page.url.next} class="text-sm hover:text-zissou-red">Older &rarr;</a>
       )}
     </div>
   </nav>
@@ -190,7 +198,7 @@ const allPostsJson = JSON.stringify(
       <a href="/blog/${p.id}" class="group flex items-center gap-4">
         <span class="w-14 shrink-0 text-sm text-zissou-bright-black">${mon} ${day}</span>
         <div class="flex flex-col justify-center">
-          <h3 class="font-semibold group-hover:text-zissou-blue">${p.title}</h3>
+          <h3 class="font-semibold group-hover:text-zissou-red">${p.title}</h3>
           ${excerptHtml}
         </div>
       </a>
@@ -227,10 +235,26 @@ const allPostsJson = JSON.stringify(
     }
   });
 
+  function clearActiveStates() {
+    menu.querySelectorAll(".date-option").forEach((el) => el.classList.remove("active"));
+  }
+
+  // Set "All" as initially active
+  menu.querySelector(".catalogue-card--all")?.classList.add("active");
+
   menu.querySelectorAll(".date-option").forEach((opt) => {
     opt.addEventListener("click", () => {
       const year = opt.dataset.year;
       const month = opt.dataset.month;
+
+      clearActiveStates();
+      opt.classList.add("active");
+
+      // Also highlight the parent year tab when a month is selected
+      if (year && month !== "") {
+        const yearTab = menu.querySelector(`.catalogue-tab[data-year="${year}"]`);
+        if (yearTab) yearTab.classList.add("active");
+      }
 
       if (!year) {
         label.textContent = "All";

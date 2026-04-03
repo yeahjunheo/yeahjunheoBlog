@@ -103,6 +103,146 @@ html {
   font-style: italic;
 }
 
+/* ── Card Catalogue Filter ── */
+
+.catalogue-handle {
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 12px;
+  background: var(--color-zissou-red);
+  transition: background 0.15s;
+}
+.catalogue-handle:hover {
+  background: var(--color-zissou-magenta);
+}
+
+.catalogue-label {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  color: var(--color-zissou-cream);
+}
+.catalogue-handle:hover .catalogue-label {
+  color: var(--color-zissou-cream);
+}
+
+.catalogue-drawer {
+  width: 200px;
+  max-height: 320px;
+  overflow-y: auto;
+  border: 1.5px solid var(--color-zissou-white);
+  border-radius: 4px;
+  background: var(--color-zissou-cream);
+  box-shadow:
+    0 4px 12px color-mix(in srgb, var(--color-zissou-bright-black) 18%, transparent),
+    0 1px 3px color-mix(in srgb, var(--color-zissou-bright-black) 10%, transparent);
+}
+
+.catalogue-drawer-inner {
+  padding: 6px 0;
+}
+
+.catalogue-divider {
+  height: 1px;
+  margin: 4px 10px;
+  background: repeating-linear-gradient(
+    to right,
+    var(--color-zissou-white) 0px,
+    var(--color-zissou-white) 4px,
+    transparent 4px,
+    transparent 8px
+  );
+}
+
+/* Year tab — catalogue divider card */
+.catalogue-tab {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 6px 12px 4px;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  position: relative;
+}
+.catalogue-tab::before {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 0;
+  height: 1px;
+  background: var(--color-zissou-white);
+}
+.catalogue-tab-text {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--color-zissou-foreground);
+  text-transform: uppercase;
+}
+.catalogue-tab:hover .catalogue-tab-text {
+  color: var(--color-zissou-red);
+}
+.catalogue-tab.active .catalogue-tab-text {
+  color: var(--color-zissou-red);
+}
+
+/* Month / "All" card — individual catalogue card */
+.catalogue-card {
+  display: flex;
+  align-items: center;
+  width: calc(100% - 16px);
+  margin: 2px 8px;
+  padding: 5px 10px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  background: transparent;
+  transition: background 0.12s, border-color 0.12s;
+}
+.catalogue-card:hover {
+  background: color-mix(in srgb, var(--color-zissou-white) 35%, transparent);
+  border-color: var(--color-zissou-white);
+}
+.catalogue-card.active {
+  background: color-mix(in srgb, var(--color-zissou-red) 12%, transparent);
+  border-color: color-mix(in srgb, var(--color-zissou-red) 30%, transparent);
+}
+.catalogue-card-text {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  color: var(--color-zissou-foreground);
+  letter-spacing: 0.01em;
+}
+.catalogue-card.active .catalogue-card-text {
+  color: var(--color-zissou-red);
+  font-weight: 700;
+}
+
+.catalogue-card--all {
+  margin-top: 4px;
+  margin-bottom: 2px;
+}
+
+.catalogue-month-tray {
+  padding: 2px 0 4px;
+}
+
+/* Scrollbar styling for the drawer */
+.catalogue-drawer::-webkit-scrollbar {
+  width: 6px;
+}
+.catalogue-drawer::-webkit-scrollbar-track {
+  background: transparent;
+}
+.catalogue-drawer::-webkit-scrollbar-thumb {
+  background: var(--color-zissou-white);
+  border-radius: 3px;
+}
+
 @theme {
   --font-sans: "Merriweather Sans", sans-serif;
   --font-serif: "Merriweather", serif;
