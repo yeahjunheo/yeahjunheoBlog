@@ -1,5 +1,5 @@
 ---
-title: "Comments About Listening to Music"
+title: "Too Busy to Sing"
 excerpt: "I've noticed I don't listen to music as earnestly as I used to do. Maybe you can also agree?"
 tags: ["note"]
 published: true
