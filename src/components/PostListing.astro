@@ -14,13 +14,15 @@ const posts = providedPosts ?? (await getCollection("posts"))
   .slice(0, limit);
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-const TITLE_W = 50;
-const VIEWS_W = 6;
 
-function fmtDate(d: Date): string {
+const DESKTOP = { titleW: 50, viewsW: 6, gap: "        ", withTime: true };
+const MOBILE = { titleW: 36, viewsW: 4, gap: "  ", withTime: false };
+
+function fmtDate(d: Date, withTime: boolean): string {
   const dd = String(d.getDate()).padStart(2, "0");
   const mon = MONTHS[d.getMonth()];
   const yyyy = d.getFullYear();
+  if (!withTime) return `${dd}-${mon}-${yyyy}`;
   const hh = String(d.getHours()).padStart(2, "0");
   const mm = String(d.getMinutes()).padStart(2, "0");
   return `${dd}-${mon}-${yyyy} ${hh}:${mm}`;
@@ -38,33 +40,38 @@ function esc(s: string): string {
     .replace(/"/g, "&quot;");
 }
 
-const placeholder = "-".padStart(VIEWS_W);
+function render(opts: { titleW: number; viewsW: number; gap: string; withTime: boolean }): string {
+  if (posts.length === 0) return "(no posts yet)\n";
+  const placeholder = "-".padStart(opts.viewsW);
+  return posts
+    .map((post) => {
+      const id = esc(post.id);
+      const title = esc(truncate(post.data.title, opts.titleW));
+      const href = esc(`/posts/${post.id}`);
+      const date = fmtDate(post.data.publishedAt, opts.withTime);
+      return `<a href="${href}">${title}</a>  ${date}${opts.gap}<span data-views="${id}" data-views-w="${opts.viewsW}">${placeholder}</span>\n`;
+    })
+    .join("");
+}
 
-const listing = posts.length === 0
-  ? "(no posts yet)\n"
-  : posts
-      .map((post) => {
-        const id = esc(post.id);
-        const title = esc(truncate(post.data.title, TITLE_W));
-        const href = esc(`/posts/${post.id}`);
-        const date = fmtDate(post.data.publishedAt);
-        return `<a href="${href}">${title}</a>  ${date}        <span data-views="${id}">${placeholder}</span>\n`;
-      })
-      .join("");
+const desktopListing = render(DESKTOP);
+const mobileListing = render(MOBILE);
 ---
 
 <hr />
-<pre class="my-3 text-sm leading-7" set:html={listing}></pre>
+<pre class="my-3 hidden text-sm leading-7 md:block" set:html={desktopListing}></pre>
+<pre class="my-3 overflow-x-auto text-sm leading-7 md:hidden" set:html={mobileListing}></pre>
 <hr />
 
-<script is:inline define:vars={{ width: VIEWS_W }}>
+<script is:inline>
   fetch("/api/views.json")
     .then((r) => (r.ok ? r.json() : {}))
     .then((counts) => {
       document.querySelectorAll("[data-views]").forEach((el) => {
         const id = el.getAttribute("data-views");
+        const w = Number(el.getAttribute("data-views-w")) || 0;
         const n = counts[id] ?? 0;
-        el.textContent = String(n).padStart(width);
+        el.textContent = String(n).padStart(w);
       });
     })
     .catch(() => {});

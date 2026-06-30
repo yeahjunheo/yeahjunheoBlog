@@ -23,7 +23,7 @@ const fmt = `${String(d.getDate()).padStart(2, "0")}-${MONTHS[d.getMonth()]}-${d
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{post.data.title}</title>
     {post.data.excerpt && <meta name="description" content={post.data.excerpt} />}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
