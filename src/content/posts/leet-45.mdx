@@ -1,0 +1,44 @@
+---
+title: "Leetcode 45 - Jump Game II"
+excerpt: "The question I mistakenly said was not that hard."
+publishedAt: 2026-06-30T23:00
+published: true
+tags: ["leetcode","medium"]
+---
+
+import AsciinemaPlayer from "../../components/AsciinemaPlayer.astro";
+
+It's been a while since I last wrote anything on here, well I did scrap everything that was
+already here, so I guess we're doing something new. This next question was the type that I
+was worried about when solving the previous version, Jump Game. Funnily enough, I was able
+to think of a brute force solution pretty quickly, but finding the optimal solution was
+probably the hardest ask of this question.
+
+## Jumped to a conclusion to quickly...
+
+Like I mentioned in the sequal to this problem, finding the fewest number of jumps is harder
+than determining if a series of jumps is VALID. Before we just had to check by running checks
+on each step that got us closer to the final step. This time, on the other hand, requires us
+to keep record of the BEST options until we reached the final step. This is what got me to
+change the solution at the end, to open a range of possible options that we'd consider with
+each jump from the steps.
+
+<AsciinemaPlayer src="/casts/leet-45-20260630-230635.cast" idleTimeLimit={2} />
+
+As you can see in the video, it took a while to figure out the final solution. The main idea
+behind it is that with each step, we open our possibilities for each new jump. In other words,
+for an array `[2,3,1,1,4]`, the first step `[1]` opens the possibilities for `[3,1]`. From this,
+we get the new window `[1,4]`. This gives the minimum value of 2 jumps to reach the top. So by
+following this pattern where a fan of possible steps are kept open while discarding any
+previously opened possibilities, we can effectively move up the steps while checking for the
+best options to get closer to the top.
+
+## Performance evaluation
+
+This solution only introduces 3 variables with an additional temporary variable, this best
+solution has a space complexity of $O(1)$. Time complexity, on the other hand, is $O(n)$ because
+what we're doing is actually a single pass with extra steps. With each 'jump', we discard info
+on previous steps, so we aren't repeating any checks. This is what makes the time complexity $O(n)$,
+making this solution optimal.
+
+:P
