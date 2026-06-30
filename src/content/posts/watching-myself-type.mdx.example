@@ -1,0 +1,14 @@
+---
+title: "Watching myself type"
+excerpt: "Recording terminal sessions with asciinema and what I notice when I rewatch them."
+publishedAt: 2026-06-22T21:30
+published: true
+tags: ["terminal", "tools"]
+---
+
+import AsciinemaPlayer from "../../components/AsciinemaPlayer.astro";
+
+<content here>
+
+<AsciinemaPlayer src="/casts/20260629-095408.cast" idleTimeLimit={2} />
+

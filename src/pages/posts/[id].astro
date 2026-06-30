@@ -1,0 +1,55 @@
+---
+import "../../styles/global.css";
+import { getCollection, render, type CollectionEntry } from "astro:content";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts");
+  return posts.map((post) => ({ params: { id: post.id }, props: { post } }));
+}
+
+interface Props {
+  post: CollectionEntry<"posts">;
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const d = post.data.publishedAt;
+const fmt = `${String(d.getDate()).padStart(2, "0")}-${MONTHS[d.getMonth()]}-${d.getFullYear()}`;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{post.data.title}</title>
+    {post.data.excerpt && <meta name="description" content={post.data.excerpt} />}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@400;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&display=swap"
+    />
+  </head>
+  <body>
+    <main class="mx-auto max-w-2xl p-8">
+      <p class="text-sm"><a href="/">../</a></p>
+      <article class="prose mt-6">
+        <h1>{post.data.title}</h1>
+        <p class="text-sm">{fmt}</p>
+        <Content />
+      </article>
+    </main>
+
+    <script is:inline define:vars={{ postId: post.id }}>
+      const today = new Date().toISOString().slice(0, 10);
+      const key = `viewed:${postId}:${today}`;
+      if (!localStorage.getItem(key)) {
+        localStorage.setItem(key, "1");
+        fetch(`/api/views/${encodeURIComponent(postId)}`, { method: "POST" }).catch(() => {});
+      }
+    </script>
+  </body>
+</html>

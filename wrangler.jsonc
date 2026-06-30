@@ -1,6 +1,9 @@
 {
 	"compatibility_date": "2026-03-29",
-	"compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+	"compatibility_flags": [
+		"nodejs_compat",
+		"global_fetch_strictly_public"
+	],
 	"name": "yeahjunheoblog",
 	"main": "@astrojs/cloudflare/entrypoints/server",
 	"assets": {
@@ -14,6 +17,14 @@
 		{
 			"pattern": "yeahjunheo.com",
 			"custom_domain": true
+		}
+	],
+	"d1_databases": [
+		{
+			"binding": "VIEWS",
+			"database_name": "blog-views",
+			"database_id": "ddd1b696-0825-4212-940e-8ded6aa62a75",
+			"migrations_dir": "migrations"
 		}
 	]
 }

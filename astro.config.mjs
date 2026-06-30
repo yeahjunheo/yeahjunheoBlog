@@ -1,18 +1,16 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-import icon from 'astro-icon';
-
 import tailwindcss from '@tailwindcss/vite';
-
 import cloudflare from '@astrojs/cloudflare';
+import mdx from '@astrojs/mdx';
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [icon()],
-
+  integrations: [mdx()],
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
   },
-
-  adapter: process.argv.includes('dev') ? undefined : cloudflare()
+  adapter: cloudflare({
+    platformProxy: { enabled: true },
+  }),
 });

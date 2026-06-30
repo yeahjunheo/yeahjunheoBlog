@@ -1,0 +1,41 @@
+---
+interface Props {
+  src: string;
+  cols?: number;
+  rows?: number;
+  autoPlay?: boolean;
+  loop?: boolean | number;
+  startAt?: number | string;
+  speed?: number;
+  idleTimeLimit?: number;
+  preload?: boolean;
+  poster?: string;
+  fit?: "width" | "height" | "both" | "none" | false;
+  controls?: boolean | "auto";
+  theme?: string;
+  terminalFontSize?: string;
+  terminalFontFamily?: string;
+  terminalLineHeight?: number;
+}
+
+const { src, ...options } = Astro.props;
+---
+
+<div class="asciinema-player" data-src={src} data-options={JSON.stringify(options)}></div>
+
+<script>
+  import * as AsciinemaPlayer from "asciinema-player";
+  import "asciinema-player/dist/bundle/asciinema-player.css";
+
+  document
+    .querySelectorAll<HTMLDivElement>(".asciinema-player")
+    .forEach((el) => {
+      if (el.dataset.mounted) return;
+      el.dataset.mounted = "true";
+      AsciinemaPlayer.create(
+        el.dataset.src!,
+        el,
+        JSON.parse(el.dataset.options || "{}"),
+      );
+    });
+</script>

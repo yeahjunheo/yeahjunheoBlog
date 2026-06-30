@@ -15,18 +15,22 @@
   },
   "dependencies": {
     "@astrojs/cloudflare": "^13.1.6",
-    "@iconify-json/ph": "^1.2.2",
-    "@iconify-json/simple-icons": "^1.2.76",
+    "@astrojs/mdx": "^6.0.3",
     "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.2.2",
+    "asciinema-player": "^3.16.0",
     "astro": "^6.1.1",
-    "astro-icon": "^1.1.5",
     "tailwindcss": "^4.2.2"
   },
   "devDependencies": {
+    "@types/node": "^26.0.1",
     "wrangler": "^4.79.0"
   },
   "overrides": {
-    "vite": "^7"
+    "vite": "^7",
+    "esbuild": "^0.28.1"
+  },
+  "volta": {
+    "node": "22.23.1"
   }
 }
