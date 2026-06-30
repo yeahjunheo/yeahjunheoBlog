@@ -21,6 +21,9 @@
     "@tailwindcss/vite": "^4.2.2",
     "asciinema-player": "^3.16.0",
     "astro": "^6.1.1",
+    "katex": "^0.17.0",
+    "rehype-katex": "^7.0.1",
+    "remark-math": "^6.0.0",
     "tailwindcss": "^4.2.2"
   },
   "devDependencies": {
