@@ -5,7 +5,3 @@ allowBuilds:
   esbuild: true
   sharp: true
   workerd: true
-
-overrides:
-  vite: ^7
-  esbuild: ^0.28.1

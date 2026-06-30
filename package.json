@@ -32,5 +32,11 @@
   },
   "volta": {
     "node": "22.23.1"
+  },
+  "pnpm": {
+    "overrides": {
+      "vite": "^7",
+      "esbuild": "^0.28.1"
+    }
   }
 }
