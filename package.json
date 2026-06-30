@@ -30,10 +30,6 @@
     "@types/node": "^26.0.1",
     "wrangler": "^4.79.0"
   },
-  "overrides": {
-    "vite": "^7",
-    "esbuild": "^0.28.1"
-  },
   "volta": {
     "node": "22.23.1"
   }
