@@ -1,0 +1,37 @@
+---
+title: "Leetcode 274 - H-Index"
+excerpt: "The question I mistakenly said was not that hard."
+publishedAt: 2026-07-01T07:00
+published: true
+tags: ["leetcode","medium"]
+---
+
+import AsciinemaPlayer from "../../components/AsciinemaPlayer.astro";
+
+Here I sit, snacking on some bread and a glass of milk.
+
+I've been waking up pretty early consistently, between 6 and 7 am, but I never really had
+something to do other than look at class lectures or watch youtube (you get which one I end
+up doing more). I'll try solving some problems for once, just like this, in the morning,
+maybe this will help me get better. Or I'll have small writing blocks, that might be a fun
+exercise for me to get used to writing as well, with how this blog will progress further
+from now.
+
+## Wrong the first time, right the second
+
+This H-index problem was not a tricky one. Just find a paper count which didn't exceed the 
+minmum number of citations. In other words, if we had a list of papers with `x` citations --
+`[3,0,6,1,5]` -- then the H-index would be 3 because three papers have at least 3 citations.
+
+The solution I came up with would be to sort the whole list in descending order, then to check
+for the maximum number index that contained at least that many citations.
+
+<AsciinemaPlayer src="/casts/leet-274-20260701-071247.cast" idleTimeLimit={2} />
+
+That was pretty quick so very happy about that.
+
+## Performance evaluation
+
+The time complexity of this solution is $O(n \log n)$ because of the `sort()` function that
+we've used here. As for additional space complexity, we only have $O(1)$ for the single
+integer variable we added.
