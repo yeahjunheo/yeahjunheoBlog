@@ -16,7 +16,7 @@ const posts = providedPosts ?? (await getCollection("posts"))
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 const DESKTOP = { titleW: 50, viewsW: 6, gap: "        ", withTime: true };
-const MOBILE = { titleW: 36, viewsW: 4, gap: "  ", withTime: false };
+const MOBILE_VIEWS_W = 4;
 
 function fmtDate(d: Date, withTime: boolean): string {
   const dd = String(d.getDate()).padStart(2, "0");
@@ -55,12 +55,30 @@ function render(opts: { titleW: number; viewsW: number; gap: string; withTime: b
 }
 
 const desktopListing = render(DESKTOP);
-const mobileListing = render(MOBILE);
+const placeholderMobile = "-".padStart(MOBILE_VIEWS_W);
 ---
 
 <hr />
 <pre class="my-3 hidden text-sm leading-7 md:block" set:html={desktopListing}></pre>
-<pre class="my-3 overflow-x-auto text-sm leading-7 md:hidden" set:html={mobileListing}></pre>
+<ul class="my-3 font-mono text-sm leading-7 md:hidden">
+  {
+    posts.length === 0 ? (
+      <li>(no posts yet)</li>
+    ) : (
+      posts.map((post) => (
+        <li class="flex items-baseline gap-2">
+          <a href={`/posts/${post.id}`} class="min-w-0 flex-1 truncate">
+            {post.data.title}
+          </a>
+          <span class="shrink-0 whitespace-pre">{fmtDate(post.data.publishedAt, false)}</span>
+          <span class="shrink-0 whitespace-pre" data-views={post.id} data-views-w={MOBILE_VIEWS_W}>
+            {placeholderMobile}
+          </span>
+        </li>
+      ))
+    )
+  }
+</ul>
 <hr />
 
 <script is:inline>
