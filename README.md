@@ -76,6 +76,8 @@ Only then commit and push.
 pnpm deploy
 ```
 
+Now wipes `dist/`, `.astro/`, `node_modules/.astro/`, and `node_modules/.vite/` before building so stale routes (e.g. deleted posts) don't sneak into the upload. Astro persists content-collection data in `node_modules/.astro/data-store.json` between builds, so deleting only `.astro/` isn't enough — `pnpm clean` (or the `clean` step in `deploy`) handles it.
+
 ## Layout
 
 ```
