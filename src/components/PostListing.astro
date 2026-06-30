@@ -1,13 +1,14 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 
 interface Props {
   limit?: number;
+  posts?: CollectionEntry<"posts">[];
 }
 
-const { limit = 10 } = Astro.props;
+const { limit = 10, posts: providedPosts } = Astro.props;
 
-const posts = (await getCollection("posts"))
+const posts = providedPosts ?? (await getCollection("posts"))
   .filter((p) => p.data.published)
   .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime())
   .slice(0, limit);

@@ -1,0 +1,44 @@
+---
+import "../../../../styles/global.css";
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+import Archive from "../../../../components/Archive.astro";
+
+export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
+  const all = (await getCollection("posts"))
+    .filter((p) => p.data.published)
+    .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime());
+
+  const tags = [...new Set(all.flatMap((p) => p.data.tags))];
+  return tags.flatMap((tag) => {
+    const tagPosts = all.filter((p) => p.data.tags.includes(tag));
+    return paginate(tagPosts, { pageSize: 20, params: { tag } });
+  });
+};
+
+const { page } = Astro.props;
+const tag = Astro.params.tag!;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width" />
+    <title>archive #{tag} · yeahjunheo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@400;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&display=swap"
+    />
+  </head>
+  <body>
+    <main class="mx-auto max-w-3xl p-8">
+      <p class="text-sm"><a href="/">../</a></p>
+      <div class="mt-6">
+        <Archive page={page} activeTag={tag} />
+      </div>
+    </main>
+  </body>
+</html>

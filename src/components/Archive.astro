@@ -1,0 +1,52 @@
+---
+import type { Page } from "astro";
+import { getCollection, type CollectionEntry } from "astro:content";
+import PostListing from "./PostListing.astro";
+
+interface Props {
+  page: Page<CollectionEntry<"posts">>;
+  activeYear?: number;
+  activeTag?: string;
+}
+
+const { page, activeYear, activeTag } = Astro.props;
+
+const allPosts = (await getCollection("posts")).filter((p) => p.data.published);
+const years = [...new Set(allPosts.map((p) => p.data.publishedAt.getFullYear()))].sort((a, b) => b - a);
+const tags = [...new Set(allPosts.flatMap((p) => p.data.tags))].sort();
+
+const noFilter = activeYear === undefined && activeTag === undefined;
+---
+
+<h1 class="mb-4 text-4xl">archive</h1>
+
+<p class="mb-2 text-sm">
+  {noFilter ? <strong>all</strong> : <a href="/archive">all</a>}
+  {years.map((y) => (
+    <Fragment>
+      {" · "}
+      {activeYear === y ? <strong>{y}</strong> : <a href={`/archive/year/${y}`}>{y}</a>}
+    </Fragment>
+  ))}
+</p>
+
+{tags.length > 0 && (
+  <p class="mb-6 text-sm">
+    {tags.map((t, i) => (
+      <Fragment>
+        {i > 0 && " "}
+        {activeTag === t ? <strong>#{t}</strong> : <a href={`/archive/tag/${t}`}>#{t}</a>}
+      </Fragment>
+    ))}
+  </p>
+)}
+
+<PostListing posts={page.data} />
+
+{page.lastPage > 1 && (
+  <p class="mt-4 text-sm">
+    {page.url.prev && <Fragment><a href={page.url.prev}>← prev</a>{" · "}</Fragment>}
+    page {page.currentPage} / {page.lastPage}
+    {page.url.next && <Fragment>{" · "}<a href={page.url.next}>next →</a></Fragment>}
+  </p>
+)}
