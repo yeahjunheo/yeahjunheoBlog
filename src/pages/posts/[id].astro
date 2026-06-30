@@ -37,8 +37,8 @@ const fmt = `${String(d.getDate()).padStart(2, "0")}-${MONTHS[d.getMonth()]}-${d
     <main class="mx-auto max-w-2xl p-8">
       <p class="text-sm"><a href="/">../</a></p>
       <article class="prose mt-6">
-        <h1>{post.data.title}</h1>
-        <p class="text-sm">{fmt}</p>
+        <h1 class="mb-1!">{post.data.title}</h1>
+        <p class="text-sm mt-0!">{fmt}</p>
         <Content />
       </article>
     </main>

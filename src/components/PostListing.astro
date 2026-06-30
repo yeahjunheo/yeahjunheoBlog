@@ -1,0 +1,70 @@
+---
+import { getCollection } from "astro:content";
+
+interface Props {
+  limit?: number;
+}
+
+const { limit = 10 } = Astro.props;
+
+const posts = (await getCollection("posts"))
+  .filter((p) => p.data.published)
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime())
+  .slice(0, limit);
+
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const TITLE_W = 50;
+const VIEWS_W = 6;
+
+function fmtDate(d: Date): string {
+  const dd = String(d.getDate()).padStart(2, "0");
+  const mon = MONTHS[d.getMonth()];
+  const yyyy = d.getFullYear();
+  const hh = String(d.getHours()).padStart(2, "0");
+  const mm = String(d.getMinutes()).padStart(2, "0");
+  return `${dd}-${mon}-${yyyy} ${hh}:${mm}`;
+}
+
+function truncate(s: string, w: number): string {
+  return s.length <= w ? s.padEnd(w) : s.slice(0, w - 3) + "..>";
+}
+
+function esc(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+const placeholder = "-".padStart(VIEWS_W);
+
+const listing = posts.length === 0
+  ? "(no posts yet)\n"
+  : posts
+      .map((post) => {
+        const id = esc(post.id);
+        const title = esc(truncate(post.data.title, TITLE_W));
+        const href = esc(`/posts/${post.id}`);
+        const date = fmtDate(post.data.publishedAt);
+        return `<a href="${href}">${title}</a>  ${date}        <span data-views="${id}">${placeholder}</span>\n`;
+      })
+      .join("");
+---
+
+<hr />
+<pre class="my-3 text-sm leading-7" set:html={listing}></pre>
+<hr />
+
+<script is:inline define:vars={{ width: VIEWS_W }}>
+  fetch("/api/views.json")
+    .then((r) => (r.ok ? r.json() : {}))
+    .then((counts) => {
+      document.querySelectorAll("[data-views]").forEach((el) => {
+        const id = el.getAttribute("data-views");
+        const n = counts[id] ?? 0;
+        el.textContent = String(n).padStart(width);
+      });
+    })
+    .catch(() => {});
+</script>
