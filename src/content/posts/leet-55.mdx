@@ -1,0 +1,47 @@
+---
+title: "Leetcode 55 - Jump Game"
+excerpt: "Testing out TUI recording with Asciinema and Leetcode!"
+publishedAt: 2026-06-30T15:00
+published: true
+tags: ["leetcode","medium"]
+---
+
+import AsciinemaPlayer from "../../components/AsciinemaPlayer.astro";
+
+Things are changing too fast.
+
+Couple years back, compsci majors weren't expected to have junior-level experience to get a job,
+but now we're expected to have much more. What's more, we have AI evolving every day, heck even
+every hour, which makes it harder to envision what my career path will look like in the coming
+future. With that said, it's never bad to keep practicing and honing my programming and problem
+solving skills.
+
+## Jumping to conclusions
+
+Jumping from the first step all the way to the last one requies checking for a SINGLE valid run
+through. That means, we just need to check if we can reach the final step without worrying about
+the minimum number of jumps or anything. To do this, the simple way would be to go from the top
+and see if we can reach the current position from any of the previous steps, closer to the bottom
+step the better.
+
+That was the idea behind my thought process here, but kinda wishy-washy.
+
+<AsciinemaPlayer src="/casts/leet-55-20260630-144337.cast" idleTimeLimit={2} />
+
+After I finished writing the solution above, I figured things could be done with less variables.
+Instead of having two index variables, we can just have one and use a for-loop that'll iterate
+from the last stair all the way to the first to determine the validity of our array.
+
+<AsciinemaPlayer src="/casts/leet-55-20260630-150110.cast" idleTimeLimit={2} />
+
+The edit came out a lot cleaner than before, which made me feel kinda warm inside!
+
+## Performance evaluation
+
+Simply put, my solution is a single pass through the array from the last to the first index, so
+the time complexity is simply $O(n)$. This solution only uses a sinlge additional variable
+`curr_idx`, so additional space complexity is $O(1)$.
+
+All and all, my solution was satisfactory for a medium difficulty question!
+
+:D
