@@ -1,6 +1,7 @@
 ---
 import "../../styles/global.css";
 import { getCollection, render, type CollectionEntry } from "astro:content";
+import Footer from "../../components/Footer.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
@@ -50,6 +51,7 @@ const fmt = `${String(d.getDate()).padStart(2, "0")}-${MONTHS[d.getMonth()]}-${d
         <Content />
       </article>
     </main>
+    <Footer />
 
     <script is:inline define:vars={{ postId: post.id }}>
       const today = new Date().toISOString().slice(0, 10);

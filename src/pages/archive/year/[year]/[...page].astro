@@ -3,6 +3,7 @@ import "../../../../styles/global.css";
 import type { GetStaticPaths } from "astro";
 import { getCollection } from "astro:content";
 import Archive from "../../../../components/Archive.astro";
+import Footer from "../../../../components/Footer.astro";
 
 export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
   const all = (await getCollection("posts"))
@@ -42,5 +43,6 @@ const year = Number(Astro.params.year);
         <Archive page={page} activeYear={year} />
       </div>
     </main>
+    <Footer />
   </body>
 </html>

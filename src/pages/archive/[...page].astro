@@ -3,6 +3,7 @@ import "../../styles/global.css";
 import type { GetStaticPaths } from "astro";
 import { getCollection } from "astro:content";
 import Archive from "../../components/Archive.astro";
+import Footer from "../../components/Footer.astro";
 
 export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
   const posts = (await getCollection("posts"))
@@ -36,5 +37,6 @@ const { page } = Astro.props;
         <Archive page={page} />
       </div>
     </main>
+    <Footer />
   </body>
 </html>
