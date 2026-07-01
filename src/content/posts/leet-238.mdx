@@ -1,0 +1,39 @@
+---
+title: "Leetcode 238 - Product of Array Except Self"
+excerpt: "The question I mistakenly said was not that hard."
+publishedAt: 2026-07-01T08:30
+published: true
+tags: ["leetcode","medium"]
+---
+
+import AsciinemaPlayer from "../../components/AsciinemaPlayer.astro";
+
+I ended up watching youtube for a bit, a while, then an hour flew by. Man, I'm making it harder
+for my future self, incredibly harder I wan't to cry. Anyhow, this question took me a minute to
+think about but I think I got a satisfactory answer.
+
+## Two-pass solution FTW
+
+With a quick look at the question, I was going to run a single-pass with a variable to hold the
+total product of the array. That way, I could simply divide for each element of the array and
+return the values. An easy solution! But the question strictly states to not use division
+operations.
+
+With that, the next thought was to run, if possible, a minimal amount of passes through the array.
+If I went through each element, one-by-one, to find each product, it'll take $O(n^2)$ times to
+a final array. That's not optimal! So taking the <mark>$O(1)$ extra space</mark> as a clue, I on
+a two-pass solution, holding onto the current product during each pass, and multiplying to the
+next element.
+
+This means for an array `[1,2,3,4]`, at 0-idx, we'll hold onto $1$. Then at 1-idx, we'll multiply
+the current element with $1$ in our `answer` array `[1,1,1,1]`, and then multiple $1$ with $2$ to
+hold onto $2$. Then for the next, we do the same and hold onto $6$, and so on. Then after our first
+pass, we'll have `answer = [1,1,2,6]`. Then we go from the right and repeat our process until
+0-idx, and we'll have `[24,12,8,6]`.
+
+<AsciinemaPlayer src="/casts/leet-238-20260701-084735.cast" idleTimeLimit={2} />
+
+## Performance evaluation
+
+With our two-pass solution, we have a time complexity of $O(n)$ (very beautiful) and a space
+complexity of $O(n)$ (coming from the `answer` array). Overall very quick and satisfying solution.
