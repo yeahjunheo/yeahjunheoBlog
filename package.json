@@ -13,7 +13,9 @@
     "astro": "astro",
     "generate-types": "wrangler types",
     "clean": "rm -rf dist .astro node_modules/.astro node_modules/.vite",
-    "deploy": "npm run clean && npm run build && wrangler deploy"
+    "deploy": "npm run clean && npm run build && wrangler deploy",
+    "casts:idle": "node scripts/trim-cast-idle.mjs",
+    "casts:split": "node scripts/split-cast.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^13.1.6",
