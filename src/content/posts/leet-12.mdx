@@ -1,0 +1,46 @@
+---
+title: "Leetcode 12 - Integer to Roman"
+excerpt: "30 minutes of figuring out whether to use a string or integer."
+publishedAt: 2026-07-01T14:30
+published: true
+tags: ["leetcode","medium"]
+---
+
+import AsciinemaPlayer from "../../components/AsciinemaPlayer.astro";
+
+Trying to solve these problems while also listening to a lecture might not be the most optimal,
+especially with how much time it took for me to finalize a solution for this question.
+
+## "To be an integer or not to be an integer, that is the question" - string
+
+When approaching this question, I was stuck between converting `num` strings or to keep it as
+an integer. The idea behind it was by converting it to a container format, I can use the index as
+the digit count and not have to worry about tracking the digits. But with that setup, things didn't
+work as well as I had hoped and the logic for dealing with exceptions, such as $4$ and $9$, was
+another thing that annoyed me.
+
+With that, the approach was to keep the `num` as an integer, but crawl from the biggest value to the
+smallest, covering all the roman numerals. That means also including the exceptions as vector entries
+instead of having them as standalone logic checks. What this means is I can just go incrementally take
+away from `num` until it hits $0$, and return whatever combination of the roman numerals it collected.
+
+<AsciinemaPlayer src="/casts/leet-12-20260701-141305.cast" idleTimeLimit={2} />
+
+After solving this, instead of using a `map` container, I could have just used a
+`vector<pair<int,string>>` instead to reduce the complexity of the data structure.
+
+## Performance evaluation
+
+The time complexity of this solution is $O(n)$ since we have a fixed number of integer-roman pairs
+and we loop until num is back to zero. As for space, we've only used on additional variable so
+$O(1)$. 
+
+> Hmmm... Are strings in C++ constant size? I remember reading that strings are also container
+> components, meaning they act similar to vectors.
+
+## There was an attempt, but not a successful one
+
+This is a failed attempt of mine, but what ultimately helped me clear my mind in finding the most
+appropriate solution for this problem.
+
+<AsciinemaPlayer src="/casts/leet-12-20260701-133711.cast" idleTimeLimit={2} />
