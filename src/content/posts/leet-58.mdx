@@ -2,20 +2,38 @@
 title: "Leetcode 58 - Length of Last Word"
 excerpt: "Learning something new every day"
 publishedAt: 2026-07-02T00:00
-published: false
+published: true
 tags: ["leetcode","easy"]
 ---
 
 import AsciinemaPlayer from "../../components/AsciinemaPlayer.astro";
 
+I recently got a <mark>fitbit air</mark> and it's been pretty itneresting to see my health readings
+so clearly quanitified. It even says my readiness is the best today?! Pretty interesting ngl. I still
+don't have a hang on the tracking my calories, but it shouldn't change much from what I know.
 
+## Python had useful functions C++ doesn't have
 
-## Jumped to a conclusion to quickly...
+This question asks to return the last word in a string with the possibilitiy of different number of
+whitespace. In python, this would be solved real quick by trimming the string or to make an array of
+all the words in the string and setting the whitespace as the trimming points. With this, we can just
+simply return the last element. <mark>I found that C++ doesn't have this.</mark>.
 
+With that I did some digging. There are some functinos that C++ does have that I could use instead.
+If I wanted to return an array of words in a sequence, I could take int input string as a string stream
+and add all the words separately to a `vector<>` container. And by using the `operator>>` for this
+stream, it will trim all the whitespace on its own, returning a vector of just words.
 
+The other method would be to strictly return the last word, saving $O(n)$ (where $n$ is the number of 
+words in the string) space. There are two functions we use in this case, the `for_if_not()` and `for_if`.
+With these, we can check from the last character of the string, which position holds the very first
+non-whitespace character, and the start of the first charcter in the last word. This way we get the
+last word returned right away.
 
 <AsciinemaPlayer src="/casts/leet-58-20260702-000440.cast" idleTimeLimit={2} />
 
-
-
 ## Performance evaluation
+
+The time complexity of these two solutions is $O(k)$ where $k$ is the number of characters/words. As for 
+space complexity, the first introduced method takes $O(n)$ additional space while the second method 
+takes only $O(1)$.
