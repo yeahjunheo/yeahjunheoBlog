@@ -1,0 +1,49 @@
+---
+title: "Leetcode 134 - Gas Station"
+excerpt: "Twas was hard to count"
+publishedAt: 2026-07-01T10:30
+published: true
+tags: ["leetcode","medium"]
+---
+
+import AsciinemaPlayer from "../../components/AsciinemaPlayer.astro";
+
+Got to campus on time to get a nice table to study on, but having a convenience store close by is
+really testing my will to diet. I think I've already spent a good amount of this store alone, and it
+hasn't treated me well in gained weight. Enough of this chit-chat.
+
+## One-pass solutions are hard to find
+
+The hard part about solving this question was finding the logical checks to reduce the number of
+loops. The first iteration of solving consisted of two loops, one setting the starting point and the
+other traversing the whole loop. With this, there were no preliminary checks for validity, just pure
+brute force. Although this works, it ended up timing out in longer array inputs, something I had 
+expected to happen. Then what now?
+
+The first logical check is checking if we had enough `gas` to even handle all the `cost`. A check on
+the sum of all elements in `gas` to the sum of all elements in `cost`. If we didn't have enough gas,
+then obviously we wouldn't be able to travel the whole loop.
+
+The second logical check is to see if we can continue from position `i`. Since the prior check
+establishes that a solution exists, then we can freely run checks for a possible pass. This was done
+by checking if the tank can support the trip from the current position to the next. If the current
+position isn't able to support it, we can skip to the next position as the starting point.
+
+Let's say for position 0, we had gas `g_0` and cost `c_0`. For this start to work, `g_0 - c_0 > 0`
+must be true, then we move to the next. At position 1, `g_1 - c_1 > 0` doesn't have to be true since
+the leftover from the previous stop can be added on, ie. `g_0 - c_0 + g_1 - c_1 > 0`. If at some
+position `i`, `g_0 - c_0 + ... + g_i - c_i > 0` is not true, that means the sum of all previous gas
+stops could not support the costs. This also means that starting from position 1 to `i` will give us
+also a failed pass since <mark>`g_0 - c_0 > 0`</mark>. That's why we set the next starting position 
+as the next to the failed attempt and we continue. Like I said, a solution is guaranteed, so we can
+keep moving on with our checks until the last position.
+
+<AsciinemaPlayer src="/casts/leet-134-20260701-100201.cast" idleTimeLimit={2} />
+
+This took a lot longer than I wished it to have but still it was worth the time spent to solve it.
+
+## Performance evaluation
+
+With this solution, we have a time complexity of $O(n)$ -- two passes, with one for the preliminary
+check and the second for the starting position. The space complexity is just $O(1)$ with only two
+additional variables used.
