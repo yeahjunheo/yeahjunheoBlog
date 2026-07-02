@@ -8,9 +8,15 @@ tags: ["leetcode","easy"]
 
 import AsciinemaPlayer from "../../components/AsciinemaPlayer.astro";
 
-## Longest prefix in a single pass!
+## Similar to Leet 14
+
+As you can see from the tag, this question is pretty simple. Just check if a string `needle` is inside
+another string `haystack`. The obvious first check is the make sure that `needle` is not longer than
+the `haystack`, or else it'll poke out and you can tell where it is. After than check, we can make use
+of an index variable and progressively move our way up the string until we find an index where the the 
+`needle` exists in the `haystack`.
 
 <AsciinemaPlayer src="/casts/leet-28-20260702-113522.cast" idleTimeLimit={2} />
 
-
 ## Performance evaluation
+The time complexity is $O(n)$ and the space complexity is $O(1)$.
