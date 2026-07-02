@@ -1,0 +1,44 @@
+---
+title: "Leetcode 14 - Longest Common Prefix"
+excerpt: "More I learn about C++, the more beautiful it seems"
+publishedAt: 2026-07-02T10:30
+published: true
+tags: ["leetcode","easy"]
+---
+
+import AsciinemaPlayer from "../../components/AsciinemaPlayer.astro";
+
+## Longest prefix in a single pass!
+
+There are couple things that I needed to realize to solve this question. First was that if one word is 
+longer than another word, the shorter one will be the start of a shared prefix. That's pretty trivial.
+The second thing was "we want to return the longest common prefix". That means it'll be best to start 
+comparing with a maximal string than an empty string.
+
+<AsciinemaPlayer src="/casts/leet-14-20260702-095938.cast" idleTimeLimit={2} />
+
+After ending the recording, I tried running with a single for-loop to check out if having the 
+length check with the prefix reduction worked as intended. I had to scrap using the `const` to 
+allow swapping values to keep `prefix` the shortest string in this whole comparison. Other than
+that, everything is the same as it was before, and it worked perfectly.
+
+```
+class Solution {
+public:
+  string longestCommonPrefix(vector<string> &strs) {
+    string prefix = strs.front();
+    for (auto &word : strs) {
+      if (word.size() < prefix.size())
+        swap(word, prefix);
+      while (word.compare(0, prefix.size(), prefix) != 0) {
+        prefix.pop_back();
+      }
+    }
+    return prefix;
+  }
+};
+```
+
+## Performance evaluation
+The time complexity would be $O(n + k)$ where $k$ is the longest string length in the vector. I think
+that'll be it? Maybe that'll make it $O(n)$. The space complexity $O(1)$.
